@@ -5,14 +5,21 @@ import { size, type } from './type';
 interface InteractionProps {
   size: size;
   type: type;
+  selected?: boolean;
   disabled: boolean;
 }
 
-function InteractionContainer({ size, type, disabled }: InteractionProps) {
+function InteractionContainer({
+  size,
+  type,
+  disabled,
+  selected,
+}: InteractionProps) {
   return (
     <StyledInteraction
       size={size}
       type={type}
+      selected={selected}
       disabled={disabled}
     ></StyledInteraction>
   );
@@ -41,30 +48,34 @@ const StyledInteraction = styled.div<InteractionProps>`
   height: 100%;
   opacity: 0.05;
 
-  ${({ disabled }) =>
-    disabled &&
-    css`
-      pointer-events: none;
-      background: ${semantic.light.object.solid.hero};
-    `}
-
-  ${({ disabled }) =>
+  ${({ disabled, type, selected }) =>
     !disabled &&
     css`
       &:hover {
-        background: ${semantic.light.object.solid.hero};
+        ${type === 'chip' && selected === true
+          ? `background: ${semantic.light.accent.solid.hero}`
+          : `background: ${semantic.light.object.solid.hero};`}
       }
       &:active {
-        background: ${semantic.light.object.solid.hero};
+        ${type === 'chip' && selected === true
+          ? `background: ${semantic.light.accent.solid.hero}`
+          : `background: ${semantic.light.object.solid.hero};`}
       }
     `}
 
   ${({ disabled, type }) => {
     if (disabled && type === 'label')
-      return css`
+      return `
         background: none;
       `;
+    if (disabled)
+      return `
+      pointer-events: none;
+      background: ${semantic.light.object.solid.hero};
+    `;
   }}
+
+  
 
   ${({ size }) => sizeHandler(size)}
 `;

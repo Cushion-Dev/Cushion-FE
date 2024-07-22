@@ -10,14 +10,14 @@ import {
 } from '../../styles/common/Navbar';
 
 interface INavbar {
-  variant: 'global' | 'local';
+  type: 'global' | 'local';
   title?: string;
 }
 
-export const Navbar = ({ variant, title }: INavbar) => {
+export const Navbar = ({ type, title }: INavbar) => {
   return (
     <NavContainer>
-      {variant === 'global' ? (
+      {type === 'global' ? (
         <>
           <WrapLogo>
             <Logo src={ICONS.logo} />

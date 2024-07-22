@@ -1,10 +1,10 @@
-import Navbar from '../components';
+import { ContextMenu } from '../components';
 
 const App = () => {
   return (
     <>
-      <Navbar variant="global" />
-      <Navbar variant="local" title="로컬 페이지 명" />
+      <ContextMenu type="global"></ContextMenu>
+      <ContextMenu type="local"></ContextMenu>
     </>
   );
 };

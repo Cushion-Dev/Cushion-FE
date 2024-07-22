@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { TYPO } from '../styles/typo';
 import Button from '../components/common/button/Button';
-import SelectButton from '../components/common/SelectButton';
+import SelectButton from '../components/common/button/SelectButton';
 
 const App = () => {
   return (

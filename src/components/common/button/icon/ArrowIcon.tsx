@@ -1,6 +1,6 @@
 import { css, styled } from 'styled-components';
-import { semantic } from '../../../styles/semantic';
-import { type } from './type';
+import { semantic } from '../../../../styles/semantic';
+import { type } from '../type';
 
 interface ArrowProps {
   type: type;

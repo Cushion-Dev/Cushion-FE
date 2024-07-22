@@ -1,9 +1,9 @@
 import { ReactNode, useState } from 'react';
 import { styled } from 'styled-components';
-import { ReactComponent as CheckIcon } from '../../../public/assets/icon/check-line.svg';
-import { semantic } from '../../styles/semantic';
-import InteractionContainer from './button/InteractionContainer';
-import { size, type } from './button/type';
+import { ReactComponent as CheckIcon } from '../../../../public/assets/icon/check-line.svg';
+import { semantic } from '../../../styles/semantic';
+import InteractionContainer from './InteractionContainer';
+import { size, type } from './type';
 
 interface SelectButtonProps {
   size?: size;

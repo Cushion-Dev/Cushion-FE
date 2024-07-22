@@ -31,9 +31,9 @@ function SelectButton({
         disabled={disabled}
         selected={selected}
       ></InteractionContainer>
-      <StyledSelectButton selected={selected}>
+      <StyledSelectButton selected={selected} disabled={disabled}>
         {children}
-        {selected && <CheckIcon></CheckIcon>}
+        {selected && <CheckIcon type={String(disabled)}></CheckIcon>}
       </StyledSelectButton>
     </ButtonWrapper>
   );
@@ -52,8 +52,14 @@ const StyledSelectButton = styled.button<{ selected: boolean }>`
   justify-content: center;
   align-items: center;
   gap: 6px;
+  font-size: 14px;
+  line-height: 20px;
 
-  &:hover {
+  &:disabled {
+    background: none;
+    color: ${semantic.light.object.transparent.disabled};
+    border: ${semantic.light.border.transparent.neutral};
+    cursor: not-allowed;
   }
 
   ${({ selected }) =>

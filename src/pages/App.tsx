@@ -12,7 +12,7 @@ const App = () => {
       <Button size='sm' disabled={true} type='label'>
         CTA 버튼
       </Button>
-      <SelectButton>셀럭터블 칩</SelectButton>
+      <SelectButton disabled={true}>셀럭터블 칩</SelectButton>
     </>
   );
 };

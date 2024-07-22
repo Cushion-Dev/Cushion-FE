@@ -48,6 +48,11 @@ const StyledInteraction = styled.div<InteractionProps>`
   height: 100%;
   opacity: 0.05;
 
+  ${({ disabled }) =>
+    disabled &&
+    `pointer-events: none;
+      background: ${semantic.light.object.solid.hero};`}
+
   ${({ disabled, type, selected }) =>
     !disabled &&
     css`
@@ -68,11 +73,6 @@ const StyledInteraction = styled.div<InteractionProps>`
       return `
         background: none;
       `;
-    if (disabled)
-      return `
-      pointer-events: none;
-      background: ${semantic.light.object.solid.hero};
-    `;
   }}
 
   

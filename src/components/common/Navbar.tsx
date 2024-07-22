@@ -1,3 +1,4 @@
+import { ICONS } from '../../styles/common/icons';
 import {
   NavContainer,
   WrapLogo,
@@ -19,16 +20,16 @@ export const Navbar = ({ variant, title }: INavbar) => {
       {variant === 'global' ? (
         <>
           <WrapLogo>
-            <Logo src="/assets/logo/logotype.svg" />
-            <LogoImg src="/assets/logo/cushion-vector-asset.svg" />
+            <Logo src={ICONS.logo} />
+            <LogoImg src={ICONS.logoImage} />
           </WrapLogo>
-          <MoreButton src="/assets/icon/button-more-line.svg" />
+          <MoreButton src={ICONS.moreButton} />
         </>
       ) : (
         <>
-          <BackButton src="/assets/icon/button-arrow-left-line.svg" />
+          <BackButton src={ICONS.backButton} />
           <TitleText>{title}</TitleText>
-          <MoreButton src="/assets/icon/button-more-line.svg" />
+          <MoreButton src={ICONS.moreButton} />
         </>
       )}
     </NavContainer>

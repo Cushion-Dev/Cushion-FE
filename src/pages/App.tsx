@@ -1,12 +1,12 @@
-import styled from 'styled-components';
-import { TYPO } from '../styles/typo';
+import Navbar from '../components';
 
 const App = () => {
-  return <Font>확인</Font>;
+  return (
+    <>
+      <Navbar variant="global" />
+      <Navbar variant="local" title="로컬 페이지 명" />
+    </>
+  );
 };
 
 export default App;
-
-const Font = styled.h2`
-  ${TYPO.display1}
-`;

@@ -21,7 +21,8 @@ export const ICONS = {
   },
 
   popover: {
-    blankCheck: '/assets/icon/popover/checkbox-button-checkbox-blank-circle-line.svg',
+    blankCheck:
+      '/assets/icon/popover/checkbox-button-checkbox-blank-circle-line.svg',
     fillCheck: '/assets/icon/popover/checkbox-button-checkbox-circle-fill.svg',
     close: '/assets/icon/popover/popover-button-close-line.svg',
     pin: '/assets/icon/popover/popover-pin-vector.svg',
@@ -33,4 +34,6 @@ export const ICONS = {
     sendFalse: '/assets/icon/textarea/button-send-plane-fill.svg',
     sendTrue: '/assets/icon/textarea/button-send-plane-fill-2.svg',
   },
+
+  copy: '/assets/icon/button-file-copy-2-line.svg',
 };

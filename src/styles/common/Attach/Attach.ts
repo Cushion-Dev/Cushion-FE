@@ -1,20 +1,30 @@
 import { styled } from 'styled-components';
 import { semantic } from '../../semantic';
 
-export const AttachContainer = styled.div`
+const AttachContainer = styled.div`
   display: flex;
-  align-items: center;
   flex-direction: column;
-  gap: 24px;
+  align-items: center;
   position: relative;
-  width: 488px;
-  padding: 48px 24px;
+
+  width: 30.5rem;
+
+  gap: 1.5rem;
+  padding: 3rem 1.5rem;
+
+  border-radius: 0.25rem;
   border: 1px solid ${semantic.light.border.transparent.neutral};
-  background: ${semantic.light.bg.solid.heavy};
-  border-radius: 4px;
+  background: ${semantic.light.bg.solid.heavier};
+
   box-shadow:
     0px 1.3px 1.1px 0px rgba(12, 10, 9, 0.07),
     0px 2.1px 3.8px 0px rgba(12, 10, 9, 0.05),
     0px 4px 9.3px 0px rgba(12, 10, 9, 0.05),
     0px 0px 6.1px 0px rgba(12, 10, 9, 0.07);
 `;
+
+const AttachIcon = styled.img`
+  position: absolute;
+`;
+
+export { AttachContainer, AttachIcon };

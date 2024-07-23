@@ -2,7 +2,7 @@ export const ICONS = {
   logo: '/assets/logo/logotype.svg',
   logoImage: '/assets/logo/cushion-vector-asset.svg',
   backButton: '/assets/icon/button-arrow-left-line.svg',
-  moreButton: '/assets/icon/button-more-line.svg',
+  moreButton: '/assets/icon/button/button-more-line.svg',
 
   menu: {
     delete: '/assets/icon/menu/button-delete-bin-2-line.svg',
@@ -38,4 +38,5 @@ export const ICONS = {
   copy: '/assets/icon/button-file-copy-2-line.svg',
   search: '/assets/icon/search-line.svg',
   delete: '/assets/icon/button-delete-back-2-fill.svg',
+  attach: '/assets/icon/attach/cushionVectorAsset.svg',
 };

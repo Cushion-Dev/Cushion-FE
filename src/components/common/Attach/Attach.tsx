@@ -1,9 +1,11 @@
 import { ReactNode } from 'react';
 
-import { ReactComponent as StickyIcon } from '../../../../public/assets/icon/attach/cushionVectorAsset.svg';
-
-import { AttachContainer } from '../../../styles/common/Attach/Attach';
 import { IconWrapper } from './Icon';
+import { ICONS } from '../../../styles/common/icons';
+import {
+  AttachContainer,
+  AttachIcon,
+} from '../../../styles/common/Attach/Attach';
 
 interface AttachProps {
   children: ReactNode;
@@ -13,7 +15,7 @@ function Attach({ children }: AttachProps) {
   return (
     <AttachContainer>
       <IconWrapper>
-        <StickyIcon></StickyIcon>
+        <AttachIcon src={ICONS.attach} />
       </IconWrapper>
       {children}
     </AttachContainer>

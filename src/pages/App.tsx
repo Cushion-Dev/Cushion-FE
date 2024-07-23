@@ -1,13 +1,11 @@
 import styled from 'styled-components';
-import SpeechExample from '../components/common/Bubble/SpeechExample';
-import Attach from '../components/common/Attach/Attach';
-import TextField from '../components/common/TextField/TextField';
-import FormInput from '../components/common/Form/FormInput';
-import BottomSheet from '../components/common/BottomSheet/BottomSheet';
+import SearchField from '../components/common/SearchField';
+
 
 const App = () => {
   return (
     <Container>
+
       <FormInput
         label='레이블'
         placeholder='플레이스 홀더 텍스트'
@@ -22,6 +20,7 @@ const App = () => {
         bannerDescription='아래의 항목을 모두 입력 및 선택해주세요.'
         buttonText='쿠션만들기'
       ></BottomSheet>
+      <SearchField placeholderText="플레이스 홀더 텍스트" />
     </Container>
   );
 };

@@ -1,12 +1,12 @@
 import { ReactNode, useState } from 'react';
 import { styled } from 'styled-components';
 
-import { ReactComponent as CheckIcon } from '../../../../public/assets/icon/check-line.svg';
 import { semantic } from '../../../styles/semantic';
 import { size, type } from './type';
 
 import InteractionContainer from './interaction/ButtonInteraction';
 import ButtonWrapper from './ButtonWrapper';
+import { ICONS } from '../../../styles/common/icons';
 
 interface SelectButtonProps {
   size?: size;
@@ -33,11 +33,10 @@ function SelectButton({
         size={size}
         type={type}
         disabled={disabled}
-        selected={selected}
-      ></InteractionContainer>
+        selected={selected}></InteractionContainer>
       <StyledSelectButton selected={selected} disabled={disabled}>
         {children}
-        {selected && <CheckIcon fill={iconColor}></CheckIcon>}
+        {selected && <CheckIcon src={ICONS.button.check}></CheckIcon>}
       </StyledSelectButton>
     </ButtonWrapper>
   );
@@ -79,3 +78,8 @@ const StyledSelectButton = styled.button<{ selected: boolean }>`
 `;
 
 export default SelectButton;
+
+const CheckIcon = styled.img`
+  width: 1.5rem;
+  height: 1.5rem;
+`;

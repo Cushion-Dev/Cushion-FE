@@ -18,3 +18,6 @@ export { default as Attach } from './common/Attach/Attach';
 export { default as SpeechExample } from './common/Bubble/SpeechExample';
 export { default as SystemBubble } from './common/Bubble/SystemBubble';
 export { default as UserBubble } from './common/Bubble/UserBubble';
+
+export { default as CTAButton } from './common/Temporary/CTAButton';
+export { default as MainButton } from './common/Temporary/MainButton';

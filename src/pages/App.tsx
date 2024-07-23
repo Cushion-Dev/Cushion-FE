@@ -1,12 +1,10 @@
-import { Popover, Toast } from '../components';
 import styled from 'styled-components';
-import { TYPO } from '../styles/typo';
-
+import { Textarea } from '../components';
 
 const App = () => {
   return (
     <Container>
-      <Toast bodyText="토스트 메시지 내용" />
+      <Textarea />
     </Container>
   );
 };

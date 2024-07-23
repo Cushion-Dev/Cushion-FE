@@ -42,4 +42,8 @@ export const MESSAGES = {
       withdraw: '탈퇴하기',
     },
   },
+
+  textarea: {
+    placeholder: '부드럽게 바꾸고 싶은 메시지 내용을 입력해 주세요...',
+  },
 };

@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 import { semantic } from '../../../styles/semantic';
 import { buttonSize, buttonType } from '../../../styles/common/Button';
-import { ReactComponent as ArrowIcon } from '../../../../public/assets/icon/arrow-right-s-line.svg';
+import { ReactComponent as ArrowIcon } from '../../../../public/assets/icon/button/arrow-right-s-line.svg';
 import { size, type } from './type';
 
 import InteractionContainer from './interaction/ButtonInteraction';
@@ -14,7 +14,7 @@ interface ButtonProps {
   size: size;
   disabled?: boolean;
   children: ReactNode;
-  clickFn: () => void;
+  clickFn?: () => void;
 }
 
 function Button({

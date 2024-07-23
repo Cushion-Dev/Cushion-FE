@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
 
+    white-space: pre-line;
     box-sizing: border-box;
   }
 

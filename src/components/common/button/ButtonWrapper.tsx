@@ -7,7 +7,11 @@ interface ButtonWrapperProps {
   clickFn?: () => void;
 }
 
-function ButtonWrapper({ disabled, children, clickFn }: ButtonWrapperProps) {
+function ButtonWrapper({
+  disabled = false,
+  children,
+  clickFn,
+}: ButtonWrapperProps) {
   return (
     <StyledButtonWrapper onClick={clickFn} disabled={disabled}>
       {children}

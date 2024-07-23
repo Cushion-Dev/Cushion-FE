@@ -9,8 +9,6 @@ export const GlobalStyle = createGlobalStyle`
   * {
     padding: 0;
     margin: 0;
-
-    white-space: pre-line;
     box-sizing: border-box;
   }
 
@@ -22,6 +20,8 @@ export const GlobalStyle = createGlobalStyle`
   h1, h2, h3, h4, span, a, p {
     padding: 0;
     margin: 0;
+    white-space: pre-line;
+
   }
 
   body {

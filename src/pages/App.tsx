@@ -1,10 +1,10 @@
-import { Popover } from '../components';
+import { Popover, Toast } from '../components';
 import styled from 'styled-components';
 
 const App = () => {
   return (
     <Container>
-      <Popover title="팝오버 타이틀" bodyText="팝오버 문장은 최대 3줄까지 입력 가능합니다." />
+      <Toast bodyText="토스트 메시지 내용" />
     </Container>
   );
 };

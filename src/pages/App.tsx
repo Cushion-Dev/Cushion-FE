@@ -1,5 +1,7 @@
 import { Popover, Toast } from '../components';
 import styled from 'styled-components';
+import { TYPO } from '../styles/typo';
+
 
 const App = () => {
   return (

@@ -1,15 +1,10 @@
 import styled from 'styled-components';
-import SpeechExample from '../components/common/Bubble/SpeechExample';
-import Attach from '../components/common/Attach/Attach';
+import SearchField from '../components/common/SearchField';
 
 const App = () => {
   return (
     <Container>
-      <Attach>
-        <h1>h1</h1>
-        <h2>h2</h2>
-        <h3>h3</h3>
-      </Attach>
+      <SearchField placeholderText="플레이스 홀더 텍스트" />
     </Container>
   );
 };

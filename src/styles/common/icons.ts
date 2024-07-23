@@ -36,4 +36,6 @@ export const ICONS = {
   },
 
   copy: '/assets/icon/button-file-copy-2-line.svg',
+  search: '/assets/icon/search-line.svg',
+  delete: '/assets/icon/button-delete-back-2-fill.svg',
 };

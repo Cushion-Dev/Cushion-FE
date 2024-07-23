@@ -6,3 +6,5 @@ export { default as LoginDialog } from './common/Dialog/LoginDialog';
 
 export { default as Popover } from './common/Popover/Popover';
 export { default as Toast } from './common/Toast';
+
+export { default as Textarea } from './common/Textarea';

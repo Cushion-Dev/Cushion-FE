@@ -1,7 +1,7 @@
-import { Popover, Toast } from '../components';
 import styled from 'styled-components';
 import { TYPO } from '../styles/typo';
 import ListItem from '../components/common/ListItem/ListItem';
+import { Textarea } from '../components';
 
 const App = () => {
   return (
@@ -21,6 +21,7 @@ const App = () => {
         isEditing={true}
         disabled
       />
+      <Textarea />
     </Container>
   );
 };

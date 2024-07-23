@@ -19,4 +19,11 @@ export const ICONS = {
     google: '/assets/icon/login/google.svg',
     information: '/assets/icon/login/information-2-line.svg',
   },
+
+  popover: {
+    blankCheck: '/assets/icon/popover/checkbox-button-checkbox-blank-circle-line.svg',
+    fillCheck: '/assets/icon/popover/checkbox-button-checkbox-circle-fill.svg',
+    close: '/assets/icon/popover/popover-button-close-line.svg',
+    pin: '/assets/icon/popover/popover-pin-vector.svg',
+  },
 };

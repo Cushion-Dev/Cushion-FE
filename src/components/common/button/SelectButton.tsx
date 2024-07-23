@@ -1,9 +1,12 @@
 import { ReactNode, useState } from 'react';
 import { styled } from 'styled-components';
+
 import { ReactComponent as CheckIcon } from '../../../../public/assets/icon/check-line.svg';
 import { semantic } from '../../../styles/semantic';
-import InteractionContainer from './InteractionContainer';
 import { size, type } from './type';
+
+import InteractionContainer from './interaction/ButtonInteraction';
+import ButtonWrapper from './ButtonWrapper';
 
 interface SelectButtonProps {
   size?: size;
@@ -19,12 +22,13 @@ function SelectButton({
   children,
 }: SelectButtonProps) {
   const [selected, setSelected] = useState(false);
+  const iconColor = iconColorHandler(disabled);
 
   const handleClickButton = () => {
     setSelected((prev) => !prev);
   };
   return (
-    <ButtonWrapper onClick={handleClickButton}>
+    <ButtonWrapper disabled={disabled} clickFn={handleClickButton}>
       <InteractionContainer
         size={size}
         type={type}
@@ -33,17 +37,17 @@ function SelectButton({
       ></InteractionContainer>
       <StyledSelectButton selected={selected} disabled={disabled}>
         {children}
-        {selected && <CheckIcon type={String(disabled)}></CheckIcon>}
+        {selected && <CheckIcon fill={iconColor}></CheckIcon>}
       </StyledSelectButton>
     </ButtonWrapper>
   );
 }
 
-const ButtonWrapper = styled.div`
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-`;
+const iconColorHandler = (disabled: SelectButtonProps['disabled']) => {
+  return disabled
+    ? semantic.light.object.transparent.disabled
+    : semantic.light.accent.solid.hero;
+};
 
 const StyledSelectButton = styled.button<{ selected: boolean }>`
   padding: 10px 16px 10px 16px;
@@ -58,7 +62,7 @@ const StyledSelectButton = styled.button<{ selected: boolean }>`
   &:disabled {
     background: none;
     color: ${semantic.light.object.transparent.disabled};
-    border: ${semantic.light.border.transparent.neutral};
+    border: 1px solid ${semantic.light.border.transparent.neutral};
     cursor: not-allowed;
   }
 

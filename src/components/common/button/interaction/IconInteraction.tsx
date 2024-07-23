@@ -1,5 +1,5 @@
 import { css, styled } from 'styled-components';
-import { semantic } from '../../../styles/semantic';
+import { semantic } from '../../../../styles/semantic';
 
 interface IconProps {
   disabled?: boolean;

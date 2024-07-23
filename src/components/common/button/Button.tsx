@@ -1,21 +1,32 @@
 import { styled } from 'styled-components';
 import { ReactNode } from 'react';
+
 import { semantic } from '../../../styles/semantic';
-import InteractionContainer from './InteractionContainer';
+import { buttonSize, buttonType } from '../../../styles/common/Button';
 import { ReactComponent as ArrowIcon } from '../../../../public/assets/icon/arrow-right-s-line.svg';
 import { size, type } from './type';
-import { buttonSize, buttonType } from '../../../styles/common/Button';
+
+import InteractionContainer from './interaction/ButtonInteraction';
+import ButtonWrapper from './ButtonWrapper';
 
 interface ButtonProps {
   type: type;
   size: size;
   disabled?: boolean;
   children: ReactNode;
+  clickFn: () => void;
 }
 
-function Button({ type, size, disabled = false, children }: ButtonProps) {
+function Button({
+  type,
+  size,
+  disabled = false,
+  children,
+  clickFn,
+}: ButtonProps) {
+  const iconColor = iconColorHandler(type, disabled);
   return (
-    <ButtonWrapper>
+    <ButtonWrapper clickFn={clickFn} disabled={disabled}>
       <InteractionContainer
         size={size}
         disabled={disabled}
@@ -23,11 +34,18 @@ function Button({ type, size, disabled = false, children }: ButtonProps) {
       ></InteractionContainer>
       <StyledButton type={type} size={size} disabled={disabled}>
         {children}
-        <ArrowIcon type={type}></ArrowIcon>
+        <ArrowIcon fill={iconColor}></ArrowIcon>
       </StyledButton>
     </ButtonWrapper>
   );
 }
+
+const iconColorHandler = (type: type, disabled: boolean) => {
+  if (disabled) return semantic.light.object.transparent.disabled;
+  return type === 'cta'
+    ? semantic.light.base.solid.white
+    : semantic.light.object.transparent.alternative;
+};
 
 const typeHandler = (type: ButtonProps['type']) => {
   switch (type) {
@@ -53,13 +71,9 @@ const sizeHandler = (size: ButtonProps['size']) => {
   }
 };
 
-const ButtonWrapper = styled.div`
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-`;
+type StyledButtonProps = Omit<ButtonProps, 'clickFn'>;
 
-const StyledButton = styled.button<ButtonProps>`
+const StyledButton = styled.button<StyledButtonProps>`
   display: inline-flex;
   justify-content: center;
   align-items: center;

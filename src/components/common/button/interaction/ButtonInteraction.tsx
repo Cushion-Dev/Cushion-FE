@@ -1,6 +1,6 @@
 import { css, styled } from 'styled-components';
-import { semantic } from '../../../styles/semantic';
-import { size, type } from './type';
+import { semantic } from '../../../../styles/semantic';
+import { size, type } from '../type';
 
 interface InteractionProps {
   size: size;
@@ -9,7 +9,7 @@ interface InteractionProps {
   disabled: boolean;
 }
 
-function InteractionContainer({
+function ButtonInteraction({
   size,
   type,
   disabled,
@@ -80,4 +80,4 @@ const StyledInteraction = styled.div<InteractionProps>`
   ${({ size }) => sizeHandler(size)}
 `;
 
-export default InteractionContainer;
+export default ButtonInteraction;

@@ -1,7 +1,8 @@
-import { styled } from 'styled-components';
-import { ReactComponent as BackIcon } from '../../../../public/assets/icon/arrow-left-line.svg';
 import { semantic } from '../../../styles/semantic';
-import IconInteraction from './IconInteraction';
+import { ReactComponent as BackIcon } from '../../../../public/assets/icon/arrow-left-line.svg';
+
+import IconInteraction from './interaction/IconInteraction';
+import ButtonWrapper from './ButtonWrapper';
 
 interface IconButtonProps {
   type: 'cta' | 'default';
@@ -42,11 +43,5 @@ const sizeHandler = (size: IconButtonProps['size']) => {
       return '18px';
   }
 };
-
-const ButtonWrapper = styled.div<{ disabled: boolean }>`
-  position: relative;
-  display: inline-block;
-  ${({ disabled }) => (disabled ? 'cursor: not-allowed' : 'cursor: pointer')}
-`;
 
 export default IconButton;

@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 import { semantic } from '../../../styles/semantic';
 import { size, type } from './type';
 
-import InteractionContainer from './interaction/ButtonInteraction';
+import ButtonInteraction from './interaction/ButtonInteraction';
 import ButtonWrapper from './ButtonWrapper';
 import { ICONS } from '../../../styles/common/icons';
 
@@ -29,11 +29,11 @@ function SelectButton({
   };
   return (
     <ButtonWrapper disabled={disabled} clickFn={handleClickButton}>
-      <InteractionContainer
+      <ButtonInteraction
         size={size}
         type={type}
         disabled={disabled}
-        selected={selected}></InteractionContainer>
+        selected={selected}></ButtonInteraction>
       <StyledSelectButton selected={selected} disabled={disabled}>
         {children}
         {selected && <CheckIcon src={ICONS.button.check}></CheckIcon>}

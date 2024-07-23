@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 import SpeechExample from '../components/common/Bubble/SpeechExample';
+import Attach from '../components/common/Attach/Attach';
 
 const App = () => {
   return (
     <Container>
-      <SpeechExample />
+      <Attach>
+        <h1>h1</h1>
+        <h2>h2</h2>
+        <h3>h3</h3>
+      </Attach>
     </Container>
   );
 };

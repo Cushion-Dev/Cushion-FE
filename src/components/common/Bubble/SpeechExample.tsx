@@ -1,5 +1,4 @@
-import UserBubble from './UserBubble';
-import SystemBubble from './SystemBubble';
+import { UserBubble, SystemBubble } from '../../../components';
 
 import { MESSAGES } from '../../../constants/messages';
 import { SpeechContainer } from '../../../styles/common/Bubble/SpeechExample';

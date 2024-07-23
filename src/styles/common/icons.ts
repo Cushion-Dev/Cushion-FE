@@ -1,7 +1,7 @@
 export const ICONS = {
   logo: '/assets/logo/logotype.svg',
   logoImage: '/assets/logo/cushion-vector-asset.svg',
-  backButton: '/assets/icon/button-arrow-left-line.svg',
+  backButton: '/assets/icon/button/button-arrow-left-line.svg',
   moreButton: '/assets/icon/button/button-more-line.svg',
 
   menu: {

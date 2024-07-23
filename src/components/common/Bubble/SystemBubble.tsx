@@ -14,7 +14,7 @@ import {
   Copy,
 } from '../../../styles/common/Bubble/SystemBubble';
 
-export type BubblePage = 'example';
+export type BubblePage = 'example' | 'greeting';
 
 interface ISystemBubbleProps {
   bubblePage?: BubblePage;
@@ -36,7 +36,7 @@ const SystemBubble = ({ bubblePage, bodyText }: ISystemBubbleProps) => {
             </BubbleContainer>
           </WrapBubble>
         </MessageSection>
-        <Copy src={ICONS.copy} />
+        {bubblePage !== 'greeting' && <Copy src={ICONS.copy} />}
       </Region>
       {bubblePage === 'example' && (
         <Thought thoughtText={MESSAGES.speechExample.emotion} />

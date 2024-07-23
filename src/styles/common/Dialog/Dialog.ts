@@ -47,22 +47,6 @@ const SubText = styled.span`
   color: ${semantic.light.object.transparent.neutral};
 `;
 
-const WrapDivider = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-self: stretch;
-
-  height: 0.0625rem;
-  padding-top: 0.0625rem;
-`;
-
-const Divider = styled.div`
-  width: 25.5rem;
-  height: 0.0625rem;
-  background: ${semantic.light.border.transparent.neutral};
-`;
-
 const ButtonContainer = styled.div`
   display: flex;
   align-self: stretch;
@@ -125,8 +109,6 @@ export {
   WrapText,
   TitleText,
   SubText,
-  WrapDivider,
-  Divider,
   ButtonContainer,
   Button,
 };

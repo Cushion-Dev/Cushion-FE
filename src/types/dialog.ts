@@ -1,0 +1,1 @@
+type ButtonVariant = 'cta' | 'negative';

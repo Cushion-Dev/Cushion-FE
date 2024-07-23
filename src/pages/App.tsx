@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { TYPO } from '../styles/typo';
 import Button from '../components/common/button/Button';
 import SelectButton from '../components/common/button/SelectButton';
+import IconButton from '../components/common/button/IconButton';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         CTA 버튼
       </Button>
       <SelectButton disabled={true}>셀럭터블 칩</SelectButton>
+      <IconButton type='default' size='lg'></IconButton>
     </>
   );
 };

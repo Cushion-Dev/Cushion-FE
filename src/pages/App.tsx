@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import SpeechExample from '../components/common/Bubble/SpeechExample';
+import SearchField from '../components/common/SearchField';
 
 const App = () => {
   return (
     <Container>
-      <SpeechExample />
+      <SearchField placeholderText="플레이스 홀더 텍스트" />
     </Container>
   );
 };

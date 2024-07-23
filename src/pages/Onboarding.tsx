@@ -1,0 +1,80 @@
+import styled from 'styled-components';
+import {
+  AppScreen,
+  Attach,
+  ButtonContainer,
+  Container,
+  Navbar,
+  SpeechExample,
+  Viewport,
+  CTAButton,
+  MainButton,
+} from '../components';
+import { TYPO } from '../styles/typo';
+import { semantic } from '../styles/semantic';
+import { ONBOARDING } from '../constants/onboarding';
+
+const Onboarding = () => {
+  return (
+    <Container>
+      <AppScreen>
+        <Navbar type="onboarding" />
+        <Viewport>
+          <DisplayBanner>
+            <TitleText>{ONBOARDING.title}</TitleText>
+          </DisplayBanner>
+          <Attach>
+            <SpeechExample />
+          </Attach>
+          <DisplayBanner>
+            <WrapSubText>
+              <SubText>{ONBOARDING.sub}</SubText>
+            </WrapSubText>
+          </DisplayBanner>
+        </Viewport>
+        <ButtonContainer>
+          <CTAButton buttonText="로그인하기" />
+          <MainButton buttonText="쿠션 사용하기" />
+        </ButtonContainer>
+      </AppScreen>
+    </Container>
+  );
+};
+
+export default Onboarding;
+
+const DisplayBanner = styled.span`
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+  justify-content: center;
+
+  gap: 1rem;
+  padding: 1.5rem 0rem;
+`;
+
+const TitleText = styled.span`
+  flex: 1 0 0;
+  text-align: center;
+
+  ${TYPO.display1}
+  color: ${semantic.light.object.solid.hero};
+`;
+
+const WrapSubText = styled.div`
+  display: flex;
+  justify-content: center;
+
+  width: 16.5625rem;
+  height: 3.5rem;
+
+  text-align: center;
+`;
+
+const SubText = styled.span`
+  width: 14.8125rem;
+  text-align: center;
+
+  ${TYPO.title2}
+  color: ${semantic.light.object.solid.hero};
+`;

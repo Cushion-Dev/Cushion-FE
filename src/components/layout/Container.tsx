@@ -14,6 +14,7 @@ const AllContainer = styled.div`
 
   width: 100vw;
   height: 100vh;
+  min-width: 20rem;
 
   background: ${semantic.light.bg.solid.heavier};
 `;

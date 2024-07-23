@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { semantic } from '../../styles/semantic';
 
 const ButtonContainer = ({ children }: IChildren) => {
   return <WrapButton>{children}</WrapButton>;
@@ -15,4 +16,7 @@ const WrapButton = styled.div`
 
   gap: 0.75rem;
   padding: 1.5rem 1rem;
+
+  border-top: 1px solid ${semantic.light.border.transparent.alternative};
+  background: ${semantic.light.bg.solid.normal};
 `;

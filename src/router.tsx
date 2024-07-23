@@ -1,10 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
-import App from './pages/App';
+import Onboarding from './pages/Onboarding';
 
 const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <Onboarding />,
   },
 ]);
 

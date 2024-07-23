@@ -10,7 +10,7 @@ import {
 } from '../../styles/common/Navbar';
 
 interface INavbar {
-  type: 'global' | 'local';
+  type: 'global' | 'local' | 'onboarding';
   title?: string;
 }
 
@@ -24,6 +24,13 @@ export const Navbar = ({ type, title }: INavbar) => {
             <LogoImg src={ICONS.logoImage} />
           </WrapLogo>
           <MoreButton src={ICONS.moreButton} />
+        </>
+      ) : type === 'onboarding' ? (
+        <>
+          <WrapLogo>
+            <Logo src={ICONS.logo} />
+            <LogoImg src={ICONS.logoImage} />
+          </WrapLogo>
         </>
       ) : (
         <>

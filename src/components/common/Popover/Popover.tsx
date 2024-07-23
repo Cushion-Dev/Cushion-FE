@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Checkbox from './Checkbox';
 import { ICONS } from '../../../styles/common/icons';
 import {
@@ -18,22 +19,30 @@ interface IPopoverProps {
 }
 
 const Popover = ({ title, bodyText }: IPopoverProps) => {
+  const [isVisible, setIsVisible] = useState(true);
+
+  const handleCloseClick = () => {
+    setIsVisible(false);
+  };
+
   return (
-    <PopoverContainer>
-      <HeaderContainer>
-        <LabelText>{title}</LabelText>
-        <CloseButton src={ICONS.popover.close} />
-      </HeaderContainer>
-      <WrapContent>
-        <ContentContainer>
-          <BodyText>{bodyText}</BodyText>
-          <Checkbox caption="체크박스 캡션" />
-        </ContentContainer>
-      </WrapContent>
-      <Pin>
-        <PinIcon src={ICONS.popover.pin} />
-      </Pin>
-    </PopoverContainer>
+    isVisible && (
+      <PopoverContainer>
+        <HeaderContainer>
+          <LabelText>{title}</LabelText>
+          <CloseButton src={ICONS.popover.close} onClick={handleCloseClick} />
+        </HeaderContainer>
+        <WrapContent>
+          <ContentContainer>
+            <BodyText>{bodyText}</BodyText>
+            <Checkbox caption="체크박스 캡션" />
+          </ContentContainer>
+        </WrapContent>
+        <Pin>
+          <PinIcon src={ICONS.popover.pin} />
+        </Pin>
+      </PopoverContainer>
+    )
   );
 };
 

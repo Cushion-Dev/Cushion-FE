@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Thought from './Thought';
 import { ICONS } from '../../../styles/common/icons';
 import { MESSAGES } from '../../../constants/messages';
@@ -13,8 +14,9 @@ import {
   BodyText,
   Copy,
 } from '../../../styles/common/Bubble/SystemBubble';
+import Toast from '../Toast';
 
-export type BubblePage = 'example';
+export type BubblePage = 'example' | 'greeting';
 
 interface ISystemBubbleProps {
   bubblePage?: BubblePage;
@@ -22,26 +24,37 @@ interface ISystemBubbleProps {
 }
 
 const SystemBubble = ({ bubblePage, bodyText }: ISystemBubbleProps) => {
+  const [showToast, setShowToast] = useState(false);
+
+  const handleCopyClick = () => {
+    setShowToast(true);
+  };
+
   return (
-    <MessageContainer>
-      <Region>
-        <MessageSection>
-          <UserLabelContainer>
-            <LogoImage src={ICONS.logoImage} />
-            <UserLabel>쿠션봇 AI</UserLabel>
-          </UserLabelContainer>
-          <WrapBubble>
-            <BubbleContainer>
-              <BodyText>{bodyText}</BodyText>
-            </BubbleContainer>
-          </WrapBubble>
-        </MessageSection>
-        <Copy src={ICONS.copy} />
-      </Region>
-      {bubblePage === 'example' && (
-        <Thought thoughtText={MESSAGES.speechExample.emotion} />
-      )}
-    </MessageContainer>
+    <>
+      <MessageContainer>
+        <Region>
+          <MessageSection>
+            <UserLabelContainer>
+              <LogoImage src={ICONS.logoImage} />
+              <UserLabel>쿠션봇 AI</UserLabel>
+            </UserLabelContainer>
+            <WrapBubble>
+              <BubbleContainer>
+                <BodyText>{bodyText}</BodyText>
+              </BubbleContainer>
+            </WrapBubble>
+          </MessageSection>
+          {bubblePage !== 'greeting' && (
+            <Copy src={ICONS.copy} onClick={handleCopyClick} /> // 변경된 부분
+          )}
+        </Region>
+        {bubblePage === 'example' && (
+          <Thought thoughtText={MESSAGES.speechExample.emotion} />
+        )}
+      </MessageContainer>
+      {showToast && <Toast bodyText="내용이 복사되었습니다." />}
+    </>
   );
 };
 

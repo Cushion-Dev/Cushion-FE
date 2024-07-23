@@ -21,3 +21,5 @@ export { default as UserBubble } from './common/Bubble/UserBubble';
 
 export { default as CTAButton } from './common/Temporary/CTAButton';
 export { default as MainButton } from './common/Temporary/MainButton';
+
+export { default as Divider } from './common/Divider';

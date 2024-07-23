@@ -8,7 +8,7 @@ const MessageContainer = styled.div`
   justify-content: flex-end;
   align-items: flex-start;
 
-  width: 25rem;
+  width: 100%;
   gap: 0.5rem;
 `;
 

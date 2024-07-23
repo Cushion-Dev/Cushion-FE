@@ -14,7 +14,7 @@ interface ButtonProps {
   size: size;
   disabled?: boolean;
   children: ReactNode;
-  clickFn: () => void;
+  clickFn?: () => void;
 }
 
 function Button({

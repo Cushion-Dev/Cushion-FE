@@ -11,6 +11,7 @@ interface TextFieldProps {
   maxLetterCount: number;
   readonly?: boolean;
   disabled?: boolean;
+  getFn?: (value: string) => void;
 }
 
 function TextField({
@@ -20,10 +21,12 @@ function TextField({
   maxLetterCount,
   readonly = false,
   disabled = false,
+  getFn,
 }: TextFieldProps) {
   const [inputValue, setInputValue] = useState('');
   const [letterCount, setLetterCount] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const handleClickDeleteAll = () => {
     setInputValue('');
@@ -35,13 +38,16 @@ function TextField({
     const inputCurrentValue = event.currentTarget.value;
     if (inputCurrentValue.length === 0) setIsTyping(false);
     else setIsTyping(true);
+    if (inputCurrentValue.length > 15) setIsError(true);
+    else setIsError(false);
     setInputValue(inputCurrentValue);
     setLetterCount(inputCurrentValue.length);
+    if (getFn) getFn(inputCurrentValue);
   };
 
   return (
     <TextFiledContainer>
-      <InputWrapper isTyping={isTyping}>
+      <InputWrapper isError={isError} isTyping={isTyping}>
         <StyledLabel>{label}</StyledLabel>
         <StyledInput
           readOnly={readonly}
@@ -57,7 +63,7 @@ function TextField({
         )}
       </InputWrapper>
       <HelpContainer>
-        <HelperText>{helperText}</HelperText>
+        <HelperText isError={isError}>{helperText}</HelperText>
         <LetterCount>
           {letterCount}/{maxLetterCount}
         </LetterCount>
@@ -73,7 +79,7 @@ const TextFiledContainer = styled.div`
   flex: 1 0 0;
 `;
 
-const InputWrapper = styled.div<{ isTyping: boolean }>`
+const InputWrapper = styled.div<{ isTyping: boolean; isError: boolean }>`
   position: relative;
   display: flex;
   padding: 0.625rem 0.5rem;
@@ -81,10 +87,11 @@ const InputWrapper = styled.div<{ isTyping: boolean }>`
   gap: 1rem;
   align-self: stretch;
   border-bottom: 0.063rem solid
-    ${({ isTyping }) =>
-      isTyping
-        ? `${semantic.light.accent.solid.normal}`
-        : `${semantic.light.border.transparent.neutral}`};
+    ${({ isTyping, isError }) => {
+      if (isTyping && !isError) return `${semantic.light.accent.solid.normal}`;
+      if (!isTyping) return `${semantic.light.border.transparent.neutral}`;
+      if (isError) return `${semantic.light.feedback.solid.negative}`;
+    }};
 `;
 
 const StyledLabel = styled.label`
@@ -135,13 +142,16 @@ const HelpContainer = styled.div`
   align-self: stretch;
 `;
 
-const HelperText = styled.p`
+const HelperText = styled.p<{ isError: boolean }>`
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
   flex: 1 0 0;
   overflow: hidden;
-  color: ${semantic.light.object.transparent.assistive};
+  color: ${({ isError }) =>
+    isError
+      ? `${semantic.light.feedback.solid.negative}`
+      : `${semantic.light.object.transparent.assistive}`};
   text-overflow: ellipsis;
 
   ${TYPO.caption2}

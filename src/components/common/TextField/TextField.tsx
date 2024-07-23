@@ -1,0 +1,167 @@
+import { useState } from 'react';
+import { css, styled } from 'styled-components';
+import { TYPO } from '../../../styles/typo';
+import { semantic } from '../../../styles/semantic';
+import { ReactComponent as DeleteAllIcon } from '../../../../public/assets/icon/textfield/delete-back-2-fill.svg';
+
+interface TextFieldProps {
+  label: string;
+  placeholder: string;
+  helperText: string;
+  maxLetterCount: number;
+  readonly?: boolean;
+  disabled?: boolean;
+}
+
+function TextField({
+  label,
+  placeholder,
+  helperText,
+  maxLetterCount,
+  readonly = false,
+  disabled = false,
+}: TextFieldProps) {
+  const [inputValue, setInputValue] = useState('');
+  const [letterCount, setLetterCount] = useState(0);
+  const [isTyping, setIsTyping] = useState(false);
+
+  const handleClickDeleteAll = () => {
+    setInputValue('');
+    setLetterCount(0);
+    setIsTyping(false);
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputCurrentValue = event.currentTarget.value;
+    if (inputCurrentValue.length === 0) setIsTyping(false);
+    else setIsTyping(true);
+    setInputValue(inputCurrentValue);
+    setLetterCount(inputCurrentValue.length);
+  };
+
+  return (
+    <TextFiledContainer>
+      <InputWrapper isTyping={isTyping}>
+        <StyledLabel>{label}</StyledLabel>
+        <StyledInput
+          readOnly={readonly}
+          disabled={disabled}
+          placeholder={placeholder}
+          onChange={handleInputChange}
+          value={inputValue}
+        ></StyledInput>
+        {isTyping && (
+          <IconWrapper onClick={handleClickDeleteAll}>
+            <DeleteAllIcon></DeleteAllIcon>
+          </IconWrapper>
+        )}
+      </InputWrapper>
+      <HelpContainer>
+        <HelperText>{helperText}</HelperText>
+        <LetterCount>
+          {letterCount}/{maxLetterCount}
+        </LetterCount>
+      </HelpContainer>
+    </TextFiledContainer>
+  );
+}
+
+const TextFiledContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1 0 0;
+`;
+
+const InputWrapper = styled.div<{ isTyping: boolean }>`
+  position: relative;
+  display: flex;
+  padding: 0.625rem 0.5rem;
+  align-items: center;
+  gap: 1rem;
+  align-self: stretch;
+  border-bottom: 0.063rem solid
+    ${({ isTyping }) =>
+      isTyping
+        ? `${semantic.light.accent.solid.normal}`
+        : `${semantic.light.border.transparent.neutral}`};
+`;
+
+const StyledLabel = styled.label`
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  color: ${semantic.light.object.transparent.alternative};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  ${TYPO.label2}
+`;
+
+const StyledInput = styled.input<{ disabled: boolean; readOnly: boolean }>`
+  display: flex;
+  align-items: center;
+  padding-left: 0.375rem;
+  flex: 1 0 0;
+  border: none;
+  font-size: 1.125rem;
+  border-radius: 0.5rem;
+  height: 2.188rem;
+  outline: none;
+  color: ${semantic.light.object.solid.hero};
+  caret-color: ${semantic.light.accent.solid.normal};
+  background: none;
+
+  &::placeholder {
+    color: ${semantic.light.object.transparent.assistive};
+    ${TYPO.body3}
+  }
+
+  ${({ disabled, readOnly }) =>
+    disabled || readOnly
+      ? `background: #eeeeeb`
+      : css`
+          &:hover {
+            background: #eeeeeb;
+          }
+        `}
+`;
+
+const HelpContainer = styled.div`
+  display: flex;
+  padding: 0.375rem 0.5rem;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 1rem;
+  align-self: stretch;
+`;
+
+const HelperText = styled.p`
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  flex: 1 0 0;
+  overflow: hidden;
+  color: ${semantic.light.object.transparent.assistive};
+  text-overflow: ellipsis;
+
+  ${TYPO.caption2}
+`;
+
+const LetterCount = styled.p`
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  color: ${semantic.light.object.transparent.assistive};
+  text-overflow: ellipsis;
+
+  ${TYPO.caption2}
+`;
+
+const IconWrapper = styled.button`
+  position: absolute;
+  right: 0.9rem;
+  background: none;
+`;
+
+export default TextField;

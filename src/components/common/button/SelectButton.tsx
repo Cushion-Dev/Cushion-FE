@@ -1,11 +1,11 @@
 import { ReactNode, useState } from 'react';
 import { styled } from 'styled-components';
 
-import { ReactComponent as CheckIcon } from '../../../../public/assets/icon/check-line.svg';
+import { ReactComponent as CheckIcon } from '../../../../public/assets/icon/button/check-line.svg';
 import { semantic } from '../../../styles/semantic';
 import { size, type } from './type';
 
-import InteractionContainer from './interaction/ButtonInteraction';
+import ButtonInteraction from './interaction/ButtonInteraction';
 import ButtonWrapper from './ButtonWrapper';
 
 interface SelectButtonProps {
@@ -29,12 +29,12 @@ function SelectButton({
   };
   return (
     <ButtonWrapper disabled={disabled} clickFn={handleClickButton}>
-      <InteractionContainer
+      <ButtonInteraction
         size={size}
         type={type}
         disabled={disabled}
         selected={selected}
-      ></InteractionContainer>
+      ></ButtonInteraction>
       <StyledSelectButton selected={selected} disabled={disabled}>
         {children}
         {selected && <CheckIcon fill={iconColor}></CheckIcon>}

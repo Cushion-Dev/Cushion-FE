@@ -1,15 +1,27 @@
 import styled from 'styled-components';
 import SpeechExample from '../components/common/Bubble/SpeechExample';
 import Attach from '../components/common/Attach/Attach';
+import TextField from '../components/common/TextField/TextField';
+import FormInput from '../components/common/Form/FormInput';
+import BottomSheet from '../components/common/BottomSheet/BottomSheet';
 
 const App = () => {
   return (
     <Container>
-      <Attach>
-        <h1>h1</h1>
-        <h2>h2</h2>
-        <h3>h3</h3>
-      </Attach>
+      <FormInput
+        label='레이블'
+        placeholder='플레이스 홀더 텍스트'
+        helperText='헬퍼 텍스트'
+        maxLetterCount={20}
+        extraText='에서'
+      />
+      <BottomSheet
+        type='edit'
+        title='쿠션 만들기'
+        bannerTitle={`푹신해진 쿠션을\r\n전달받는 상대방은 누구인가요?`}
+        bannerDescription='아래의 항목을 모두 입력 및 선택해주세요.'
+        buttonText='쿠션만들기'
+      ></BottomSheet>
     </Container>
   );
 };

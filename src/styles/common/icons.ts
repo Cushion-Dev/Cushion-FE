@@ -26,4 +26,11 @@ export const ICONS = {
     close: '/assets/icon/popover/popover-button-close-line.svg',
     pin: '/assets/icon/popover/popover-pin-vector.svg',
   },
+
+  textarea: {
+    cursor: '/assets/icon/textarea/cursor.svg',
+    addImage: '/assets/icon/textarea/button-image-add-line.svg',
+    sendFalse: '/assets/icon/textarea/button-send-plane-fill.svg',
+    sendTrue: '/assets/icon/textarea/button-send-plane-fill-2.svg',
+  },
 };

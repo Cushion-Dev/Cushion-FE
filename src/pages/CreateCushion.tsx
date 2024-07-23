@@ -7,6 +7,7 @@ import {
   Textarea,
   SystemBubble,
   UserBubble,
+  Popover,
 } from '../components';
 import styled from 'styled-components';
 import { TYPO } from '../styles/typo';
@@ -31,7 +32,12 @@ const CreateCushion = () => {
           <UserBubble bodyText={MESSAGES.systemMessage.exampleMessage} />
           <SystemBubble bodyText={MESSAGES.systemMessage.systemExample} />
         </Viewport>
+
         <TextFieldContainer>
+          <Popover
+            title="상대방 맞춤 쿠션"
+            bodyText="상대방과의 대화 내역이 있으신가요? 캡처 이미지를 첨부하면, 맞춤형 쿠션을 받을 수 있어요."
+          />
           <Textarea />
         </TextFieldContainer>
       </AppScreen>
@@ -71,6 +77,8 @@ const TextFieldContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   align-self: stretch;
+
+  position: relative;
 
   padding: 1rem 1rem 1.5rem 1rem;
 

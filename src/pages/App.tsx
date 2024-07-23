@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { Textarea } from '../components';
+import SpeechExample from '../components/common/Bubble/SpeechExample';
 
 const App = () => {
   return (
     <Container>
-      <Textarea />
+      <SpeechExample />
     </Container>
   );
 };

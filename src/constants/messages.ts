@@ -46,4 +46,10 @@ export const MESSAGES = {
   textarea: {
     placeholder: '부드럽게 바꾸고 싶은 메시지 내용을 입력해 주세요...',
   },
+
+  speechExample: {
+    user: 'OO님, 아까 보내 주신 내용을 문서화하려는데요. 사용할 수 없을 정도로 엉망이네요. 급하니까 당장 다시 해서 보내 주세요.',
+    system: '... 네 알겠습니다.',
+    emotion: '😠 굉장히 무례함을 느끼는 중',
+  },
 };

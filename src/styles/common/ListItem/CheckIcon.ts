@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 
 export const CheckBoxWrapper = styled.div<{ isEditing: boolean }>`
   display: ${({ isEditing }) => (isEditing ? 'flex' : 'none')};
+  padding: 0.125rem;
   align-items: center;
-  justify-content: center;
-  margin-right: 16px;
+  opacity: 1;
 `;

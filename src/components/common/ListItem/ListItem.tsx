@@ -34,6 +34,7 @@ function ListItem({
     <ListItemContainer
       disabled={disabled}
       isChecked={isChecked}
+      isEditing={isEditing}
       onClick={handleClickItem}
     >
       <CheckBoxWrapper isEditing={isEditing}>

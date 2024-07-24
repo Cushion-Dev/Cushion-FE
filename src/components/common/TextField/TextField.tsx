@@ -74,9 +74,13 @@ function TextField({
 
 const TextFiledContainer = styled.div`
   display: flex;
+  flex: 1;
+  /* width: 100%; */
   flex-direction: column;
   align-items: flex-start;
-  flex: 1 0 0;
+  justify-content: flex-start;
+  opacity: 1;
+  gap: 0;
 `;
 
 const InputWrapper = styled.div<{ isTyping: boolean; isError: boolean }>`
@@ -86,6 +90,7 @@ const InputWrapper = styled.div<{ isTyping: boolean; isError: boolean }>`
   align-items: center;
   gap: 1rem;
   align-self: stretch;
+  opacity: 1;
   border-bottom: 0.063rem solid
     ${({ isTyping, isError }) => {
       if (isTyping && !isError) return `${semantic.light.accent.solid.normal}`;
@@ -102,17 +107,16 @@ const StyledLabel = styled.label`
   overflow: hidden;
   text-overflow: ellipsis;
   ${TYPO.label2}
+  opacity: 1;
 `;
 
 const StyledInput = styled.input<{ disabled: boolean; readOnly: boolean }>`
   display: flex;
   align-items: center;
-  padding-left: 0.375rem;
   flex: 1 0 0;
   border: none;
   font-size: 1.125rem;
   border-radius: 0.5rem;
-  height: 2.188rem;
   outline: none;
   color: ${semantic.light.object.solid.hero};
   caret-color: ${semantic.light.accent.solid.normal};
@@ -172,6 +176,7 @@ const IconWrapper = styled.button`
   position: absolute;
   right: 0.9rem;
   background: none;
+  cursor: pointer;
 `;
 
 export default TextField;

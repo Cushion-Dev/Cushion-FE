@@ -52,4 +52,24 @@ export const MESSAGES = {
     system: '... 네 알겠습니다.',
     emotion: '😠 굉장히 무례함을 느끼는 중',
   },
+
+  bottomSheet: {
+    bannerTitle: {
+      makeCushion: `푹신해진 쿠션을\r\n전달받는 상대방은 누구인가요?`,
+      editProfile: '내 정보를 수정해보세요',
+    },
+    bannerDescription: {
+      makeCushion: '아래의 항목을 모두 입력 및 선택해주세요.',
+      editProfile: '항목을 수정하고, 수정 완료를 눌러 저장하세요.',
+    },
+    title: {
+      makeCushion: '쿠션 만들기',
+      editProfile: '내 정보 수정하기',
+      editUser: '상대방 정보 수정하기',
+    },
+    buttonTitle: {
+      makeCushion: '쿠션 만들기',
+      edit: '수정 완료하기',
+    },
+  },
 };

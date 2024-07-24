@@ -1,3 +1,5 @@
+import { styled } from 'styled-components';
+
 import { ICONS } from '../../styles/common/icons';
 import {
   NavContainer,
@@ -10,7 +12,7 @@ import {
 } from '../../styles/common/Navbar';
 
 interface INavbar {
-  type: 'global' | 'local' | 'onboarding';
+  type: 'global' | 'local' | 'onboarding' | 'nomeat';
   title?: string;
 }
 
@@ -36,7 +38,7 @@ export const Navbar = ({ type, title }: INavbar) => {
         <>
           <BackButton src={ICONS.backButton} />
           <TitleText>{title}</TitleText>
-          <MoreButton src={ICONS.moreButton} />
+          {type !== 'nomeat' && <MoreButton src={ICONS.moreButton} />}
         </>
       )}
     </NavContainer>

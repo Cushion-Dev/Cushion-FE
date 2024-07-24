@@ -7,10 +7,11 @@ const NavContainer = styled.div`
   align-items: center;
   flex-shrink: 0;
 
+  position: relative;
+
   width: 32.5rem;
   height: 3.75rem;
 
-  gap: 1rem;
   padding: 1rem;
 
   opacity: 1;
@@ -40,6 +41,8 @@ const LogoImg = styled.img`
 const MoreButton = styled.img`
   display: flex;
   align-items: center;
+  position: absolute;
+  right: 1rem;
 
   padding: 0.125rem;
 `;
@@ -61,9 +64,19 @@ const TitleText = styled.span`
 
 const BackButton = styled.img`
   flex-shrink: 0;
+  position: absolute;
+  left: 1rem;
 
   width: 1.75rem;
   height: 1.75rem;
 `;
 
-export { NavContainer, WrapLogo, Logo, LogoImg, MoreButton, TitleText, BackButton };
+export {
+  NavContainer,
+  WrapLogo,
+  Logo,
+  LogoImg,
+  MoreButton,
+  TitleText,
+  BackButton,
+};

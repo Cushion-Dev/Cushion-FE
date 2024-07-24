@@ -13,7 +13,7 @@ const AttachContainer = styled.div`
   padding: 3rem 1.5rem;
 
   border-radius: 0.25rem;
-  border: 1px solid ${semantic.light.border.transparent.neutral};
+  border: 0.06rem solid ${semantic.light.border.transparent.neutral};
   background: ${semantic.light.bg.solid.heavier};
 
   box-shadow:

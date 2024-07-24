@@ -6,7 +6,7 @@ import { buttonSize, buttonType } from '../../../styles/common/Button';
 import { ReactComponent as ArrowIcon } from '../../../../public/assets/icon/button/arrow-right-s-line.svg';
 import { size, type } from './type';
 
-import InteractionContainer from './interaction/ButtonInteraction';
+import ButtonInteraction from './interaction/ButtonInteraction';
 import ButtonWrapper from './ButtonWrapper';
 
 interface ButtonProps {
@@ -27,11 +27,11 @@ function Button({
   const iconColor = iconColorHandler(type, disabled);
   return (
     <ButtonWrapper clickFn={clickFn} disabled={disabled}>
-      <InteractionContainer
+      <ButtonInteraction
         size={size}
         disabled={disabled}
         type={type}
-      ></InteractionContainer>
+      ></ButtonInteraction>
       <StyledButton type={type} size={size} disabled={disabled}>
         {children}
         <ArrowIcon fill={iconColor}></ArrowIcon>
@@ -79,6 +79,9 @@ const StyledButton = styled.button<StyledButtonProps>`
   align-items: center;
   border-style: none;
   background: none;
+  gap: 0.5rem;
+  width: 100%;
+  flex: 1;
 
   &:disabled {
     background: none;

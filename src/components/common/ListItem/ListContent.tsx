@@ -1,6 +1,7 @@
 import { ReactComponent as CushionIcon } from '../../../../public/assets/icon/listItem/cushionVectorAsset.svg';
 import {
   ContentWrapper,
+  ListContentContainer,
   ListContentText,
   ListHeader,
   ListItemTitle,
@@ -32,7 +33,9 @@ function ListContent({
         </ListTitleWrapper>
         <TimeStamp>{timeStamp}</TimeStamp>
       </ListHeader>
-      <ListContentText>{content}</ListContentText>
+      <ListContentContainer>
+        <ListContentText>{content}</ListContentText>
+      </ListContentContainer>
     </ContentWrapper>
   );
 }

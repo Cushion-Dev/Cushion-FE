@@ -53,6 +53,25 @@ export const MESSAGES = {
     emotion: '😠 굉장히 무례함을 느끼는 중',
   },
 
+  bottomSheet: {
+    bannerTitle: {
+      makeCushion: `푹신해진 쿠션을\r\n전달받는 상대방은 누구인가요?`,
+      editProfile: '내 정보를 수정해보세요',
+    },
+    bannerDescription: {
+      makeCushion: '아래의 항목을 모두 입력 및 선택해주세요.',
+      editProfile: '항목을 수정하고, 수정 완료를 눌러 저장하세요.',
+    },
+    title: {
+      makeCushion: '쿠션 만들기',
+      editProfile: '내 정보 수정하기',
+      editUser: '상대방 정보 수정하기',
+    },
+    buttonTitle: {
+      makeCushion: '쿠션 만들기',
+      edit: '수정 완료하기',
+    },
+
   introText: `쿠션 만들기가 시작되었어요.\n미풍양속을 해치거나 부적절한 언행은 삼가해 주세요.`,
 
   systemMessage: {
@@ -62,5 +81,6 @@ export const MESSAGES = {
       '제가 몸이 조금 안 좋아서 일찍 들어가봐도 될까요? 오전에 지시하신 업무는 다 완료했습니다.',
     systemExample:
       '오전에 주신 업무 다 완료했습니다! 혹시 오늘 몸 상태가 조금 좋지 않아서 그런데 가능하다면 조금 일찍 들어가도 될지 여쭤봅니다!',
+
   },
 };

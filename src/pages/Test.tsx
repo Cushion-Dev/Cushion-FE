@@ -7,7 +7,6 @@ import {
   Attach,
   ButtonContainer,
   Container,
-  LoginDialog,
   Navbar,
 } from '../components';
 import { TYPO } from '../styles/typo';
@@ -15,9 +14,9 @@ import Callout from '../components/common/Dialog/Callout';
 import Button from '../components/common/Button/Button';
 import FormInput from '../components/common/Form/FormInput';
 import Modal from '../components/common/Modal/Modal';
-import Viewport from '../components/layout/Viewport';
+import BottomSheet from '../components/common/BottomSheet/BottomSheet';
 
-function UserSetting() {
+function Test() {
   const [member, setMember] = useState('');
   const [job, setJob] = useState('');
   const [name, setName] = useState('');
@@ -31,6 +30,10 @@ function UserSetting() {
     if (memberIsValid && jobIsValid && nameIsValid) setIsValid(true);
     else setIsValid(false);
   }, [member, job, name]);
+
+  useEffect(() => {
+    openModal();
+  }, []);
 
   const getMember = (member: string) => {
     setMember(member);
@@ -50,8 +53,8 @@ function UserSetting() {
     <Container>
       <AppScreen>
         <UsreSettingContainer>
-          <Navbar type='nomeat' title='사용자 정보 입력'></Navbar>
-          <Viewport>
+          <Navbar type='local'></Navbar>
+          <ViewPort>
             <DisplayBanner>
               <BannerTitle>
                 우선, 쿠션을 사용하는
@@ -89,7 +92,7 @@ function UserSetting() {
               ></FormInput>
             </Attach>
             <Callout text='사용자님의 정보는 쿠션 만들기에만 환용되니, 안심하고 입력해 주세요.'></Callout>
-          </Viewport>
+          </ViewPort>
           <ButtonContainer>
             <Button
               type='cta'
@@ -109,8 +112,14 @@ function UserSetting() {
             </Button>
           </ButtonContainer>
           {isOpen && (
-            <Modal type='modal' onClose={closeModal}>
-              <LoginDialog></LoginDialog>
+            <Modal type='bottomSheet' onClose={closeModal}>
+              <BottomSheet
+                title='쿠션 만들기'
+                bannerTitle={`푹신해진 쿠션을\r\n전달받는 상대는 누구인가요?`}
+                bannerDescription='아래의 항목을 모두 입력 및 선택해주세요'
+                buttonText='쿠션 시작하기'
+                type='make'
+              ></BottomSheet>
             </Modal>
           )}
         </UsreSettingContainer>
@@ -120,6 +129,7 @@ function UserSetting() {
 }
 
 const UsreSettingContainer = styled.div`
+  position: relative;
   display: flex;
   max-width: 32.5rem;
   padding: 0;
@@ -127,6 +137,7 @@ const UsreSettingContainer = styled.div`
   align-items: flex-start;
   flex: 1 0 0;
   align-self: stretch;
+  border: 1px solid ${semantic.light.border.transparent.neutral};
 `;
 
 const DisplayBanner = styled.div`
@@ -147,6 +158,17 @@ const BannerTitle = styled.p`
   ${TYPO.display1}
 `;
 
+const ViewPort = styled.div`
+  display: flex;
+  padding: 1.5rem 1rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  flex: 1 0 0;
+  align-self: stretch;
+  background: linear-gradient(180deg, #fff 0%, #fafaf7 100%);
+`;
+
 const BannerDescription = styled.p`
   align-self: stretch;
   color: ${semantic.light.object.transparent.alternative};
@@ -155,4 +177,4 @@ const BannerDescription = styled.p`
   ${TYPO.title1}
 `;
 
-export default UserSetting;
+export default Test;

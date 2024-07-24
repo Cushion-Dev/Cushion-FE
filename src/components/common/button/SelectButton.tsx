@@ -4,15 +4,17 @@ import { styled } from 'styled-components';
 import { semantic } from '../../../styles/semantic';
 import { size, type } from './type';
 
+import { ReactComponent as SelectIcon } from '../../../../public/assets/icon/button/check-line.svg';
+
 import ButtonInteraction from './interaction/ButtonInteraction';
-import ButtonWrapper from './ButtonWrapper';
-import { ICONS } from '../../../styles/common/icons';
+// import { ICONS } from '../../../styles/common/icons';
 
 interface SelectButtonProps {
   size?: size;
   type?: type;
   children: ReactNode;
   disabled?: boolean;
+  checkFn?: (value: boolean) => void;
 }
 
 function SelectButton({
@@ -20,25 +22,29 @@ function SelectButton({
   type = 'chip',
   disabled = false,
   children,
+  checkFn,
 }: SelectButtonProps) {
   const [selected, setSelected] = useState(false);
   const iconColor = iconColorHandler(disabled);
 
   const handleClickButton = () => {
     setSelected((prev) => !prev);
+
+    if (checkFn) checkFn(!selected);
   };
   return (
-    <ButtonWrapper disabled={disabled} clickFn={handleClickButton}>
+    <SelectButtonWrapper disabled={disabled} onClick={handleClickButton}>
       <ButtonInteraction
         size={size}
         type={type}
         disabled={disabled}
-        selected={selected}></ButtonInteraction>
+        selected={selected}
+      ></ButtonInteraction>
       <StyledSelectButton selected={selected} disabled={disabled}>
         {children}
-        {selected && <CheckIcon src={ICONS.button.check}></CheckIcon>}
+        {selected && <SelectIcon fill={iconColor}></SelectIcon>}
       </StyledSelectButton>
-    </ButtonWrapper>
+    </SelectButtonWrapper>
   );
 }
 
@@ -48,13 +54,17 @@ const iconColorHandler = (disabled: SelectButtonProps['disabled']) => {
     : semantic.light.accent.solid.hero;
 };
 
+const SelectButtonWrapper = styled.div<{ disabled: boolean }>`
+  position: relative;
+  ${({ disabled }) => (disabled ? 'cursor: not-allowed' : 'cursor: pointer')}
+`;
+
 const StyledSelectButton = styled.button<{ selected: boolean }>`
-  padding: 10px 16px 10px 16px;
-  border-radius: 12px;
-  display: inline-flex;
+  padding: 0.625rem 1rem 0.625rem 1rem;
+  border-radius: 0.75rem;
+  display: flex;
   justify-content: center;
   align-items: center;
-  gap: 6px;
   font-size: 14px;
   line-height: 20px;
 
@@ -70,16 +80,21 @@ const StyledSelectButton = styled.button<{ selected: boolean }>`
       ? `background: ${semantic.light.accent.transparent.normal};
         border: 1px solid ${semantic.light.accent.solid.normal};
         color: ${semantic.light.accent.solid.normal};
-        padding: 10px 12px 10px 16px;
+        padding: 0.625rem 0.75rem 0.625rem 1rem;
+        gap: 6px;
+
         `
-      : `background: ${semantic.light.fill.transparent.alternative} opacity: 0.08;
+      : `background: ${semantic.light.fill.transparent.alternative};
+       opacity: 1;
         color: ${semantic.light.object.transparent.alternative};
+        border: 1px solid ${semantic.light.fill.transparent.alternative};
+
         `}
 `;
 
 export default SelectButton;
 
-const CheckIcon = styled.img`
-  width: 1.5rem;
-  height: 1.5rem;
-`;
+// const CheckIcon = styled.img`
+//   width: 1.5rem;
+//   height: 1.5rem;
+// `;

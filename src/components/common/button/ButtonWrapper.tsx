@@ -21,7 +21,8 @@ function ButtonWrapper({
 
 const StyledButtonWrapper = styled.div<ButtonWrapperProps>`
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  flex: 1;
   ${({ disabled }) => (disabled ? 'cursor: not-allowed' : 'cursor: pointer')}
 `;
 

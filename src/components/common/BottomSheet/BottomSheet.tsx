@@ -1,12 +1,16 @@
 import styled from 'styled-components';
 import { semantic } from '../../../styles/semantic';
-import Navbar from '../Navbar';
 import { TYPO } from '../../../styles/typo';
 import Attach from '../Attach/Attach';
 
 import Button from '../Button/Button';
 import MakeChushion from './MakeChushion';
 import EditProfile from './EditProfile';
+import Viewport from '../../layout/Viewport';
+import ButtonContainer from '../../layout/ButtonContainer';
+import { BackButton, TitleText } from '../../../styles/common/Navbar';
+import { ICONS } from '../../../styles/common/icons';
+import { useEffect, useState } from 'react';
 
 interface BottomSheetProps {
   title: string;
@@ -23,21 +27,42 @@ function BottomSheet({
   buttonText,
   type,
 }: BottomSheetProps) {
+  const [name, setName] = useState('');
+  const [isClick, setIsClick] = useState(false);
+  const [isValid, setIsValid] = useState(false);
+
+  const checkIsClick = (isClick: boolean) => {
+    setIsClick(isClick);
+  };
+
+  const getName = (name: string) => {
+    setName(name);
+  };
+  useEffect(() => {
+    if (name.length > 0 && name.length < 15 && isClick) setIsValid(true);
+    else setIsValid(false);
+  }, [name, isClick]);
+
   return (
     <Card>
-      <Navbar type='local' title={title}></Navbar>
-      <ViewPort>
+      <Nav>
+        <BackButton src={ICONS.backButton} />
+        <TitleText>{title}</TitleText>
+      </Nav>
+      <Viewport>
         <DisplayBanner>
           <BannerTitle>{bannerTitle}</BannerTitle>
           <BannerDescription>{bannerDescription}</BannerDescription>
         </DisplayBanner>
         <Attach>
-          {type === 'make' && <MakeChushion></MakeChushion>}
+          {type === 'make' && (
+            <MakeChushion checkFn={checkIsClick} getFn={getName}></MakeChushion>
+          )}
           {type === 'edit' && <EditProfile></EditProfile>}
         </Attach>
-      </ViewPort>
+      </Viewport>
       <ButtonContainer>
-        <Button type='cta' size='lg' clickFn={() => console.log('click')}>
+        <Button type='cta' size='lg' disabled={!isValid}>
           {buttonText}
         </Button>
       </ButtonContainer>
@@ -61,14 +86,19 @@ const Card = styled.div`
     0px 0px 10.6px 0px rgba(12, 10, 9, 0.11);
 `;
 
-const ViewPort = styled.div`
+const Nav = styled.div`
   display: flex;
-  padding: 1.5rem 1rem;
-  flex-direction: column;
   align-items: center;
-  gap: 2rem;
-  flex: 1 0 0;
-  align-self: stretch;
+  flex-shrink: 0;
+
+  width: 32.5rem;
+  height: 3.75rem;
+
+  gap: 1rem;
+  padding: 1rem;
+
+  opacity: 1;
+  border-bottom: 1px solid ${semantic.light.border.transparent.alternative};
 `;
 
 const DisplayBanner = styled.div`
@@ -96,17 +126,6 @@ const BannerDescription = styled.p`
   text-align: center;
 
   ${TYPO.title1}
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  padding: 1.5rem 1rem;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0;
-  align-self: stretch;
-  border-top: 1px solid ${semantic.light.border.transparent.alternative};
-  background: ${semantic.light.bg.solid.normal};
 `;
 
 export default BottomSheet;

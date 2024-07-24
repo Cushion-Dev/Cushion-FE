@@ -37,7 +37,7 @@ export const ICONS = {
 
   button: {
     rightArrow: '/assets/icon/button/button-arrow-right-s-line.svg',
-    check: '/assets/icon/check-line.svg',
+    check: '/assets/icon/button/check-line.svg',
   },
 
   copy: '/assets/icon/button-file-copy-2-line.svg',

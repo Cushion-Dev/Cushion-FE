@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 import TextField from '../TextField/TextField';
 import { TYPO } from '../../../styles/typo';
+import { semantic } from '../../../styles/semantic';
 
 interface TextFieldProps {
   label: string;
@@ -41,17 +42,18 @@ function FormInput({
 
 const StyledFormInput = styled.div`
   display: flex;
+  width: 26.25rem;
   padding: 0.5rem 1rem 0.5rem 1rem;
   justify-content: center;
   align-items: center;
   align-content: center;
   gap: 1rem;
-  align-self: stretch;
   flex-wrap: wrap;
 `;
 
 const StyledText = styled.span`
-  ${TYPO.title1}
+  color: ${semantic.light.object.transparent.alternative};
+  ${TYPO.title1};
 `;
 
 export default FormInput;

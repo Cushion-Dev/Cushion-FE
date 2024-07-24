@@ -18,10 +18,11 @@ import {
   Popover,
   DimmedScreen,
   Dialog,
+  OverlayScreen,
+  LoadingBanner,
+  Modal,
+  BottomSheet,
 } from '../components';
-
-import Modal from '../components/common/Modal/Modal';
-import BottomSheet from '../components/common/BottomSheet/BottomSheet';
 
 const CreateCushion = () => {
   const {
@@ -31,9 +32,11 @@ const CreateCushion = () => {
   } = useMakeModal();
   const { isOpen: isEditUserOpen, close: editUserClose } = useEditUserModal();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleAddImageClick = () => setIsDialogOpen(true);
   const handleDialogCancel = () => setIsDialogOpen(false);
+  const handleLoadingAnimation = () => setIsLoading(true);
 
   useEffect(() => {
     const delay = setTimeout(() => {
@@ -86,8 +89,14 @@ const CreateCushion = () => {
               cancelText={MESSAGES.dialog.ocr.cancel}
               eventText={MESSAGES.dialog.ocr.attach}
               onCancel={handleDialogCancel}
+              onEvent={handleLoadingAnimation}
             />
           </DimmedScreen>
+        )}
+        {isLoading && (
+          <OverlayScreen>
+            <LoadingBanner />
+          </OverlayScreen>
         )}
       </AppScreen>
     </Container>

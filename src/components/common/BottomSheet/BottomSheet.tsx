@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { ICONS } from '../../../styles/common/icons';
 import { MESSAGES } from '../../../constants/messages';
 
 import Attach from '../Attach/Attach';
 import Button from '../Button/Button';
-import MakeChushion from './MakeCushion';
+import MakeCushion from './MakeCushion';
 import EditProfile from './EditProfile';
 import Viewport from '../../layout/Viewport';
 import ButtonContainer from '../../layout/ButtonContainer';
@@ -17,6 +17,7 @@ import {
   DisplayBanner,
   Nav,
 } from '../../../styles/common/BottomSheet/BottomSheet';
+import { useSelectedStore } from '../../../stores/useSelectButtonStore';
 
 interface BottomSheetProps {
   messageType: string;
@@ -32,19 +33,22 @@ interface IMessage {
 
 function BottomSheet({ type, messageType }: BottomSheetProps) {
   const [isInputsValid, setInputsValid] = useState(false);
-  const [isClick, setIsClick] = useState(false);
-  console.log(isInputsValid);
-
+  const { selectedCount, resetSelectedCount } = useSelectedStore();
+  console.log('inputvalid ' + isInputsValid);
+  console.log('selected ' + selectedCount);
+  console.log(
+    'combine ' + !isInputsValid && selectedCount !== 1 && selectedCount > 0
+  );
   const { title, bannerTitle, bannerDescription, buttonTitle } =
     messageHandler(messageType);
-
-  const checkIsClick = (isClick: boolean) => {
-    setIsClick(isClick);
-  };
 
   const checkInputsValid = (inputsValid: boolean) => {
     setInputsValid(inputsValid);
   };
+
+  useEffect(() => {
+    resetSelectedCount();
+  }, []);
 
   return (
     <Card>
@@ -59,7 +63,7 @@ function BottomSheet({ type, messageType }: BottomSheetProps) {
         </DisplayBanner>
         <Attach>
           {type === 'make' && (
-            <MakeChushion checkFn={checkIsClick}></MakeChushion>
+            <MakeCushion checkValidFn={checkInputsValid}></MakeCushion>
           )}
           {type === 'edit' && (
             <EditProfile checkValidFn={checkInputsValid}></EditProfile>
@@ -70,7 +74,11 @@ function BottomSheet({ type, messageType }: BottomSheetProps) {
         <Button
           type='cta'
           size='lg'
-          disabled={type === 'edit' ? !isInputsValid : isInputsValid && isClick}
+          disabled={
+            type === 'edit'
+              ? !isInputsValid
+              : !isInputsValid || selectedCount > 1 || selectedCount === 0
+          }
         >
           {buttonTitle}
         </Button>

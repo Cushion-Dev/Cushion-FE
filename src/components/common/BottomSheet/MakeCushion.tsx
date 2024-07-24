@@ -3,6 +3,8 @@ import FormInput from '../Form/FormInput';
 import SelectButton from '../Button/SelectButton';
 import { semantic } from '../../../styles/semantic';
 import { TYPO } from '../../../styles/typo';
+import { useNameStore } from '../../../stores/useTextFieldStore';
+import { useEffect } from 'react';
 
 const relationArr = [
   '(조)부모',
@@ -17,10 +19,18 @@ const relationArr = [
 ];
 
 interface MakeCushionProps {
-  checkFn: (value: boolean) => void;
+  checkValidFn: (value: boolean) => void;
 }
 
-function MakeCushion({ checkFn }: MakeCushionProps) {
+function MakeCushion({ checkValidFn }: MakeCushionProps) {
+  const { name, setName, isNameValid, setNameValid } = useNameStore();
+  useEffect(() => {
+    setNameValid();
+  }, [name]);
+
+  useEffect(() => {
+    checkValidFn(isNameValid);
+  }, [isNameValid]);
   return (
     <>
       <FormInput
@@ -29,7 +39,8 @@ function MakeCushion({ checkFn }: MakeCushionProps) {
         extraText='(이)라고 해요'
         helperText='최대 입력 가능한 글자수는 15자 까지에요'
         maxLetterCount={15}
-        type=''
+        type={name}
+        changeFn={setName}
       ></FormInput>
       <CategoryContainer>
         <CategoryTitle>
@@ -39,7 +50,7 @@ function MakeCushion({ checkFn }: MakeCushionProps) {
       </CategoryContainer>
       <CategoryButtonContainer>
         {relationArr.map((item) => (
-          <SelectButton checkFn={checkFn}>{item}</SelectButton>
+          <SelectButton value={item}>{item}</SelectButton>
         ))}
       </CategoryButtonContainer>
     </>

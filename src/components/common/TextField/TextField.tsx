@@ -47,7 +47,7 @@ function TextField({
 
     setLetterCount(inputCurrentValue.length);
   };
-  console.log(disabled);
+
   return (
     <TextFiledContainer>
       <InputWrapper isError={isError} isTyping={isTyping}>
@@ -116,7 +116,7 @@ const StyledLabel = styled.label`
 const StyledInput = styled.input<{ disabled: boolean; readOnly: boolean }>`
   display: flex;
   align-items: center;
-  height: 2.55769rem;
+  line-height: 2rem;
   padding-left: 0.625rem;
   flex: 1 0 0;
   border: none;

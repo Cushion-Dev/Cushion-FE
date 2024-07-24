@@ -7,14 +7,17 @@ const SearchContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
-  width: 20rem;
+  width: 100%;
+  flex: 1;
 `;
 
 const WrapSearch = styled.div`
   display: flex;
   align-items: center;
   align-self: stretch;
+  flex: 1;
+
+  width: 100%;
 
   gap: 1rem;
   padding: 0.625rem 0.5rem;
@@ -26,6 +29,9 @@ const SearchIcon = styled.img`
 `;
 
 const Search = styled.input`
+  width: 100%;
+
+  flex: 1;
   flex-shrink: 0;
   padding-left: 0.625rem;
 

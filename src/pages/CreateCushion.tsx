@@ -13,20 +13,34 @@ import styled from 'styled-components';
 import { TYPO } from '../styles/typo';
 import { semantic } from '../styles/semantic';
 import { MESSAGES } from '../constants/messages';
+import { useEffect } from 'react';
+import useModal from '../hooks/useModal';
+import Modal from '../components/common/Modal/Modal';
+import BottomSheet from '../components/common/BottomSheet/BottomSheet';
 
 const CreateCushion = () => {
+  const { isOpen, openModal, closeModal } = useModal();
+
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      openModal();
+    }, 300);
+
+    return () => clearTimeout(delay);
+  }, []);
+
   return (
     <Container>
       <AppScreen>
-        <Navbar type="local" title="홍길동(상사)님과의 쿠션" />
+        <Navbar type='local' title='홍길동(상사)님과의 쿠션' />
         <Viewport>
           <ChatInfoContainer>
             <DateStamp>2024.7.19.금</DateStamp>
             <IntroText>{MESSAGES.introText}</IntroText>
           </ChatInfoContainer>
-          <Divider variant="chat" />
+          <Divider variant='chat' />
           <SystemBubble
-            bubblePage="greeting"
+            bubblePage='greeting'
             bodyText={MESSAGES.systemMessage.startMessage('홍길동(상사)')}
           />
           <UserBubble bodyText={MESSAGES.systemMessage.exampleMessage} />
@@ -35,11 +49,24 @@ const CreateCushion = () => {
 
         <TextFieldContainer>
           <Popover
-            title="상대방 맞춤 쿠션"
-            bodyText="상대방과의 대화 내역이 있으신가요? 캡처 이미지를 첨부하면, 맞춤형 쿠션을 받을 수 있어요."
+            title='상대방 맞춤 쿠션'
+            bodyText='상대방과의 대화 내역이 있으신가요? 캡처 이미지를 첨부하면, 맞춤형 쿠션을 받을 수 있어요.'
           />
           <Textarea />
         </TextFieldContainer>
+        {isOpen && (
+          <Modal type='bottomSheet' onClose={closeModal}>
+            <BottomSheet
+              type='make'
+              title={MESSAGES.bottomSheet.title.makeCushion}
+              bannerTitle={MESSAGES.bottomSheet.bannerTitle.makeCushion}
+              bannerDescription={
+                MESSAGES.bottomSheet.bannerDescription.makeCushion
+              }
+              buttonText={MESSAGES.bottomSheet.buttonTitle.makeCushion}
+            ></BottomSheet>
+          </Modal>
+        )}
       </AppScreen>
     </Container>
   );

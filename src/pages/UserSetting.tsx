@@ -99,14 +99,6 @@ function UserSetting() {
             >
               정보 입력하기
             </Button>
-            <Button
-              type='cta'
-              disabled={!isValid}
-              size='lg'
-              clickFn={handleClickButton}
-            >
-              정보 입력하기
-            </Button>
           </ButtonContainer>
           {isOpen && (
             <Modal type='modal' onClose={closeModal}>

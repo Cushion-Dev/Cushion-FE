@@ -1,10 +1,9 @@
 import { styled } from 'styled-components';
 
-import { ReactComponent as AddIcon } from '../../../../public/assets/icon/add-line.svg';
+import { ReactComponent as AddIcon } from '../../../../public/assets/icon/button/add-line.svg';
 import { semantic } from '../../../styles/semantic';
 
 import FabInteraction from './interaction/FabInteraction';
-import ButtonWrapper from './ButtonWrapper';
 
 interface FabButtonProps {
   disabled?: boolean;
@@ -40,6 +39,15 @@ const StyledFabButton = styled.button<FabButtonProps>`
     0px 8px 24px 0px rgba(12, 10, 9, 0.06),
     0px 24px 36px 0px rgba(12, 10, 9, 0.05),
     0px 0px 8.6px 0px rgba(12, 10, 9, 0.09);
+`;
+
+const ButtonWrapper = styled.div<{ disabled: boolean }>`
+  position: absolute;
+  right: 1rem;
+  bottom: 1.5rem;
+  display: inline-flex;
+  flex: 1;
+  ${({ disabled }) => (disabled ? 'cursor: not-allowed' : 'cursor: pointer')}
 `;
 
 export default FabButton;

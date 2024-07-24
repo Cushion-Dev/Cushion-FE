@@ -11,6 +11,7 @@ const ViewportContainer = styled.div`
   flex-direction: column;
   align-items: center;
   align-self: stretch;
+  position: relative;
 
   gap: 2rem;
   flex: 1 0 0;

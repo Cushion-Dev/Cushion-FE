@@ -1,6 +1,15 @@
 import { styled, css } from 'styled-components';
 import { semantic } from '../../semantic';
 
+export const ListContainer = styled.ul`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  flex: 1 0 0;
+  align-self: stretch;
+`;
+
 export const ListItemContainer = styled.div<{
   isChecked: boolean;
   disabled: boolean;

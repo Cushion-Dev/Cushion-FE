@@ -1,3 +1,11 @@
+import styled from 'styled-components';
+import { useEffect } from 'react';
+
+import { TYPO } from '../styles/typo';
+import { semantic } from '../styles/semantic';
+import { MESSAGES } from '../constants/messages';
+
+import { useEditUserModal, useMakeModal } from '../stores/Modal/useModalStore';
 import {
   Container,
   AppScreen,
@@ -9,21 +17,21 @@ import {
   UserBubble,
   Popover,
 } from '../components';
-import styled from 'styled-components';
-import { TYPO } from '../styles/typo';
-import { semantic } from '../styles/semantic';
-import { MESSAGES } from '../constants/messages';
-import { useEffect } from 'react';
-import useModal from '../hooks/useModal';
+
 import Modal from '../components/common/Modal/Modal';
 import BottomSheet from '../components/common/BottomSheet/BottomSheet';
 
 const CreateCushion = () => {
-  const { isOpen, openModal, closeModal } = useModal();
+  const {
+    isOpen: isMakeOpen,
+    open: makeOpen,
+    close: makeClose,
+  } = useMakeModal();
+  const { isOpen: isEditUserOpen, close: editUserClose } = useEditUserModal();
 
   useEffect(() => {
     const delay = setTimeout(() => {
-      openModal();
+      makeOpen();
     }, 300);
 
     return () => clearTimeout(delay);
@@ -54,17 +62,14 @@ const CreateCushion = () => {
           />
           <Textarea />
         </TextFieldContainer>
-        {isOpen && (
-          <Modal type='bottomSheet' onClose={closeModal}>
-            <BottomSheet
-              type='make'
-              title={MESSAGES.bottomSheet.title.makeCushion}
-              bannerTitle={MESSAGES.bottomSheet.bannerTitle.makeCushion}
-              bannerDescription={
-                MESSAGES.bottomSheet.bannerDescription.makeCushion
-              }
-              buttonText={MESSAGES.bottomSheet.buttonTitle.makeCushion}
-            ></BottomSheet>
+        {isMakeOpen && (
+          <Modal type='bottomSheet' onClose={makeClose}>
+            <BottomSheet type='make' messageType='makeCushion'></BottomSheet>
+          </Modal>
+        )}
+        {isEditUserOpen && (
+          <Modal type='bottomSheet' onClose={editUserClose}>
+            <BottomSheet type='make' messageType='editUser'></BottomSheet>
           </Modal>
         )}
       </AppScreen>

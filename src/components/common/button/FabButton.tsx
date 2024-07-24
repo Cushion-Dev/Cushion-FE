@@ -7,14 +7,15 @@ import FabInteraction from './interaction/FabInteraction';
 
 interface FabButtonProps {
   disabled?: boolean;
+  clickFn?: () => void;
 }
 
-function FabButton({ disabled = false }: FabButtonProps) {
+function FabButton({ disabled = false, clickFn }: FabButtonProps) {
   const iconColor = disabled
     ? semantic.light.object.transparent.disabled
     : semantic.light.base.solid.white;
   return (
-    <ButtonWrapper disabled={disabled}>
+    <ButtonWrapper onClick={clickFn} disabled={disabled}>
       <FabInteraction disabled={disabled}></FabInteraction>
       <StyledFabButton disabled={disabled}>
         <AddIcon fill={iconColor}></AddIcon>

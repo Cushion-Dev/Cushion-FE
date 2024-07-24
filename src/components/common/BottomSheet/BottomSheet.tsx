@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { ICONS } from '../../../styles/common/icons';
 import { MESSAGES } from '../../../constants/messages';
@@ -31,9 +31,8 @@ interface IMessage {
 }
 
 function BottomSheet({ type, messageType }: BottomSheetProps) {
-  const [name, setName] = useState('');
+  const [isInputsValid, setInputsValid] = useState(false);
   const [isClick, setIsClick] = useState(false);
-  const [isValid, setIsValid] = useState(false);
 
   const { title, bannerTitle, bannerDescription, buttonTitle } =
     messageHandler(messageType);
@@ -42,13 +41,9 @@ function BottomSheet({ type, messageType }: BottomSheetProps) {
     setIsClick(isClick);
   };
 
-  const getName = (name: string) => {
-    setName(name);
+  const checkInputsValid = (inputsValid: boolean) => {
+    setInputsValid(inputsValid);
   };
-  useEffect(() => {
-    if (name.length > 0 && name.length < 15 && isClick) setIsValid(true);
-    else setIsValid(false);
-  }, [name, isClick]);
 
   return (
     <Card>
@@ -63,13 +58,19 @@ function BottomSheet({ type, messageType }: BottomSheetProps) {
         </DisplayBanner>
         <Attach>
           {type === 'make' && (
-            <MakeChushion checkFn={checkIsClick} getFn={getName}></MakeChushion>
+            <MakeChushion checkFn={checkIsClick}></MakeChushion>
           )}
-          {type === 'edit' && <EditProfile></EditProfile>}
+          {type === 'edit' && (
+            <EditProfile checkValidFn={checkInputsValid}></EditProfile>
+          )}
         </Attach>
       </Viewport>
       <ButtonContainer>
-        <Button type='cta' size='lg' disabled={!isValid}>
+        <Button
+          type='cta'
+          size='lg'
+          disabled={type === 'edit' ? !isInputsValid : isInputsValid && isClick}
+        >
           {buttonTitle}
         </Button>
       </ButtonContainer>

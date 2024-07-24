@@ -12,6 +12,7 @@ interface TextFieldProps {
   disabled?: boolean;
   extraText: string;
   getFn?: (value: string) => void;
+  changeFn?: (value: string) => void;
 }
 
 function FormInput({
@@ -23,6 +24,7 @@ function FormInput({
   disabled,
   extraText,
   getFn,
+  changeFn,
 }: TextFieldProps) {
   return (
     <StyledFormInput>
@@ -34,6 +36,7 @@ function FormInput({
         readonly={readonly}
         disabled={disabled}
         getFn={getFn}
+        changeFn={changeFn}
       ></TextField>
       <StyledText>{extraText}</StyledText>
     </StyledFormInput>

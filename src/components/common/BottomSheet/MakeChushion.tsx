@@ -17,11 +17,10 @@ const relationArr = [
 ];
 
 interface MakeChushionProps {
-  getFn: (value: string) => void;
   checkFn: (value: boolean) => void;
 }
 
-function MakeChushion({ getFn, checkFn }: MakeChushionProps) {
+function MakeChushion({ checkFn }: MakeChushionProps) {
   return (
     <>
       <FormInput
@@ -30,7 +29,6 @@ function MakeChushion({ getFn, checkFn }: MakeChushionProps) {
         extraText='(이)라고 해요'
         helperText='최대 입력 가능한 글자수는 15자 까지에요'
         maxLetterCount={15}
-        getFn={getFn}
       ></FormInput>
       <CategoryContainer>
         <CategoryTitle>

@@ -12,6 +12,7 @@ interface TextFieldProps {
   readonly?: boolean;
   disabled?: boolean;
   getFn?: (value: string) => void;
+  changeFn?: (value: string) => void;
 }
 
 function TextField({
@@ -22,6 +23,7 @@ function TextField({
   readonly = false,
   disabled = false,
   getFn,
+  changeFn,
 }: TextFieldProps) {
   const [inputValue, setInputValue] = useState('');
   const [letterCount, setLetterCount] = useState(0);
@@ -41,6 +43,7 @@ function TextField({
     if (inputCurrentValue.length > 15) setIsError(true);
     else setIsError(false);
     setInputValue(inputCurrentValue);
+    if (changeFn) changeFn(inputValue);
     setLetterCount(inputCurrentValue.length);
     if (getFn) getFn(inputCurrentValue);
   };

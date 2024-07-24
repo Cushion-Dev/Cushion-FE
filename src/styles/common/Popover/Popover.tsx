@@ -9,12 +9,21 @@ const PopoverContainer = styled.div`
   align-items: flex-start;
   align-self: stretch;
 
-  position: relative;
-
+  position: absolute;
   width: 12.5rem;
+
+  right: 1.3rem;
+  bottom: 8.625rem;
 
   border-radius: 1rem;
   background: ${semantic.light.inversed.solid.background};
+
+  box-shadow:
+    0px 1.6px 5px 0px rgba(12, 10, 9, 0.1),
+    0px 4.2px 13.3px 0px rgba(12, 10, 9, 0.08),
+    0px 8px 24px 0px rgba(12, 10, 9, 0.06),
+    0px 24px 36px 0px rgba(12, 10, 9, 0.05),
+    0px 0px 8.6px 0px rgba(12, 10, 9, 0.09);
 `;
 
 const HeaderContainer = styled.div`

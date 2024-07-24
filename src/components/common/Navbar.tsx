@@ -1,5 +1,7 @@
-import { styled } from 'styled-components';
 
+import { useState } from 'react';
+
+import { ContextMenu } from '..';
 import { ICONS } from '../../styles/common/icons';
 import {
   NavContainer,
@@ -16,7 +18,17 @@ interface INavbar {
   title?: string;
 }
 
-export const Navbar = ({ type, title }: INavbar) => {
+const Navbar = ({ type, title }: INavbar) => {
+  const [showContextMenu, setShowContextMenu] = useState(false);
+
+  const handleMoreButtonClick = () => {
+    setShowContextMenu((prevState) => !prevState);
+  };
+
+  const handleContextMenuClose = () => {
+    setShowContextMenu(false);
+  };
+
   return (
     <NavContainer>
       {type === 'global' ? (
@@ -25,7 +37,11 @@ export const Navbar = ({ type, title }: INavbar) => {
             <Logo src={ICONS.logo} />
             <LogoImg src={ICONS.logoImage} />
           </WrapLogo>
-          <MoreButton src={ICONS.moreButton} />
+          <MoreButton
+            src={ICONS.moreButton}
+            onClick={handleMoreButtonClick}
+            $isActive={showContextMenu}
+          />
         </>
       ) : type === 'onboarding' ? (
         <>
@@ -38,9 +54,15 @@ export const Navbar = ({ type, title }: INavbar) => {
         <>
           <BackButton src={ICONS.backButton} />
           <TitleText>{title}</TitleText>
-          {type !== 'nomeat' && <MoreButton src={ICONS.moreButton} />}
+
+          {type !== 'nomeat' && <MoreButton
+            src={ICONS.moreButton}
+            onClick={handleMoreButtonClick}
+            $isActive={showContextMenu}
+          />}
         </>
       )}
+      {showContextMenu && <ContextMenu onClose={handleContextMenuClose} />}
     </NavContainer>
   );
 };

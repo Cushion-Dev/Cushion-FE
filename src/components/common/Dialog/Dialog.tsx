@@ -3,11 +3,10 @@ import {
   WrapText,
   TitleText,
   SubText,
-  WrapDivider,
-  Divider,
   ButtonContainer,
   Button,
 } from '../../../styles/common/Dialog/Dialog';
+import Divider from '../Divider';
 
 interface IDialogProps {
   variant?: ButtonVariant;
@@ -17,16 +16,20 @@ interface IDialogProps {
   eventText: string;
 }
 
-const Dialog = ({ variant, titleText, subText, cancelText, eventText }: IDialogProps) => {
+const Dialog = ({
+  variant,
+  titleText,
+  subText,
+  cancelText,
+  eventText,
+}: IDialogProps) => {
   return (
     <DialogContainer>
       <WrapText>
         <TitleText>{titleText}</TitleText>
         <SubText>{subText}</SubText>
       </WrapText>
-      <WrapDivider>
-        <Divider />
-      </WrapDivider>
+      <Divider variant="dialog" />
       <ButtonContainer>
         <Button>{cancelText}</Button>
         <Button $variant={variant}>{eventText}</Button>

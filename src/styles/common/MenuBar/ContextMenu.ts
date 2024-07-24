@@ -6,6 +6,10 @@ const MenuContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
 
+  position: absolute;
+  top: 3.4rem;
+  right: 1rem;
+
   width: 12.5rem;
 
   gap: 0.5rem;

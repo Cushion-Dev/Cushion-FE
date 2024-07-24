@@ -38,13 +38,19 @@ const LogoImg = styled.img`
   height: 1.25rem;
 `;
 
-const MoreButton = styled.img`
+const MoreButton = styled.img<{ $isActive: boolean }>`
   display: flex;
   align-items: center;
   position: absolute;
   right: 1rem;
 
   padding: 0.125rem;
+  cursor: pointer;
+
+  &:hover {
+    border-radius: 0.25rem;
+    background-color: #f7f7f7;
+  }
 `;
 
 const TitleText = styled.span`
@@ -69,6 +75,13 @@ const BackButton = styled.img`
 
   width: 1.75rem;
   height: 1.75rem;
+
+  cursor: pointer;
+
+  &:hover {
+    border-radius: 0.25rem;
+    background-color: #f7f7f7;
+  }
 `;
 
 export {

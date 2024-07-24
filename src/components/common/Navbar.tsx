@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 
 import { ContextMenu } from '..';
@@ -55,14 +54,21 @@ const Navbar = ({ type, title }: INavbar) => {
           <BackButton src={ICONS.backButton} />
           <TitleText>{title}</TitleText>
 
-          {type !== 'nomeat' && <MoreButton
-            src={ICONS.moreButton}
-            onClick={handleMoreButtonClick}
-            $isActive={showContextMenu}
-          />}
+          {type !== 'nomeat' && (
+            <MoreButton
+              src={ICONS.moreButton}
+              onClick={handleMoreButtonClick}
+              $isActive={showContextMenu}
+            />
+          )}
         </>
       )}
-      {showContextMenu && <ContextMenu onClose={handleContextMenuClose} />}
+      {showContextMenu && (
+        <ContextMenu
+          type={type === 'global' || type === 'local' ? type : undefined}
+          onClose={handleContextMenuClose}
+        />
+      )}
     </NavContainer>
   );
 };

@@ -16,11 +16,11 @@ const relationArr = [
   '지인',
 ];
 
-interface MakeChushionProps {
+interface MakeCushionProps {
   checkFn: (value: boolean) => void;
 }
 
-function MakeChushion({ checkFn }: MakeChushionProps) {
+function MakeCushion({ checkFn }: MakeCushionProps) {
   return (
     <>
       <FormInput
@@ -29,6 +29,7 @@ function MakeChushion({ checkFn }: MakeChushionProps) {
         extraText='(이)라고 해요'
         helperText='최대 입력 가능한 글자수는 15자 까지에요'
         maxLetterCount={15}
+        type=''
       ></FormInput>
       <CategoryContainer>
         <CategoryTitle>
@@ -95,4 +96,4 @@ const CategoryButtonContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-export default MakeChushion;
+export default MakeCushion;

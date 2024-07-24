@@ -5,7 +5,7 @@ import { MESSAGES } from '../../../constants/messages';
 
 import Attach from '../Attach/Attach';
 import Button from '../Button/Button';
-import MakeChushion from './MakeChushion';
+import MakeChushion from './MakeCushion';
 import EditProfile from './EditProfile';
 import Viewport from '../../layout/Viewport';
 import ButtonContainer from '../../layout/ButtonContainer';

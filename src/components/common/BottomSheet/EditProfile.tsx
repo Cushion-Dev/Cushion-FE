@@ -8,9 +8,11 @@ import FormInput from '../Form/FormInput';
 
 interface EditProfileProps {
   checkValidFn?: (value: boolean) => void;
+  disabled?: boolean;
+  readonly?: boolean;
 }
 
-function EditProfile({ checkValidFn }: EditProfileProps) {
+function EditProfile({ checkValidFn, disabled, readonly }: EditProfileProps) {
   const { member, isMemberValid, setMember, setMemberValid } = useMemberStore();
   const { job, isJobValid, setJob, setJobValid } = useJobStore();
   const { name, isNameValid, setName, setNameValid } = useNameStore();
@@ -24,7 +26,6 @@ function EditProfile({ checkValidFn }: EditProfileProps) {
   useEffect(() => {
     if (checkValidFn) checkValidFn(isMemberValid && isJobValid && isNameValid);
   }, [isMemberValid, isJobValid, isNameValid]);
-
   return (
     <>
       <FormInput
@@ -34,6 +35,8 @@ function EditProfile({ checkValidFn }: EditProfileProps) {
         helperText='최대 입력 가능한 글자수는 15자 까지에요'
         maxLetterCount={15}
         changeFn={setMember}
+        disabled={disabled}
+        readonly={readonly}
         type={member}
       ></FormInput>
       <FormInput
@@ -43,6 +46,8 @@ function EditProfile({ checkValidFn }: EditProfileProps) {
         helperText='최대 입력 가능한 글자수는 15자 까지에요'
         maxLetterCount={15}
         changeFn={setJob}
+        disabled={disabled}
+        readonly={readonly}
         type={job}
       ></FormInput>
       <FormInput
@@ -52,6 +57,8 @@ function EditProfile({ checkValidFn }: EditProfileProps) {
         helperText='최대 입력 가능한 글자수는 15자 까지에요'
         maxLetterCount={15}
         changeFn={setName}
+        disabled={disabled}
+        readonly={readonly}
         type={name}
       ></FormInput>
     </>

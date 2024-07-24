@@ -15,6 +15,8 @@ const MenuContainer = styled.div`
   gap: 0.5rem;
   padding: 0.5rem;
 
+  z-index: 9999;
+
   border-radius: 1rem;
   border: 1px solid ${semantic.light.border.transparent.neutral};
   background: ${semantic.light.bg.solid.light};

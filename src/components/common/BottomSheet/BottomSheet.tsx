@@ -33,6 +33,7 @@ interface IMessage {
 function BottomSheet({ type, messageType }: BottomSheetProps) {
   const [isInputsValid, setInputsValid] = useState(false);
   const [isClick, setIsClick] = useState(false);
+  console.log(isInputsValid);
 
   const { title, bannerTitle, bannerDescription, buttonTitle } =
     messageHandler(messageType);

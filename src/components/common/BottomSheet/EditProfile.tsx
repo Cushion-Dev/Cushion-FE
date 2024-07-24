@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {
   useJobStore,
   useMemberStore,
@@ -34,6 +34,7 @@ function EditProfile({ checkValidFn }: EditProfileProps) {
         helperText='최대 입력 가능한 글자수는 15자 까지에요'
         maxLetterCount={15}
         changeFn={setMember}
+        type={member}
       ></FormInput>
       <FormInput
         label='직무'
@@ -42,6 +43,7 @@ function EditProfile({ checkValidFn }: EditProfileProps) {
         helperText='최대 입력 가능한 글자수는 15자 까지에요'
         maxLetterCount={15}
         changeFn={setJob}
+        type={job}
       ></FormInput>
       <FormInput
         label='이름'
@@ -50,6 +52,7 @@ function EditProfile({ checkValidFn }: EditProfileProps) {
         helperText='최대 입력 가능한 글자수는 15자 까지에요'
         maxLetterCount={15}
         changeFn={setName}
+        type={name}
       ></FormInput>
     </>
   );

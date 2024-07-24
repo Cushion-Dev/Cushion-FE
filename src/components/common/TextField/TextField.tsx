@@ -8,10 +8,10 @@ interface TextFieldProps {
   label: string;
   placeholder: string;
   helperText: string;
+  type: string;
   maxLetterCount: number;
   readonly?: boolean;
   disabled?: boolean;
-  getFn?: (value: string) => void;
   changeFn?: (value: string) => void;
 }
 
@@ -22,30 +22,30 @@ function TextField({
   maxLetterCount,
   readonly = false,
   disabled = false,
-  getFn,
+  type,
   changeFn,
 }: TextFieldProps) {
-  const [inputValue, setInputValue] = useState('');
   const [letterCount, setLetterCount] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
   const [isError, setIsError] = useState(false);
 
   const handleClickDeleteAll = () => {
-    setInputValue('');
+    if (changeFn) changeFn('');
     setLetterCount(0);
     setIsTyping(false);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputCurrentValue = event.currentTarget.value;
+    if (changeFn) changeFn(inputCurrentValue);
+
     if (inputCurrentValue.length === 0) setIsTyping(false);
     else setIsTyping(true);
-    if (inputCurrentValue.length > 15) setIsError(true);
+
+    if (inputCurrentValue.length >= maxLetterCount) setIsError(true);
     else setIsError(false);
-    setInputValue(inputCurrentValue);
-    if (changeFn) changeFn(inputValue);
+
     setLetterCount(inputCurrentValue.length);
-    if (getFn) getFn(inputCurrentValue);
   };
 
   return (
@@ -57,7 +57,7 @@ function TextField({
           disabled={disabled}
           placeholder={placeholder}
           onChange={handleInputChange}
-          value={inputValue}
+          value={type}
         ></StyledInput>
         {isTyping && (
           <IconWrapper onClick={handleClickDeleteAll}>

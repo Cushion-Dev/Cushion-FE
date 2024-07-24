@@ -15,6 +15,7 @@ interface IDialogProps {
   cancelText: string;
   eventText: string;
   onCancel: () => void;
+  onEvent?: () => void;
 }
 
 const Dialog = ({
@@ -24,6 +25,7 @@ const Dialog = ({
   cancelText,
   eventText,
   onCancel,
+  onEvent,
 }: IDialogProps) => {
   return (
     <DialogContainer>
@@ -34,7 +36,9 @@ const Dialog = ({
       <Divider variant="dialog" />
       <ButtonContainer>
         <Button onClick={onCancel}>{cancelText}</Button>
-        <Button $variant={variant}>{eventText}</Button>
+        <Button onClick={onEvent} $variant={variant}>
+          {eventText}
+        </Button>
       </ButtonContainer>
     </DialogContainer>
   );

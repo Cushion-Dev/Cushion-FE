@@ -46,7 +46,7 @@ function FormInput({
 
 const StyledFormInput = styled.div`
   display: flex;
-  width: 26.25rem;
+  width: 100%;
   padding: 0.5rem 1rem 0.5rem 1rem;
   justify-content: center;
   align-items: center;

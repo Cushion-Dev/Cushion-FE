@@ -33,6 +33,7 @@ function TextField({
     if (changeFn) changeFn('');
     setLetterCount(0);
     setIsTyping(false);
+    setIsError(false);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,8 +78,7 @@ function TextField({
 
 const TextFiledContainer = styled.div`
   display: flex;
-  flex: 1;
-  /* width: 100%; */
+  flex: 1 0 0;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;

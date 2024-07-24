@@ -40,6 +40,14 @@ export const ICONS = {
     check: '/assets/icon/button/check-line.svg',
   },
 
+  loading: {
+    loading1: '/assets/icon/loading/cushion-vector-asset.svg',
+    loading2: '/assets/icon/loading/cushion-vector-asset2.svg',
+    loading3: '/assets/icon/loading/cushion-vector-asset3.svg',
+    loading4: '/assets/icon/loading/cushion-vector-asset4.svg',
+    loading5: '/assets/icon/loading/cushion-vector-asset5.svg',
+  },
+
   copy: '/assets/icon/button-file-copy-2-line.svg',
   search: '/assets/icon/search-line.svg',
   delete: '/assets/icon/button-delete-back-2-fill.svg',

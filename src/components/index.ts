@@ -23,3 +23,4 @@ export { default as CTAButton } from './common/Temporary/CTAButton';
 export { default as MainButton } from './common/Temporary/MainButton';
 
 export { default as Divider } from './common/Divider';
+export { default as DimmedScreen } from './common/DimmedScreen/DimmedScreen';

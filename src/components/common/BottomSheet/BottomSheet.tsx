@@ -34,11 +34,7 @@ interface IMessage {
 function BottomSheet({ type, messageType }: BottomSheetProps) {
   const [isInputsValid, setInputsValid] = useState(false);
   const { selectedCount, resetSelectedCount } = useSelectedStore();
-  console.log('inputvalid ' + isInputsValid);
-  console.log('selected ' + selectedCount);
-  console.log(
-    'combine ' + !isInputsValid && selectedCount !== 1 && selectedCount > 0
-  );
+
   const { title, bannerTitle, bannerDescription, buttonTitle } =
     messageHandler(messageType);
 

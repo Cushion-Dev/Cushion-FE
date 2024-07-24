@@ -9,11 +9,16 @@ interface IMenuProps {
   iconURL: string;
   variant?: FontColor;
   clickFn?: () => void;
+  onClose: () => void;
 }
 
-const Menu = ({ menuName, iconURL, variant, clickFn }: IMenuProps) => {
+const Menu = ({ menuName, iconURL, variant, clickFn, onClose }: IMenuProps) => {
+  const handleClickMenu = () => {
+    if (clickFn) clickFn();
+    onClose();
+  };
   return (
-    <MenuContainer onClick={clickFn}>
+    <MenuContainer onClick={handleClickMenu}>
       <MenuName $variant={variant}>{menuName}</MenuName>
       <MenuIcon src={iconURL} />
     </MenuContainer>

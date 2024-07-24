@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+
 import {
   AppScreen,
   Attach,
@@ -15,6 +17,12 @@ import { semantic } from '../styles/semantic';
 import { ONBOARDING } from '../constants/onboarding';
 
 const Onboarding = () => {
+  const navigate = useNavigate();
+
+  const handleMainButtonClick = () => {
+    navigate('/user-setting');
+  };
+
   return (
     <Container>
       <AppScreen>
@@ -34,7 +42,10 @@ const Onboarding = () => {
         </Viewport>
         <ButtonContainer>
           <CTAButton buttonText="로그인하기" />
-          <MainButton buttonText="쿠션 사용하기" />
+          <MainButton
+            buttonText="쿠션 사용하기"
+            onClick={handleMainButtonClick}
+          />
         </ButtonContainer>
       </AppScreen>
     </Container>

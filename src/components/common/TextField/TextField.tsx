@@ -8,10 +8,11 @@ interface TextFieldProps {
   label: string;
   placeholder: string;
   helperText: string;
+  type: string;
   maxLetterCount: number;
   readonly?: boolean;
   disabled?: boolean;
-  getFn?: (value: string) => void;
+  changeFn?: (value: string) => void;
 }
 
 function TextField({
@@ -21,28 +22,30 @@ function TextField({
   maxLetterCount,
   readonly = false,
   disabled = false,
-  getFn,
+  type,
+  changeFn,
 }: TextFieldProps) {
-  const [inputValue, setInputValue] = useState('');
   const [letterCount, setLetterCount] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
   const [isError, setIsError] = useState(false);
 
   const handleClickDeleteAll = () => {
-    setInputValue('');
+    if (changeFn) changeFn('');
     setLetterCount(0);
     setIsTyping(false);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputCurrentValue = event.currentTarget.value;
+    if (changeFn) changeFn(inputCurrentValue);
+
     if (inputCurrentValue.length === 0) setIsTyping(false);
     else setIsTyping(true);
-    if (inputCurrentValue.length > 15) setIsError(true);
+
+    if (inputCurrentValue.length >= maxLetterCount) setIsError(true);
     else setIsError(false);
-    setInputValue(inputCurrentValue);
+
     setLetterCount(inputCurrentValue.length);
-    if (getFn) getFn(inputCurrentValue);
   };
 
   return (
@@ -54,7 +57,7 @@ function TextField({
           disabled={disabled}
           placeholder={placeholder}
           onChange={handleInputChange}
-          value={inputValue}
+          value={type}
         ></StyledInput>
         {isTyping && (
           <IconWrapper onClick={handleClickDeleteAll}>
@@ -113,6 +116,8 @@ const StyledLabel = styled.label`
 const StyledInput = styled.input<{ disabled: boolean; readOnly: boolean }>`
   display: flex;
   align-items: center;
+  line-height: 2rem;
+  padding-left: 0.625rem;
   flex: 1 0 0;
   border: none;
   font-size: 1.125rem;
@@ -127,14 +132,15 @@ const StyledInput = styled.input<{ disabled: boolean; readOnly: boolean }>`
     ${TYPO.body3}
   }
 
-  ${({ disabled, readOnly }) =>
-    disabled || readOnly
-      ? `background: #eeeeeb`
-      : css`
-          &:hover {
-            background: #eeeeeb;
-          }
-        `}
+  ${({ disabled, readOnly }) => {
+    if (disabled === true || readOnly === true) return `background: #eeeeeb`;
+    else
+      return css`
+        &:hover {
+          background: #e8e8e6;
+        }
+      `;
+  }}
 `;
 
 const HelpContainer = styled.div`

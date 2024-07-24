@@ -3,6 +3,8 @@ import FormInput from '../Form/FormInput';
 import SelectButton from '../Button/SelectButton';
 import { semantic } from '../../../styles/semantic';
 import { TYPO } from '../../../styles/typo';
+import { useNameStore } from '../../../stores/useTextFieldStore';
+import { useEffect } from 'react';
 
 const relationArr = [
   '(조)부모',
@@ -16,12 +18,19 @@ const relationArr = [
   '지인',
 ];
 
-interface MakeChushionProps {
-  getFn: (value: string) => void;
-  checkFn: (value: boolean) => void;
+interface MakeCushionProps {
+  checkValidFn: (value: boolean) => void;
 }
 
-function MakeChushion({ getFn, checkFn }: MakeChushionProps) {
+function MakeCushion({ checkValidFn }: MakeCushionProps) {
+  const { name, setName, isNameValid, setNameValid } = useNameStore();
+  useEffect(() => {
+    setNameValid();
+  }, [name]);
+
+  useEffect(() => {
+    checkValidFn(isNameValid);
+  }, [isNameValid]);
   return (
     <>
       <FormInput
@@ -30,7 +39,8 @@ function MakeChushion({ getFn, checkFn }: MakeChushionProps) {
         extraText='(이)라고 해요'
         helperText='최대 입력 가능한 글자수는 15자 까지에요'
         maxLetterCount={15}
-        getFn={getFn}
+        type={name}
+        changeFn={setName}
       ></FormInput>
       <CategoryContainer>
         <CategoryTitle>
@@ -40,7 +50,7 @@ function MakeChushion({ getFn, checkFn }: MakeChushionProps) {
       </CategoryContainer>
       <CategoryButtonContainer>
         {relationArr.map((item) => (
-          <SelectButton checkFn={checkFn}>{item}</SelectButton>
+          <SelectButton value={item}>{item}</SelectButton>
         ))}
       </CategoryButtonContainer>
     </>
@@ -97,4 +107,4 @@ const CategoryButtonContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-export default MakeChushion;
+export default MakeCushion;

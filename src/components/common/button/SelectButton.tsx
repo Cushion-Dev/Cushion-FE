@@ -7,30 +7,37 @@ import { size, type } from './type';
 import { ReactComponent as SelectIcon } from '../../../../public/assets/icon/button/check-line.svg';
 
 import ButtonInteraction from './interaction/ButtonInteraction';
-// import { ICONS } from '../../../styles/common/icons';
+import { useSelectedStore } from '../../../stores/useSelectButtonStore';
 
 interface SelectButtonProps {
+  value: string;
   size?: size;
   type?: type;
   children: ReactNode;
   disabled?: boolean;
-  checkFn?: (value: boolean) => void;
 }
 
 function SelectButton({
+  value,
   size = 'lg',
   type = 'chip',
   disabled = false,
   children,
-  checkFn,
 }: SelectButtonProps) {
   const [selected, setSelected] = useState(false);
+  const { selectedCount, addSelectedCount, subSelectedCount, setSelectedName } =
+    useSelectedStore();
   const iconColor = iconColorHandler(disabled);
 
   const handleClickButton = () => {
+    if (!selected) {
+      addSelectedCount();
+      setSelectedName(value);
+    } else {
+      subSelectedCount();
+      setSelectedName('');
+    }
     setSelected((prev) => !prev);
-
-    if (checkFn) checkFn(!selected);
   };
   return (
     <SelectButtonWrapper disabled={disabled} onClick={handleClickButton}>
@@ -40,7 +47,11 @@ function SelectButton({
         disabled={disabled}
         selected={selected}
       ></ButtonInteraction>
-      <StyledSelectButton selected={selected} disabled={disabled}>
+      <StyledSelectButton
+        selected={selected}
+        selectedCount={selectedCount}
+        disabled={disabled}
+      >
         {children}
         {selected && <SelectIcon fill={iconColor}></SelectIcon>}
       </StyledSelectButton>
@@ -59,7 +70,10 @@ const SelectButtonWrapper = styled.div<{ disabled: boolean }>`
   ${({ disabled }) => (disabled ? 'cursor: not-allowed' : 'cursor: pointer')}
 `;
 
-const StyledSelectButton = styled.button<{ selected: boolean }>`
+const StyledSelectButton = styled.button<{
+  selected: boolean;
+  selectedCount: number;
+}>`
   padding: 0.625rem 1rem 0.625rem 1rem;
   border-radius: 0.75rem;
   display: flex;
@@ -75,21 +89,21 @@ const StyledSelectButton = styled.button<{ selected: boolean }>`
     cursor: not-allowed;
   }
 
-  ${({ selected }) =>
-    selected
-      ? `background: ${semantic.light.accent.transparent.normal};
-        border: 1px solid ${semantic.light.accent.solid.normal};
-        color: ${semantic.light.accent.solid.normal};
+  ${({ selected, selectedCount }) => {
+    if (selected)
+      return `background: ${semantic.light.accent.transparent.normal};
+        border: 1px solid ${selectedCount > 1 ? semantic.light.feedback.solid.negative : semantic.light.accent.solid.normal};
+        color: ${selectedCount > 1 ? semantic.light.feedback.solid.negative : semantic.light.accent.solid.normal};
         padding: 0.625rem 0.75rem 0.625rem 1rem;
         gap: 6px;
-
-        `
-      : `background: ${semantic.light.fill.transparent.alternative};
+        `;
+    return `background: ${semantic.light.fill.transparent.alternative};
        opacity: 1;
         color: ${semantic.light.object.transparent.alternative};
         border: 1px solid ${semantic.light.fill.transparent.alternative};
 
-        `}
+        `;
+  }}
 `;
 
 export default SelectButton;

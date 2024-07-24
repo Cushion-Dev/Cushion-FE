@@ -6,12 +6,14 @@ import { semantic } from '../../../styles/semantic';
 interface TextFieldProps {
   label: string;
   placeholder: string;
+  type: string;
   helperText: string;
+  extraText: string;
   maxLetterCount: number;
   readonly?: boolean;
   disabled?: boolean;
-  extraText: string;
   getFn?: (value: string) => void;
+  changeFn?: (value: string) => void;
 }
 
 function FormInput({
@@ -22,7 +24,8 @@ function FormInput({
   readonly,
   disabled,
   extraText,
-  getFn,
+  type,
+  changeFn,
 }: TextFieldProps) {
   return (
     <StyledFormInput>
@@ -33,7 +36,8 @@ function FormInput({
         maxLetterCount={maxLetterCount}
         readonly={readonly}
         disabled={disabled}
-        getFn={getFn}
+        type={type}
+        changeFn={changeFn}
       ></TextField>
       <StyledText>{extraText}</StyledText>
     </StyledFormInput>
@@ -42,7 +46,7 @@ function FormInput({
 
 const StyledFormInput = styled.div`
   display: flex;
-  width: 26.25rem;
+  width: 100%;
   padding: 0.5rem 1rem 0.5rem 1rem;
   justify-content: center;
   align-items: center;

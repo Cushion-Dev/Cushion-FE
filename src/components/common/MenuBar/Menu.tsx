@@ -1,14 +1,19 @@
-import { MenuContainer, MenuName, MenuIcon } from '../../../styles/common/MenuBar/Menu';
+import {
+  MenuContainer,
+  MenuName,
+  MenuIcon,
+} from '../../../styles/common/MenuBar/Menu';
 
 interface IMenuProps {
   menuName: string;
   iconURL: string;
   variant?: FontColor;
+  clickFn?: () => void;
 }
 
-const Menu = ({ menuName, iconURL, variant }: IMenuProps) => {
+const Menu = ({ menuName, iconURL, variant, clickFn }: IMenuProps) => {
   return (
-    <MenuContainer>
+    <MenuContainer onClick={clickFn}>
       <MenuName $variant={variant}>{menuName}</MenuName>
       <MenuIcon src={iconURL} />
     </MenuContainer>

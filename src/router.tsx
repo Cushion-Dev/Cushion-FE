@@ -2,18 +2,12 @@ import { createBrowserRouter } from 'react-router-dom';
 import Onboarding from './pages/Onboarding';
 import CreateCushion from './pages/CreateCushion';
 import UserSetting from './pages/UserSetting';
-
-import App from './pages/App';
 import ChatList from './pages/ChatList';
 
 const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([
   {
-    path: '/intro',
-    element: <Onboarding />,
-  },
-  {
     path: '/',
-    element: <App />,
+    element: <Onboarding />,
   },
   {
     path: '/cushion/:id',

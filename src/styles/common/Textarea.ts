@@ -17,7 +17,9 @@ const TextareaContainer = styled.div<{ $isActive: boolean }>`
   border-radius: 0.75rem;
   border: 1px solid
     ${({ $isActive }) =>
-      $isActive ? semantic.light.accent.solid.normal : semantic.light.border.transparent.neutral};
+      $isActive
+        ? semantic.light.accent.solid.normal
+        : semantic.light.border.transparent.neutral};
   background: ${semantic.light.bg.solid.light};
 
   box-sizing: border-box;
@@ -79,6 +81,10 @@ const AddImage = styled.img`
 
   width: 2rem;
   cursor: pointer;
+
+  &:hover {
+    background-color: #f7f7f7;
+  }
 `;
 
 const Send = styled.img`
@@ -89,4 +95,11 @@ const Send = styled.img`
   cursor: pointer;
 `;
 
-export { TextareaContainer, WrapTextArea, TextArea, ButtonContainer, AddImage, Send };
+export {
+  TextareaContainer,
+  WrapTextArea,
+  TextArea,
+  ButtonContainer,
+  AddImage,
+  Send,
+};

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import { TYPO } from '../styles/typo';
 import { semantic } from '../styles/semantic';
@@ -16,6 +16,8 @@ import {
   SystemBubble,
   UserBubble,
   Popover,
+  DimmedScreen,
+  Dialog,
 } from '../components';
 
 import Modal from '../components/common/Modal/Modal';
@@ -28,6 +30,10 @@ const CreateCushion = () => {
     close: makeClose,
   } = useMakeModal();
   const { isOpen: isEditUserOpen, close: editUserClose } = useEditUserModal();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleAddImageClick = () => setIsDialogOpen(true);
+  const handleDialogCancel = () => setIsDialogOpen(false);
 
   useEffect(() => {
     const delay = setTimeout(() => {
@@ -40,37 +46,48 @@ const CreateCushion = () => {
   return (
     <Container>
       <AppScreen>
-        <Navbar type='local' title='홍길동(상사)님과의 쿠션' />
+        <Navbar type="local" title="홍길동(상사)님과의 쿠션" />
         <Viewport>
           <ChatInfoContainer>
             <DateStamp>2024.7.19.금</DateStamp>
             <IntroText>{MESSAGES.introText}</IntroText>
           </ChatInfoContainer>
-          <Divider variant='chat' />
+          <Divider variant="chat" />
           <SystemBubble
-            bubblePage='greeting'
+            bubblePage="greeting"
             bodyText={MESSAGES.systemMessage.startMessage('홍길동(상사)')}
           />
           <UserBubble bodyText={MESSAGES.systemMessage.exampleMessage} />
           <SystemBubble bodyText={MESSAGES.systemMessage.systemExample} />
         </Viewport>
-
         <TextFieldContainer>
           <Popover
-            title='상대방 맞춤 쿠션'
-            bodyText='상대방과의 대화 내역이 있으신가요? 캡처 이미지를 첨부하면, 맞춤형 쿠션을 받을 수 있어요.'
+            title="상대방 맞춤 쿠션"
+            bodyText="상대방과의 대화 내역이 있으신가요? 캡처 이미지를 첨부하면, 맞춤형 쿠션을 받을 수 있어요."
           />
-          <Textarea />
+          <Textarea onAddImageClick={handleAddImageClick} />
         </TextFieldContainer>
         {isMakeOpen && (
-          <Modal type='bottomSheet' onClose={makeClose}>
-            <BottomSheet type='make' messageType='makeCushion'></BottomSheet>
+          <Modal type="bottomSheet" onClose={makeClose}>
+            <BottomSheet type="make" messageType="makeCushion"></BottomSheet>
           </Modal>
         )}
         {isEditUserOpen && (
-          <Modal type='bottomSheet' onClose={editUserClose}>
-            <BottomSheet type='make' messageType='editUser'></BottomSheet>
+          <Modal type="bottomSheet" onClose={editUserClose}>
+            <BottomSheet type="make" messageType="editUser"></BottomSheet>
           </Modal>
+        )}
+        {isDialogOpen && (
+          <DimmedScreen>
+            <Dialog
+              variant="cta"
+              titleText={MESSAGES.dialog.ocr.title}
+              subText={MESSAGES.dialog.ocr.sub}
+              cancelText={MESSAGES.dialog.ocr.cancel}
+              eventText={MESSAGES.dialog.ocr.attach}
+              onCancel={handleDialogCancel}
+            />
+          </DimmedScreen>
         )}
       </AppScreen>
     </Container>

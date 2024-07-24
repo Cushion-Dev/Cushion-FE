@@ -11,7 +11,7 @@ import {
   Send,
 } from '../../styles/common/Textarea';
 
-const Textarea = () => {
+const Textarea = ({ onAddImageClick }: any) => {
   const textareaRef = useRef<HTMLDivElement>(null);
 
   const [isActive, setIsActive] = useState(false);
@@ -33,9 +33,7 @@ const Textarea = () => {
     };
   }, [handleDocumentClick]);
 
-  const handleTextAreaClick = () => {
-    setIsActive(true);
-  };
+  const handleTextAreaClick = () => setIsActive(true);
 
   const handleTextareaChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
@@ -53,7 +51,7 @@ const Textarea = () => {
           onChange={handleTextareaChange}
         />
         <ButtonContainer>
-          <AddImage src={ICONS.textarea.addImage} />
+          <AddImage src={ICONS.textarea.addImage} onClick={onAddImageClick} />
           <Send
             src={
               textareaValue.trim().length > 0

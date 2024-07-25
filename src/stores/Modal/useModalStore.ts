@@ -13,6 +13,16 @@ const createModalStore = (initialState: boolean) =>
     close: () => set({ isOpen: false }),
   }));
 
-export const useEditUserModal = createModalStore(false);
-export const useMakeModal = createModalStore(false);
-export const useEditProfileModal = createModalStore(false);
+const useEditUserModal = createModalStore(false);
+const useMakeModal = createModalStore(false);
+const useEditProfileModal = createModalStore(false);
+const useLogoutDialog = createModalStore(false);
+const useWithdrawDialog = createModalStore(false);
+
+export {
+  useEditUserModal,
+  useMakeModal,
+  useEditProfileModal,
+  useLogoutDialog,
+  useWithdrawDialog,
+};

@@ -7,6 +7,8 @@ import {
 import {
   useEditProfileModal,
   useEditUserModal,
+  useLogoutDialog,
+  useWithdrawDialog,
 } from '../../../stores/Modal/useModalStore';
 
 interface IContextMenu {
@@ -17,6 +19,8 @@ interface IContextMenu {
 const ContextMenu = ({ type, onClose }: IContextMenu) => {
   const { open: editUserOpen } = useEditUserModal();
   const { open: editProflieOpen } = useEditProfileModal();
+  const { open: OpenLogoutDialog } = useLogoutDialog();
+  const { open: OpenWithdrawDialog } = useWithdrawDialog();
 
   return (
     <MenuContainer>
@@ -39,12 +43,14 @@ const ContextMenu = ({ type, onClose }: IContextMenu) => {
           <Menu
             menuName="로그아웃"
             iconURL={ICONS.menu.logout}
-            onClose={onClose}></Menu>
+            onClose={onClose}
+            clickFn={OpenLogoutDialog}></Menu>
           <Menu
             onClose={onClose}
             menuName="회원 탈퇴"
             iconURL={ICONS.menu.quit}
-            variant="withdraw"></Menu>
+            variant="withdraw"
+            clickFn={OpenWithdrawDialog}></Menu>
         </>
       ) : (
         <>

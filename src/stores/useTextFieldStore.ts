@@ -1,10 +1,10 @@
 import { create } from 'zustand';
 
-interface IMember {
-  member: string;
-  isMemberValid: boolean;
-  setMemberValid: () => void;
-  setMember: (value: string) => void;
+interface IAffiliation {
+  affiliation: string;
+  isAffiliationValid: boolean;
+  setAffiliationValid: () => void;
+  setAffiliation: (value: string) => void;
 }
 
 interface IJob {
@@ -21,16 +21,17 @@ interface IName {
   setName: (value: string) => void;
 }
 
-export const useMemberStore = create<IMember>((set, get) => ({
-  member: '',
-  isMemberValid: false,
-  setMemberValid: () => {
-    const currentMember = get().member.length;
-    const isValid = currentMember > 0 && currentMember < 16;
-    if (isValid) set({ isMemberValid: true });
-    else set({ isMemberValid: false });
+export const useAffiliationStore = create<IAffiliation>((set, get) => ({
+  affiliation: '',
+  isAffiliationValid: false,
+  setAffiliationValid: () => {
+    const currentAffiliation = get().affiliation.length;
+    const isValid = currentAffiliation > 0 && currentAffiliation < 16;
+    if (isValid) set({ isAffiliationValid: true });
+    else set({ isAffiliationValid: false });
   },
-  setMember: (updatedMember) => set({ member: updatedMember }),
+  setAffiliation: (updatedAffiliation) =>
+    set({ affiliation: updatedAffiliation }),
 }));
 
 export const useJobStore = create<IJob>((set, get) => ({

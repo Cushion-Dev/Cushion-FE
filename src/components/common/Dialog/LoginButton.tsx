@@ -7,6 +7,8 @@ import {
   Text,
 } from '../../../styles/common/Dialog/LoginButton';
 
+import { API_URI } from '../../../services/api';
+
 interface ILoginButtonProps {
   variant: LoginVariant;
   symbolURL: string;
@@ -14,8 +16,12 @@ interface ILoginButtonProps {
 }
 
 const LoginButton = ({ variant, symbolURL, text }: ILoginButtonProps) => {
+  const handleNaverLogin = () => {
+    window.location.href = `${API_URI}/members/login/oauth2/${variant}`;
+  };
+
   return (
-    <LBContainer $variant={variant}>
+    <LBContainer onClick={handleNaverLogin} $variant={variant}>
       <img src={symbolURL} />
       <WrapText>
         <Text $variant={variant}>{text}</Text>
@@ -28,17 +34,20 @@ const LoginButtons = () => {
   return (
     <ButtonContainer>
       <LoginButton
-        variant="naver"
+        variant='naver'
         symbolURL={ICONS.login.naver}
-        text={MESSAGES.dialog.login.text('네이버')}></LoginButton>
+        text={MESSAGES.dialog.login.text('네이버')}
+      ></LoginButton>
       <LoginButton
-        variant="kakao"
+        variant='kakao'
         symbolURL={ICONS.login.kakao}
-        text={MESSAGES.dialog.login.text('카카오')}></LoginButton>
+        text={MESSAGES.dialog.login.text('카카오')}
+      ></LoginButton>
       <LoginButton
-        variant="google"
+        variant='google'
         symbolURL={ICONS.login.google}
-        text={MESSAGES.dialog.login.text('Google')}></LoginButton>
+        text={MESSAGES.dialog.login.text('Google')}
+      ></LoginButton>
     </ButtonContainer>
   );
 };

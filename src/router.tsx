@@ -14,6 +14,10 @@ const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([
     element: <CreateCushion />,
   },
   {
+    path: '/cushion',
+    element: <CreateCushion />,
+  },
+  {
     path: '/chat-list/:id',
     element: <ChatList></ChatList>,
   },

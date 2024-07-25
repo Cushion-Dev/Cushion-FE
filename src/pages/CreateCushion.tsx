@@ -23,6 +23,16 @@ import {
   Modal,
   BottomSheet,
 } from '../components';
+import { getCookie } from '../utils/cookies';
+import useAuthStore from '../stores/useAuthStore';
+import { useNavigate, useParams } from 'react-router-dom';
+import useUserInfoMutation from '../hooks/useUserInfoMutation';
+
+interface UserInfo {
+  affiliation: string;
+  job: string;
+  realName: string;
+}
 
 const CreateCushion = () => {
   const {
@@ -33,10 +43,34 @@ const CreateCushion = () => {
   const { isOpen: isEditUserOpen, close: editUserClose } = useEditUserModal();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  const { mutate: postInfo } = useUserInfoMutation();
+
+  const { logIn } = useAuthStore();
 
   const handleAddImageClick = () => setIsDialogOpen(true);
   const handleDialogCancel = () => setIsDialogOpen(false);
   const handleLoadingAnimation = () => setIsLoading(true);
+
+  const userInfo: UserInfo = {
+    affiliation: localStorage.getItem('affiliation') || '',
+    job: localStorage.getItem('job') || '',
+    realName: localStorage.getItem('name') || '',
+  };
+
+  if (!id) {
+    const accessToken = getCookie('accessToken');
+
+    if (accessToken) {
+      localStorage.setItem('accessToken', accessToken);
+      logIn();
+      postInfo(userInfo);
+    } else {
+      navigate('/');
+    }
+  }
 
   useEffect(() => {
     const delay = setTimeout(() => {
@@ -49,15 +83,15 @@ const CreateCushion = () => {
   return (
     <Container>
       <AppScreen>
-        <Navbar type="local" title="홍길동(상사)님과의 쿠션" />
+        <Navbar type='local' title='홍길동(상사)님과의 쿠션' />
         <Viewport>
           <ChatInfoContainer>
             <DateStamp>2024.7.19.금</DateStamp>
             <IntroText>{MESSAGES.introText}</IntroText>
           </ChatInfoContainer>
-          <Divider variant="chat" />
+          <Divider variant='chat' />
           <SystemBubble
-            bubblePage="greeting"
+            bubblePage='greeting'
             bodyText={MESSAGES.systemMessage.startMessage('홍길동(상사)')}
           />
           <UserBubble bodyText={MESSAGES.systemMessage.exampleMessage} />
@@ -65,25 +99,25 @@ const CreateCushion = () => {
         </Viewport>
         <TextFieldContainer>
           <Popover
-            title="상대방 맞춤 쿠션"
-            bodyText="상대방과의 대화 내역이 있으신가요? 캡처 이미지를 첨부하면, 맞춤형 쿠션을 받을 수 있어요."
+            title='상대방 맞춤 쿠션'
+            bodyText='상대방과의 대화 내역이 있으신가요? 캡처 이미지를 첨부하면, 맞춤형 쿠션을 받을 수 있어요.'
           />
           <Textarea onAddImageClick={handleAddImageClick} />
         </TextFieldContainer>
         {isMakeOpen && (
-          <Modal type="bottomSheet" onClose={makeClose}>
-            <BottomSheet type="make" messageType="makeCushion"></BottomSheet>
+          <Modal type='bottomSheet' onClose={makeClose}>
+            <BottomSheet type='make' messageType='makeCushion'></BottomSheet>
           </Modal>
         )}
         {isEditUserOpen && (
-          <Modal type="bottomSheet" onClose={editUserClose}>
-            <BottomSheet type="make" messageType="editUser"></BottomSheet>
+          <Modal type='bottomSheet' onClose={editUserClose}>
+            <BottomSheet type='make' messageType='editUser'></BottomSheet>
           </Modal>
         )}
         {isDialogOpen && (
           <DimmedScreen>
             <Dialog
-              variant="cta"
+              variant='cta'
               titleText={MESSAGES.dialog.ocr.title}
               subText={MESSAGES.dialog.ocr.sub}
               cancelText={MESSAGES.dialog.ocr.cancel}

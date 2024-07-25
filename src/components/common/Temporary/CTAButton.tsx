@@ -2,8 +2,13 @@ import styled from 'styled-components';
 import { TYPO } from '../../../styles/typo';
 import { semantic } from '../../../styles/semantic';
 
-const CTAButton = ({ buttonText }: { buttonText: string }) => {
-  return <ButtonContainer>{buttonText}</ButtonContainer>;
+interface ICTAButtonProps {
+  buttonText: string;
+  onClick: () => void;
+}
+
+const CTAButton = ({ buttonText, onClick }: ICTAButtonProps) => {
+  return <ButtonContainer onClick={onClick}>{buttonText}</ButtonContainer>;
 };
 
 export default CTAButton;

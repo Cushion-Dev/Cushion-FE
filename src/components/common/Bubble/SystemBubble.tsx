@@ -16,7 +16,7 @@ import {
 } from '../../../styles/common/Bubble/SystemBubble';
 import Toast from '../Toast';
 
-export type BubblePage = 'example' | 'greeting';
+export type BubblePage = 'example' | 'greeting' | 'default';
 
 interface ISystemBubbleProps {
   bubblePage?: BubblePage;
@@ -45,8 +45,8 @@ const SystemBubble = ({ bubblePage, bodyText }: ISystemBubbleProps) => {
               </BubbleContainer>
             </WrapBubble>
           </MessageSection>
-          {bubblePage !== 'greeting' && (
-            <Copy src={ICONS.copy} onClick={handleCopyClick} /> // 변경된 부분
+          {bubblePage === 'default' && (
+            <Copy src={ICONS.copy} onClick={handleCopyClick} />
           )}
         </Region>
         {bubblePage === 'example' && (

@@ -3,9 +3,14 @@ import { TYPO } from '../../../styles/typo';
 import { semantic } from '../../../styles/semantic';
 import { ICONS } from '../../../styles/common/icons';
 
-const MainButton = ({ buttonText }: { buttonText: string }) => {
+interface IMainButtonProps {
+  buttonText: string;
+  onClick: () => void;
+}
+
+const MainButton = ({ buttonText, onClick }: IMainButtonProps) => {
   return (
-    <ButtonContainer>
+    <ButtonContainer onClick={onClick}>
       {buttonText}
       <ArrowIcon src={ICONS.button.rightArrow} />
     </ButtonContainer>

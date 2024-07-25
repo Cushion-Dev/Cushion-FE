@@ -14,9 +14,13 @@ import {
   Divider,
 } from '../../../styles/common/Dialog/LoginDialog';
 
-const LoginDialog = () => {
+interface ILoginDialogProps {
+  onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
+}
+
+const LoginDialog = ({ onClick }: ILoginDialogProps) => {
   return (
-    <DialogContainer>
+    <DialogContainer onClick={onClick}>
       <WrapLogo>
         <Logo src={ICONS.logo} />
         <LogoImg src={ICONS.logoImage} />

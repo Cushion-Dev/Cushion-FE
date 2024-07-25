@@ -1,8 +1,13 @@
 import styled, { keyframes } from 'styled-components';
 import { semantic } from '../../../styles/semantic';
 
-const DimmedScreen = ({ children }: IChildren) => {
-  return <Screen>{children}</Screen>;
+interface IDimmedScreenProps {
+  children: React.ReactNode;
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
+}
+
+const DimmedScreen = ({ children, onClick }: IDimmedScreenProps) => {
+  return <Screen onClick={onClick}>{children}</Screen>;
 };
 
 export default DimmedScreen;

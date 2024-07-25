@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import useModal from '../hooks/useModal';
 import { semantic } from '../styles/semantic';
+import { TYPO } from '../styles/typo';
 import {
   AppScreen,
   Attach,
@@ -9,31 +10,33 @@ import {
   Container,
   LoginDialog,
   Navbar,
+  DimmedScreen,
+  Callout,
+  Button,
+  Viewport,
 } from '../components';
-import { TYPO } from '../styles/typo';
-import Callout from '../components/common/Dialog/Callout';
-import Button from '../components/common/Button/Button';
-import Modal from '../components/common/Modal/Modal';
-import Viewport from '../components/layout/Viewport';
 import EditProfile from '../components/common/BottomSheet/EditProfile';
 
 function UserSetting() {
   const { isOpen, openModal, closeModal } = useModal();
   const [isInputsValid, setInputsValid] = useState(false);
 
-  const handleClickButton = () => {
-    openModal();
-  };
+  const handleClickButton = () => openModal();
+  const handleDimmedScreenClick = () => closeModal();
 
   const checkInputsValid = (inputsValid: boolean) => {
     setInputsValid(inputsValid);
+  };
+
+  const handleLoginDialogClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
   };
 
   return (
     <Container>
       <AppScreen>
         <UsreSettingContainer>
-          <Navbar type='nomeat' title='사용자 정보 입력'></Navbar>
+          <Navbar type="nomeat" title="사용자 정보 입력"></Navbar>
           <Viewport>
             <DisplayBanner>
               <BannerTitle>
@@ -48,22 +51,21 @@ function UserSetting() {
             <Attach>
               <EditProfile checkValidFn={checkInputsValid}></EditProfile>
             </Attach>
-            <Callout text='사용자님의 정보는 쿠션 만들기에만 환용되니, 안심하고 입력해 주세요.'></Callout>
+            <Callout text="사용자님의 정보는 쿠션 만들기에만 환용되니, 안심하고 입력해 주세요."></Callout>
           </Viewport>
           <ButtonContainer>
             <Button
-              type='cta'
-              size='lg'
+              type="cta"
+              size="lg"
               clickFn={handleClickButton}
-              disabled={!isInputsValid}
-            >
+              disabled={!isInputsValid}>
               정보 입력하기
             </Button>
           </ButtonContainer>
           {isOpen && (
-            <Modal type='modal' onClose={closeModal}>
-              <LoginDialog></LoginDialog>
-            </Modal>
+            <DimmedScreen onClick={handleDimmedScreenClick}>
+              <LoginDialog onClick={handleLoginDialogClick} />
+            </DimmedScreen>
           )}
         </UsreSettingContainer>
       </AppScreen>

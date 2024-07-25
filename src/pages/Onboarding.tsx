@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+
 import {
   AppScreen,
   Attach,
@@ -9,12 +11,31 @@ import {
   Viewport,
   CTAButton,
   MainButton,
+  DimmedScreen,
+  LoginDialog,
 } from '../components';
 import { TYPO } from '../styles/typo';
 import { semantic } from '../styles/semantic';
 import { ONBOARDING } from '../constants/onboarding';
+import useModal from '../hooks/useModal';
 
 const Onboarding = () => {
+  const navigate = useNavigate();
+  const { isOpen, openModal, closeModal } = useModal();
+
+  const handleMainButtonClick = () => navigate('/user-setting');
+
+  const handleClickButton = () => openModal();
+
+  const handleDimmedScreenClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+    closeModal();
+  };
+
+  const handleLoginDialogClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+  };
+
   return (
     <Container>
       <AppScreen>
@@ -33,10 +54,18 @@ const Onboarding = () => {
           </DisplayBanner>
         </Viewport>
         <ButtonContainer>
-          <CTAButton buttonText="로그인하기" />
-          <MainButton buttonText="쿠션 사용하기" />
+          <CTAButton onClick={handleClickButton} buttonText="로그인하기" />
+          <MainButton
+            buttonText="쿠션 사용하기"
+            onClick={handleMainButtonClick}
+          />
         </ButtonContainer>
       </AppScreen>
+      {isOpen && (
+        <DimmedScreen onClick={handleDimmedScreenClick}>
+          <LoginDialog onClick={handleLoginDialogClick} />
+        </DimmedScreen>
+      )}
     </Container>
   );
 };

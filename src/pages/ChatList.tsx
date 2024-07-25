@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { useQuery } from '@tanstack/react-query';
 
 import {
   useEditProfileModal,
@@ -22,6 +23,16 @@ import {
 import { MESSAGES } from '../constants/messages';
 import { semantic } from '../styles/semantic';
 import { ListContainer } from '../styles/common/ListItem/ListItem';
+import { API } from '../services/api';
+import { formatDate } from '../utils/formatDate';
+
+interface IRoom {
+  lastMessage: string;
+  lastUsedAt: string;
+  partnerName: string;
+  relationship: string;
+  roomId: number;
+}
 
 const ChatList = () => {
   const {
@@ -39,6 +50,11 @@ const ChatList = () => {
   const { isOpen: isOpenWithdrawDialog, close: CloseWithdrawDialog } =
     useWithdrawDialog();
 
+  const { data: chatRoomList } = useQuery({
+    queryKey: ['chatRoomList'],
+    queryFn: () => API.get('/chat/rooms').then(({ data }) => data),
+  });
+
   return (
     <Container>
       <AppScreen>
@@ -48,12 +64,16 @@ const ChatList = () => {
         </SearchContainer>
         <Viewport>
           <ListContainer>
-            <ListItem
-              userName="홍길동"
-              relation="상사"
-              timeStamp="오늘"
-              content="오전에 주신 업무 다 완료 했습니다 ! 혹시 오늘 몸 상태가 조금 좋지 않아서 그런데 가능하다면 조금 일찍 들어가도 될지 여쭤봅니다 !"
-            />
+            {chatRoomList &&
+              chatRoomList.map((room: IRoom) => (
+                <ListItem
+                  key={room.roomId}
+                  userName={room.partnerName}
+                  relation={room.relationship}
+                  timeStamp={formatDate(room.lastUsedAt)}
+                  content={room.lastMessage}
+                />
+              ))}
           </ListContainer>
           <FabButton clickFn={makeOpen} />
         </Viewport>

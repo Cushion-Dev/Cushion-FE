@@ -16,12 +16,22 @@ import Button from '../components/common/Button/Button';
 import Modal from '../components/common/Modal/Modal';
 import Viewport from '../components/layout/Viewport';
 import EditProfile from '../components/common/BottomSheet/EditProfile';
+import {
+  useJobStore,
+  useAffiliationStore,
+  useNameStore,
+} from '../stores/useTextFieldStore';
 
 function UserSetting() {
   const { isOpen, openModal, closeModal } = useModal();
   const [isInputsValid, setInputsValid] = useState(false);
-
+  const { name } = useNameStore();
+  const { affiliation } = useAffiliationStore();
+  const { job } = useJobStore();
   const handleClickButton = () => {
+    localStorage.setItem('name', name);
+    localStorage.setItem('job', job);
+    localStorage.setItem('affiliation', affiliation);
     openModal();
   };
 

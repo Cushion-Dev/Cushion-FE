@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import {
   useJobStore,
-  useMemberStore,
+  useAffiliationStore,
   useNameStore,
 } from '../../../stores/useTextFieldStore';
 import FormInput from '../Form/FormInput';
@@ -13,19 +13,25 @@ interface EditProfileProps {
 }
 
 function EditProfile({ checkValidFn, disabled, readonly }: EditProfileProps) {
-  const { member, isMemberValid, setMember, setMemberValid } = useMemberStore();
+  const {
+    affiliation,
+    isAffiliationValid,
+    setAffiliation,
+    setAffiliationValid,
+  } = useAffiliationStore();
   const { job, isJobValid, setJob, setJobValid } = useJobStore();
   const { name, isNameValid, setName, setNameValid } = useNameStore();
 
   useEffect(() => {
-    setMemberValid();
+    setAffiliationValid();
     setJobValid();
     setNameValid();
-  }, [member, job, name]);
+  }, [affiliation, job, name]);
 
   useEffect(() => {
-    if (checkValidFn) checkValidFn(isMemberValid && isJobValid && isNameValid);
-  }, [isMemberValid, isJobValid, isNameValid]);
+    if (checkValidFn)
+      checkValidFn(isAffiliationValid && isJobValid && isNameValid);
+  }, [isAffiliationValid, isJobValid, isNameValid]);
   return (
     <>
       <FormInput
@@ -34,10 +40,10 @@ function EditProfile({ checkValidFn, disabled, readonly }: EditProfileProps) {
         extraText='에서'
         helperText='최대 입력 가능한 글자수는 15자 까지에요'
         maxLetterCount={15}
-        changeFn={setMember}
+        changeFn={setAffiliation}
         disabled={disabled}
         readonly={readonly}
-        type={member}
+        type={affiliation}
       ></FormInput>
       <FormInput
         label='직무'

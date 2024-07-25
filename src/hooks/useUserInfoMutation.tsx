@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
 import { API } from '../services/api';
-import { useNavigate } from 'react-router-dom';
 
 interface UserInfo {
   affiliation: string;

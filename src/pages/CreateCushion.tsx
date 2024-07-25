@@ -27,11 +27,20 @@ import { getCookie } from '../utils/cookies';
 import useAuthStore from '../stores/useAuthStore';
 import { useNavigate, useParams } from 'react-router-dom';
 import useUserInfoMutation from '../hooks/useUserInfoMutation';
+import { useNameStore } from '../stores/useTextFieldStore';
+import { useSelectedStore } from '../stores/useSelectButtonStore';
+import useCreateRoomMutation from '../hooks/useCreateRoomMutation';
+import useTranslateName from '../hooks/useTranslateName';
 
 interface UserInfo {
   affiliation: string;
   job: string;
   realName: string;
+}
+
+interface PartnerInfo {
+  partnerName: string;
+  partnerRel: string;
 }
 
 const CreateCushion = () => {
@@ -47,38 +56,53 @@ const CreateCushion = () => {
   const { id } = useParams();
 
   const { mutate: postInfo } = useUserInfoMutation();
+  const { mutate: createRoom } = useCreateRoomMutation();
+  const { translateToEng } = useTranslateName();
 
   const { logIn } = useAuthStore();
+  const { name } = useNameStore();
+  const { selectedName } = useSelectedStore();
 
   const handleAddImageClick = () => setIsDialogOpen(true);
   const handleDialogCancel = () => setIsDialogOpen(false);
   const handleLoadingAnimation = () => setIsLoading(true);
 
-  const userInfo: UserInfo = {
-    affiliation: localStorage.getItem('affiliation') || '',
-    job: localStorage.getItem('job') || '',
-    realName: localStorage.getItem('name') || '',
-  };
-
   if (!id) {
     const accessToken = getCookie('accessToken');
+
+    const userInfo: UserInfo = {
+      affiliation: localStorage.getItem('affiliation') || '',
+      job: localStorage.getItem('job') || '',
+      realName: localStorage.getItem('name') || '',
+    };
 
     if (accessToken) {
       localStorage.setItem('accessToken', accessToken);
       logIn();
       postInfo(userInfo);
     } else {
-      navigate('/');
+      // navigate('/');
     }
   }
 
   useEffect(() => {
-    const delay = setTimeout(() => {
-      makeOpen();
-    }, 300);
+    if (!id) {
+      const delay = setTimeout(() => {
+        makeOpen();
+      }, 300);
 
-    return () => clearTimeout(delay);
+      return () => clearTimeout(delay);
+    }
   }, []);
+
+  const partnerInfo: PartnerInfo = {
+    partnerName: name,
+    partnerRel: translateToEng(selectedName[0]) ?? '',
+  };
+
+  const handleClickCreateRoom = () => {
+    createRoom(partnerInfo);
+  };
 
   return (
     <Container>
@@ -106,7 +130,11 @@ const CreateCushion = () => {
         </TextFieldContainer>
         {isMakeOpen && (
           <Modal type='bottomSheet' onClose={makeClose}>
-            <BottomSheet type='make' messageType='makeCushion'></BottomSheet>
+            <BottomSheet
+              type='make'
+              messageType='makeCushion'
+              buttonFn={handleClickCreateRoom}
+            ></BottomSheet>
           </Modal>
         )}
         {isEditUserOpen && (

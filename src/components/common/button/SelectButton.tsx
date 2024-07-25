@@ -25,17 +25,22 @@ function SelectButton({
   children,
 }: SelectButtonProps) {
   const [selected, setSelected] = useState(false);
-  const { selectedCount, addSelectedCount, subSelectedCount, setSelectedName } =
-    useSelectedStore();
+  const {
+    selectedCount,
+    addSelectedCount,
+    subSelectedCount,
+    addSelectedName,
+    subSelectedName,
+  } = useSelectedStore();
   const iconColor = iconColorHandler(disabled);
 
   const handleClickButton = () => {
     if (!selected) {
       addSelectedCount();
-      setSelectedName(value);
+      addSelectedName(value);
     } else {
       subSelectedCount();
-      setSelectedName('');
+      subSelectedName(value);
     }
     setSelected((prev) => !prev);
   };
@@ -49,7 +54,7 @@ function SelectButton({
       ></ButtonInteraction>
       <StyledSelectButton
         selected={selected}
-        selectedCount={selectedCount}
+        $selectedCount={selectedCount}
         disabled={disabled}
       >
         {children}
@@ -72,7 +77,7 @@ const SelectButtonWrapper = styled.div<{ disabled: boolean }>`
 
 const StyledSelectButton = styled.button<{
   selected: boolean;
-  selectedCount: number;
+  $selectedCount: number;
 }>`
   padding: 0.625rem 1rem 0.625rem 1rem;
   border-radius: 0.75rem;
@@ -89,11 +94,11 @@ const StyledSelectButton = styled.button<{
     cursor: not-allowed;
   }
 
-  ${({ selected, selectedCount }) => {
+  ${({ selected, $selectedCount }) => {
     if (selected)
       return `background: ${semantic.light.accent.transparent.normal};
-        border: 1px solid ${selectedCount > 1 ? semantic.light.feedback.solid.negative : semantic.light.accent.solid.normal};
-        color: ${selectedCount > 1 ? semantic.light.feedback.solid.negative : semantic.light.accent.solid.normal};
+        border: 1px solid ${$selectedCount > 1 ? semantic.light.feedback.solid.negative : semantic.light.accent.solid.normal};
+        color: ${$selectedCount > 1 ? semantic.light.feedback.solid.negative : semantic.light.accent.solid.normal};
         padding: 0.625rem 0.75rem 0.625rem 1rem;
         gap: 6px;
         `;

@@ -49,8 +49,10 @@ function MakeCushion({ checkValidFn }: MakeCushionProps) {
         </CategoryTitle>
       </CategoryContainer>
       <CategoryButtonContainer>
-        {relationArr.map((item) => (
-          <SelectButton value={item}>{item}</SelectButton>
+        {relationArr.map((item, index) => (
+          <SelectButton key={index} value={item}>
+            {item}
+          </SelectButton>
         ))}
       </CategoryButtonContainer>
     </>

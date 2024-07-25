@@ -22,6 +22,7 @@ import { useSelectedStore } from '../../../stores/useSelectButtonStore';
 interface BottomSheetProps {
   messageType: string;
   type: string;
+  buttonFn?: () => void;
 }
 
 interface IMessage {
@@ -31,7 +32,7 @@ interface IMessage {
   buttonTitle: string;
 }
 
-function BottomSheet({ type, messageType }: BottomSheetProps) {
+function BottomSheet({ type, messageType, buttonFn }: BottomSheetProps) {
   const [isInputsValid, setInputsValid] = useState(false);
   const { selectedCount, resetSelectedCount } = useSelectedStore();
 
@@ -75,6 +76,7 @@ function BottomSheet({ type, messageType }: BottomSheetProps) {
               ? !isInputsValid
               : !isInputsValid || selectedCount > 1 || selectedCount === 0
           }
+          clickFn={buttonFn}
         >
           {buttonTitle}
         </Button>

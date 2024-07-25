@@ -51,7 +51,7 @@ function TextField({
 
   return (
     <TextFiledContainer>
-      <InputWrapper isError={isError} isTyping={isTyping}>
+      <InputWrapper $isError={isError} $isTyping={isTyping}>
         <StyledLabel>{label}</StyledLabel>
         <StyledInput
           readOnly={readonly}
@@ -67,7 +67,7 @@ function TextField({
         )}
       </InputWrapper>
       <HelpContainer>
-        <HelperText isError={isError}>{helperText}</HelperText>
+        <HelperText $isError={isError}>{helperText}</HelperText>
         <LetterCount>
           {letterCount}/{maxLetterCount}
         </LetterCount>
@@ -86,7 +86,7 @@ const TextFiledContainer = styled.div`
   gap: 0;
 `;
 
-const InputWrapper = styled.div<{ isTyping: boolean; isError: boolean }>`
+const InputWrapper = styled.div<{ $isTyping: boolean; $isError: boolean }>`
   position: relative;
   display: flex;
   padding: 0.625rem 0.5rem;
@@ -95,10 +95,11 @@ const InputWrapper = styled.div<{ isTyping: boolean; isError: boolean }>`
   align-self: stretch;
   opacity: 1;
   border-bottom: 0.063rem solid
-    ${({ isTyping, isError }) => {
-      if (isTyping && !isError) return `${semantic.light.accent.solid.normal}`;
-      if (!isTyping) return `${semantic.light.border.transparent.neutral}`;
-      if (isError) return `${semantic.light.feedback.solid.negative}`;
+    ${({ $isTyping, $isError }) => {
+      if ($isTyping && !$isError)
+        return `${semantic.light.accent.solid.normal}`;
+      if (!$isTyping) return `${semantic.light.border.transparent.neutral}`;
+      if ($isError) return `${semantic.light.feedback.solid.negative}`;
     }};
 `;
 
@@ -152,14 +153,14 @@ const HelpContainer = styled.div`
   align-self: stretch;
 `;
 
-const HelperText = styled.p<{ isError: boolean }>`
+const HelperText = styled.p<{ $isError: boolean }>`
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
   flex: 1 0 0;
   overflow: hidden;
-  color: ${({ isError }) =>
-    isError
+  color: ${({ $isError }) =>
+    $isError
       ? `${semantic.light.feedback.solid.negative}`
       : `${semantic.light.object.transparent.assistive}`};
   text-overflow: ellipsis;

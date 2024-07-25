@@ -32,6 +32,8 @@ import { useSelectedStore } from '../stores/useSelectButtonStore';
 import useCreateRoomMutation from '../hooks/useCreateRoomMutation';
 import useTranslateName from '../hooks/useTranslateName';
 import useChatRoomQuery from '../hooks/useChatRoomQuery';
+import { usePartnerStore } from '../stores/usePartnerStore';
+import useEditPartnerInfo from '../hooks/useEditPartnerMutation';
 
 interface UserInfo {
   affiliation: string;
@@ -64,18 +66,40 @@ const CreateCushion = () => {
 
   const { mutate: postInfo } = useUserInfoMutation();
   const { mutate: createRoom } = useCreateRoomMutation();
+  const { mutate: editPartner } = useEditPartnerInfo();
   const { translateToEng } = useTranslateName();
   const { data: roomData, isError } = useChatRoomQuery(id);
 
   const { logIn } = useAuthStore();
   const { name } = useNameStore();
-  const { selectedName } = useSelectedStore();
+  const { selectedName, addSelectedName } = useSelectedStore();
+  const { setPartnerName, setPartnerRel } = usePartnerStore();
+  const { addSelectedCount } = useSelectedStore();
 
   const handleAddImageClick = () => setIsDialogOpen(true);
   const handleDialogCancel = () => setIsDialogOpen(false);
   const handleLoadingAnimation = () => setIsLoading(true);
 
   if (isError) console.log('get room error');
+
+  useEffect(() => {
+    if (roomData) {
+      setPartnerName(roomData?.partnerName);
+      setPartnerRel(roomData?.relationship);
+      addSelectedName(roomData?.relationship);
+      addSelectedCount();
+    }
+  }, [roomData]);
+
+  useEffect(() => {
+    if (!id) {
+      const delay = setTimeout(() => {
+        makeOpen();
+      }, 300);
+
+      return () => clearTimeout(delay);
+    }
+  }, []);
 
   if (!id) {
     const accessToken = getCookie('accessToken');
@@ -91,27 +115,23 @@ const CreateCushion = () => {
       logIn();
       postInfo(userInfo);
     } else {
-      navigate('/');
+      // navigate('/');
     }
   }
-
-  useEffect(() => {
-    if (!id) {
-      const delay = setTimeout(() => {
-        makeOpen();
-      }, 300);
-
-      return () => clearTimeout(delay);
-    }
-  }, []);
 
   const partnerInfo: PartnerInfo = {
     partnerName: name,
     partnerRel: translateToEng(selectedName[0]) ?? '',
   };
 
+  console.log(partnerInfo);
+
   const handleClickCreateRoom = () => {
     createRoom(partnerInfo);
+  };
+
+  const handleClickEditUser = () => {
+    editPartner(partnerInfo);
   };
 
   return (
@@ -162,7 +182,11 @@ const CreateCushion = () => {
         )}
         {isEditUserOpen && (
           <Modal type='bottomSheet' onClose={editUserClose}>
-            <BottomSheet type='make' messageType='editUser'></BottomSheet>
+            <BottomSheet
+              type='make'
+              messageType='editUser'
+              buttonFn={handleClickEditUser}
+            ></BottomSheet>
           </Modal>
         )}
         {isDialogOpen && (

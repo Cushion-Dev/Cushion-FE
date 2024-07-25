@@ -34,7 +34,7 @@ interface IMessage {
 
 function BottomSheet({ type, messageType, buttonFn }: BottomSheetProps) {
   const [isInputsValid, setInputsValid] = useState(false);
-  const { selectedCount, resetSelectedCount } = useSelectedStore();
+  const { selectedCount } = useSelectedStore();
 
   const { title, bannerTitle, bannerDescription, buttonTitle } =
     messageHandler(messageType);
@@ -44,7 +44,7 @@ function BottomSheet({ type, messageType, buttonFn }: BottomSheetProps) {
   };
 
   useEffect(() => {
-    resetSelectedCount();
+    // resetSelectedCount();
   }, []);
 
   return (

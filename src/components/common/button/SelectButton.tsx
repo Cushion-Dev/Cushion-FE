@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 
 import { semantic } from '../../../styles/semantic';
@@ -8,6 +8,7 @@ import { ReactComponent as SelectIcon } from '../../../../public/assets/icon/but
 
 import ButtonInteraction from './interaction/ButtonInteraction';
 import { useSelectedStore } from '../../../stores/useSelectButtonStore';
+import { usePartnerStore } from '../../../stores/usePartnerStore';
 
 interface SelectButtonProps {
   value: string;
@@ -25,6 +26,7 @@ function SelectButton({
   children,
 }: SelectButtonProps) {
   const [selected, setSelected] = useState(false);
+
   const {
     selectedCount,
     addSelectedCount,
@@ -32,33 +34,45 @@ function SelectButton({
     addSelectedName,
     subSelectedName,
   } = useSelectedStore();
+  const { partnerRel, setPartnerRel } = usePartnerStore();
+
   const iconColor = iconColorHandler(disabled);
 
+  useEffect(() => {
+    setSelected(value === partnerRel);
+  }, [partnerRel]);
+
   const handleClickButton = () => {
-    if (!selected) {
-      addSelectedCount();
-      addSelectedName(value);
-    } else {
+    if (selected || value === partnerRel) {
       subSelectedCount();
       subSelectedName(value);
+      if (value === partnerRel) {
+        setPartnerRel('');
+      }
+    } else {
+      addSelectedCount();
+      addSelectedName(value);
     }
     setSelected((prev) => !prev);
   };
+
   return (
     <SelectButtonWrapper disabled={disabled} onClick={handleClickButton}>
       <ButtonInteraction
         size={size}
         type={type}
         disabled={disabled}
-        selected={selected}
+        selected={selected || value === partnerRel}
       ></ButtonInteraction>
       <StyledSelectButton
-        selected={selected}
+        selected={selected || value === partnerRel}
         $selectedCount={selectedCount}
         disabled={disabled}
       >
         {children}
-        {selected && <SelectIcon fill={iconColor}></SelectIcon>}
+        {(selected || value === partnerRel) && (
+          <SelectIcon fill={iconColor}></SelectIcon>
+        )}
       </StyledSelectButton>
     </SelectButtonWrapper>
   );

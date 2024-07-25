@@ -5,6 +5,8 @@ import { semantic } from '../../../styles/semantic';
 import { TYPO } from '../../../styles/typo';
 import { useNameStore } from '../../../stores/useTextFieldStore';
 import { useEffect } from 'react';
+import { usePartnerStore } from '../../../stores/usePartnerStore';
+import { useSelectedStore } from '../../../stores/useSelectButtonStore';
 
 const relationArr = [
   '(조)부모',
@@ -24,6 +26,14 @@ interface MakeCushionProps {
 
 function MakeCushion({ checkValidFn }: MakeCushionProps) {
   const { name, setName, isNameValid, setNameValid } = useNameStore();
+  const { partnerName } = usePartnerStore();
+
+  useEffect(() => {
+    if (partnerName) {
+      setName(partnerName);
+    }
+  }, []);
+
   useEffect(() => {
     setNameValid();
   }, [name]);
@@ -41,6 +51,7 @@ function MakeCushion({ checkValidFn }: MakeCushionProps) {
         maxLetterCount={15}
         type={name}
         changeFn={setName}
+        value={partnerName}
       ></FormInput>
       <CategoryContainer>
         <CategoryTitle>

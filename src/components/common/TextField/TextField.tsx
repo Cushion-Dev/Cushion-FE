@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { css, styled } from 'styled-components';
 import { TYPO } from '../../../styles/typo';
 import { semantic } from '../../../styles/semantic';
@@ -8,6 +8,7 @@ interface TextFieldProps {
   label: string;
   placeholder: string;
   helperText: string;
+  value?: string;
   type: string;
   maxLetterCount: number;
   readonly?: boolean;
@@ -23,11 +24,16 @@ function TextField({
   readonly = false,
   disabled = false,
   type,
+  value,
   changeFn,
 }: TextFieldProps) {
   const [letterCount, setLetterCount] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
   const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    setLetterCount(type.length);
+  }, []);
 
   const handleClickDeleteAll = () => {
     if (changeFn) changeFn('');

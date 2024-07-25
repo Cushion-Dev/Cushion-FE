@@ -26,7 +26,6 @@ const useChatRoomQuery = (roomId: string | undefined) => {
       queryKey: ['room', roomId],
       queryFn: () => getChatRoom(roomId),
     });
-
     return { data, isError, isSuccess };
   }
 

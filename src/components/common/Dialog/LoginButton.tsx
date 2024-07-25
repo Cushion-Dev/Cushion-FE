@@ -6,10 +6,7 @@ import {
   WrapText,
   Text,
 } from '../../../styles/common/Dialog/LoginButton';
-import { useEffect } from 'react';
-import useLogIn from '../../../hooks/useLogIn';
-import useAuthStore from '../../../stores/useAuthStore';
-import useUserInfoMutation from '../../../hooks/useUserInfoMutation';
+
 import { API_URI } from '../../../services/api';
 
 interface ILoginButtonProps {
@@ -18,31 +15,9 @@ interface ILoginButtonProps {
   text: string;
 }
 
-interface UserInfo {
-  affiliation: string;
-  job: string;
-  realName: string;
-}
-
 const LoginButton = ({ variant, symbolURL, text }: ILoginButtonProps) => {
-  const { isError, login } = useLogIn();
-  const { logIn: setLogIn } = useAuthStore();
-  const { mutate: postInfo } = useUserInfoMutation();
-
-  const userInfo: UserInfo = {
-    affiliation: localStorage.getItem('affliation') || '',
-    job: localStorage.getItem('job') || '',
-    realName: localStorage.getItem('name') || '',
-  };
-
-  useEffect(() => {
-    if (isError === false) {
-      setLogIn();
-      postInfo(userInfo);
-    }
-  }, [isError]);
   const handleNaverLogin = () => {
-    window.location.href = `${API_URI}/members/login/oauth2/naver`;
+    window.location.href = `${API_URI}/members/login/oauth2/${variant}`;
   };
 
   return (

@@ -8,8 +8,9 @@ export const API = axios.create({
 
 API.interceptors.request.use(
   (config) => {
-    const accessToken =
-      'AAAAOuEG3TBL-hfZYB1aIAUa4dlYNPVLaw1R6vZtbkRkPncrzM8P7t6qZb1pgXWWz0qpH8QNml43mPdw8CdbmlP8_5I';
+    // 추후 로그인 성공시 로컬스토리지 액세스 토큰으로 교체해야함
+    const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
+
     if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
 
     return config;

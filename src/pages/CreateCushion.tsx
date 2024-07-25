@@ -31,6 +31,7 @@ import { useNameStore } from '../stores/useTextFieldStore';
 import { useSelectedStore } from '../stores/useSelectButtonStore';
 import useCreateRoomMutation from '../hooks/useCreateRoomMutation';
 import useTranslateName from '../hooks/useTranslateName';
+import useChatRoomQuery from '../hooks/useChatRoomQuery';
 
 interface UserInfo {
   affiliation: string;
@@ -41,6 +42,12 @@ interface UserInfo {
 interface PartnerInfo {
   partnerName: string;
   partnerRel: string;
+}
+
+interface Message {
+  messageId: number;
+  senderType: 'BOT' | 'USER';
+  content: string;
 }
 
 const CreateCushion = () => {
@@ -58,6 +65,7 @@ const CreateCushion = () => {
   const { mutate: postInfo } = useUserInfoMutation();
   const { mutate: createRoom } = useCreateRoomMutation();
   const { translateToEng } = useTranslateName();
+  const { data: roomData, isError } = useChatRoomQuery(id);
 
   const { logIn } = useAuthStore();
   const { name } = useNameStore();
@@ -66,6 +74,8 @@ const CreateCushion = () => {
   const handleAddImageClick = () => setIsDialogOpen(true);
   const handleDialogCancel = () => setIsDialogOpen(false);
   const handleLoadingAnimation = () => setIsLoading(true);
+
+  if (isError) console.log('get room error');
 
   if (!id) {
     const accessToken = getCookie('accessToken');
@@ -81,7 +91,7 @@ const CreateCushion = () => {
       logIn();
       postInfo(userInfo);
     } else {
-      // navigate('/');
+      navigate('/');
     }
   }
 
@@ -107,19 +117,32 @@ const CreateCushion = () => {
   return (
     <Container>
       <AppScreen>
-        <Navbar type='local' title='홍길동(상사)님과의 쿠션' />
+        <Navbar
+          type='local'
+          title={`${roomData?.partnerName}(${roomData?.relationship})님과의 쿠션`}
+        />
         <Viewport>
           <ChatInfoContainer>
-            <DateStamp>2024.7.19.금</DateStamp>
+            <DateStamp>{roomData?.createdAt}</DateStamp>
             <IntroText>{MESSAGES.introText}</IntroText>
           </ChatInfoContainer>
           <Divider variant='chat' />
           <SystemBubble
             bubblePage='greeting'
-            bodyText={MESSAGES.systemMessage.startMessage('홍길동(상사)')}
+            bodyText={MESSAGES.systemMessage.startMessage(
+              `${roomData?.partnerName}(${roomData?.relationship})`
+            )}
           />
-          <UserBubble bodyText={MESSAGES.systemMessage.exampleMessage} />
-          <SystemBubble bodyText={MESSAGES.systemMessage.systemExample} />
+          {roomData?.messages.map((message: Message) =>
+            message.senderType === 'BOT' ? (
+              <SystemBubble
+                key={message.messageId}
+                bodyText={message.content}
+              />
+            ) : (
+              <UserBubble key={message.messageId} bodyText={message.content} />
+            )
+          )}
         </Viewport>
         <TextFieldContainer>
           <Popover

@@ -28,6 +28,7 @@ function UserSetting() {
   const { name } = useNameStore();
   const { affiliation } = useAffiliationStore();
   const { job } = useJobStore();
+
   const handleClickButton = () => {
     localStorage.setItem('name', name);
     localStorage.setItem('job', job);

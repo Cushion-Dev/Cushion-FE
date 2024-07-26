@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { css, styled } from 'styled-components';
 import { TYPO } from '../../../styles/typo';
 import { semantic } from '../../../styles/semantic';
@@ -27,17 +27,17 @@ function TextField({
   value,
   changeFn,
 }: TextFieldProps) {
-  const [letterCount, setLetterCount] = useState(0);
+  // const [letterCount, setLetterCount] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  useEffect(() => {
-    setLetterCount(type.length);
-  }, []);
+  // useEffect(() => {
+  //   setLetterCount(type.length);
+  // }, []);
 
   const handleClickDeleteAll = () => {
     if (changeFn) changeFn('');
-    setLetterCount(0);
+    // setLetterCount(0);
     setIsTyping(false);
     setIsError(false);
   };
@@ -52,7 +52,7 @@ function TextField({
     if (inputCurrentValue.length >= maxLetterCount) setIsError(true);
     else setIsError(false);
 
-    setLetterCount(inputCurrentValue.length);
+    // setLetterCount(inputCurrentValue.length);
   };
 
   return (
@@ -74,9 +74,9 @@ function TextField({
       </InputWrapper>
       <HelpContainer>
         <HelperText $isError={isError}>{helperText}</HelperText>
-        <LetterCount>
+        {/* <LetterCount>
           {letterCount}/{maxLetterCount}
-        </LetterCount>
+        </LetterCount> */}
       </HelpContainer>
     </TextFiledContainer>
   );

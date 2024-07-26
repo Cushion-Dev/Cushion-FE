@@ -7,7 +7,6 @@ interface PartnerInfo {
 }
 
 const postCreateRoom = async (partnerInfo: PartnerInfo) => {
-  console.log(partnerInfo);
   await API.post('/chat/rooms', {
     partnerName: partnerInfo.partnerName,
     partnerRel: partnerInfo.partnerRel,
@@ -17,7 +16,9 @@ const postCreateRoom = async (partnerInfo: PartnerInfo) => {
 const useCreateRoomMutation = () => {
   return useMutation({
     mutationFn: (partnerInfo: PartnerInfo) => postCreateRoom(partnerInfo),
-    onSuccess: () => {},
+    onSuccess: (response) => {
+      console.log(response);
+    },
     onError: (error) => {
       console.log('Error posting create room', error);
     },

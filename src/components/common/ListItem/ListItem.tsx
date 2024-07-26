@@ -33,11 +33,11 @@ function ListItem({
   return (
     <ListItemContainer
       disabled={disabled}
-      isChecked={isChecked}
-      isEditing={isEditing}
+      $isChecked={isChecked}
+      $isEditing={isEditing}
       onClick={handleClickItem}
     >
-      <CheckBoxWrapper isEditing={isEditing}>
+      <CheckBoxWrapper $isEditing={isEditing}>
         {isChecked ? (
           <CheckedBoxIcon
             fill={iconColorHandler(disabled, 'checked')}

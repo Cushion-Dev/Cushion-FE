@@ -11,18 +11,18 @@ export const ListContainer = styled.ul`
 `;
 
 export const ListItemContainer = styled.div<{
-  isChecked: boolean;
+  $isChecked: boolean;
   disabled: boolean;
-  isEditing: boolean;
+  $isEditing: boolean;
 }>`
   display: flex;
   width: 30.3125rem;
   padding: 1rem 1.25rem;
   border-radius: 0.75rem;
-  ${({ isEditing }) => isEditing && `gap: 1rem;`}
+  ${({ $isEditing }) => $isEditing && `gap: 1rem;`}
   border: 0.06rem solid
-    ${({ isChecked }) =>
-    isChecked
+    ${({ $isChecked }) =>
+    $isChecked
       ? `${semantic.light.accent.solid.normal}`
       : `${semantic.light.border.transparent.neutral}`};
   background: ${semantic.light.bg.solid.light};

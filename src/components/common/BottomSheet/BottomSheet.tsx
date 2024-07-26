@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { ICONS } from '../../../styles/common/icons';
 import { MESSAGES } from '../../../constants/messages';
@@ -22,6 +22,7 @@ import { useSelectedStore } from '../../../stores/useSelectButtonStore';
 interface BottomSheetProps {
   messageType: string;
   type: string;
+  buttonFn?: () => void;
 }
 
 interface IMessage {
@@ -31,9 +32,9 @@ interface IMessage {
   buttonTitle: string;
 }
 
-function BottomSheet({ type, messageType }: BottomSheetProps) {
+function BottomSheet({ type, messageType, buttonFn }: BottomSheetProps) {
   const [isInputsValid, setInputsValid] = useState(false);
-  const { selectedCount, resetSelectedCount } = useSelectedStore();
+  const { selectedCount } = useSelectedStore();
 
   const { title, bannerTitle, bannerDescription, buttonTitle } =
     messageHandler(messageType);
@@ -41,10 +42,6 @@ function BottomSheet({ type, messageType }: BottomSheetProps) {
   const checkInputsValid = (inputsValid: boolean) => {
     setInputsValid(inputsValid);
   };
-
-  useEffect(() => {
-    resetSelectedCount();
-  }, []);
 
   return (
     <Card>
@@ -75,6 +72,7 @@ function BottomSheet({ type, messageType }: BottomSheetProps) {
               ? !isInputsValid
               : !isInputsValid || selectedCount > 1 || selectedCount === 0
           }
+          clickFn={buttonFn}
         >
           {buttonTitle}
         </Button>

@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 
 import { semantic } from '../../../styles/semantic';
@@ -8,6 +8,7 @@ import { ReactComponent as SelectIcon } from '../../../../public/assets/icon/but
 
 import ButtonInteraction from './interaction/ButtonInteraction';
 import { useSelectedStore } from '../../../stores/useSelectButtonStore';
+import { usePartnerStore } from '../../../stores/usePartnerStore';
 
 interface SelectButtonProps {
   value: string;
@@ -25,35 +26,53 @@ function SelectButton({
   children,
 }: SelectButtonProps) {
   const [selected, setSelected] = useState(false);
-  const { selectedCount, addSelectedCount, subSelectedCount, setSelectedName } =
-    useSelectedStore();
+
+  const {
+    selectedCount,
+    addSelectedCount,
+    subSelectedCount,
+    addSelectedName,
+    subSelectedName,
+  } = useSelectedStore();
+  const { partnerRel, setPartnerRel } = usePartnerStore();
+
   const iconColor = iconColorHandler(disabled);
 
+  useEffect(() => {
+    setSelected(value === partnerRel);
+  }, [partnerRel]);
+
   const handleClickButton = () => {
-    if (!selected) {
-      addSelectedCount();
-      setSelectedName(value);
-    } else {
+    if (selected || value === partnerRel) {
       subSelectedCount();
-      setSelectedName('');
+      subSelectedName(value);
+      if (value === partnerRel) {
+        setPartnerRel('');
+      }
+    } else {
+      addSelectedCount();
+      addSelectedName(value);
     }
     setSelected((prev) => !prev);
   };
+
   return (
     <SelectButtonWrapper disabled={disabled} onClick={handleClickButton}>
       <ButtonInteraction
         size={size}
         type={type}
         disabled={disabled}
-        selected={selected}
+        selected={selected || value === partnerRel}
       ></ButtonInteraction>
       <StyledSelectButton
-        selected={selected}
-        selectedCount={selectedCount}
+        selected={selected || value === partnerRel}
+        $selectedCount={selectedCount}
         disabled={disabled}
       >
         {children}
-        {selected && <SelectIcon fill={iconColor}></SelectIcon>}
+        {(selected || value === partnerRel) && (
+          <SelectIcon fill={iconColor}></SelectIcon>
+        )}
       </StyledSelectButton>
     </SelectButtonWrapper>
   );
@@ -72,7 +91,7 @@ const SelectButtonWrapper = styled.div<{ disabled: boolean }>`
 
 const StyledSelectButton = styled.button<{
   selected: boolean;
-  selectedCount: number;
+  $selectedCount: number;
 }>`
   padding: 0.625rem 1rem 0.625rem 1rem;
   border-radius: 0.75rem;
@@ -89,11 +108,11 @@ const StyledSelectButton = styled.button<{
     cursor: not-allowed;
   }
 
-  ${({ selected, selectedCount }) => {
+  ${({ selected, $selectedCount }) => {
     if (selected)
       return `background: ${semantic.light.accent.transparent.normal};
-        border: 1px solid ${selectedCount > 1 ? semantic.light.feedback.solid.negative : semantic.light.accent.solid.normal};
-        color: ${selectedCount > 1 ? semantic.light.feedback.solid.negative : semantic.light.accent.solid.normal};
+        border: 1px solid ${$selectedCount > 1 ? semantic.light.feedback.solid.negative : semantic.light.accent.solid.normal};
+        color: ${$selectedCount > 1 ? semantic.light.feedback.solid.negative : semantic.light.accent.solid.normal};
         padding: 0.625rem 0.75rem 0.625rem 1rem;
         gap: 6px;
         `;

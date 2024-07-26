@@ -27,11 +27,29 @@ import { getCookie } from '../utils/cookies';
 import useAuthStore from '../stores/useAuthStore';
 import { useNavigate, useParams } from 'react-router-dom';
 import useUserInfoMutation from '../hooks/useUserInfoMutation';
+import { useNameStore } from '../stores/useTextFieldStore';
+import { useSelectedStore } from '../stores/useSelectButtonStore';
+import useCreateRoomMutation from '../hooks/useCreateRoomMutation';
+import useTranslateName from '../hooks/useTranslateName';
+import useChatRoomQuery from '../hooks/useChatRoomQuery';
+import { usePartnerStore } from '../stores/usePartnerStore';
+import useEditPartnerInfo from '../hooks/useEditPartnerMutation';
 
 interface UserInfo {
   affiliation: string;
   job: string;
   realName: string;
+}
+
+interface PartnerInfo {
+  partnerName: string;
+  partnerRel: string;
+}
+
+interface Message {
+  messageId: number;
+  senderType: 'BOT' | 'USER';
+  content: string;
 }
 
 const CreateCushion = () => {
@@ -47,55 +65,102 @@ const CreateCushion = () => {
   const { id } = useParams();
 
   const { mutate: postInfo } = useUserInfoMutation();
+  const { mutate: createRoom } = useCreateRoomMutation();
+  const { mutate: editPartner } = useEditPartnerInfo();
+  const { translateToEng } = useTranslateName();
+  const { data: roomData, isError } = useChatRoomQuery(id);
 
   const { logIn } = useAuthStore();
+  const { name } = useNameStore();
+  const { selectedName, addSelectedName } = useSelectedStore();
+  const { setPartnerName, setPartnerRel } = usePartnerStore();
+  const { addSelectedCount } = useSelectedStore();
 
   const handleAddImageClick = () => setIsDialogOpen(true);
   const handleDialogCancel = () => setIsDialogOpen(false);
   const handleLoadingAnimation = () => setIsLoading(true);
 
-  const userInfo: UserInfo = {
-    affiliation: localStorage.getItem('affiliation') || '',
-    job: localStorage.getItem('job') || '',
-    realName: localStorage.getItem('name') || '',
-  };
+  if (isError) console.log('get room error');
+
+  useEffect(() => {
+    if (roomData) {
+      setPartnerName(roomData?.partnerName);
+      setPartnerRel(roomData?.relationship);
+      addSelectedName(roomData?.relationship);
+      addSelectedCount();
+    }
+  }, [roomData]);
+
+  useEffect(() => {
+    if (!id) {
+      const delay = setTimeout(() => {
+        makeOpen();
+      }, 300);
+
+      return () => clearTimeout(delay);
+    }
+  }, []);
 
   if (!id) {
     const accessToken = getCookie('accessToken');
+
+    const userInfo: UserInfo = {
+      affiliation: localStorage.getItem('affiliation') || '',
+      job: localStorage.getItem('job') || '',
+      realName: localStorage.getItem('name') || '',
+    };
 
     if (accessToken) {
       localStorage.setItem('accessToken', accessToken);
       logIn();
       postInfo(userInfo);
     } else {
-      navigate('/');
+      // navigate('/');
     }
   }
 
-  useEffect(() => {
-    const delay = setTimeout(() => {
-      makeOpen();
-    }, 300);
+  const partnerInfo: PartnerInfo = {
+    partnerName: name,
+    partnerRel: translateToEng(selectedName[0]) ?? '',
+  };
 
-    return () => clearTimeout(delay);
-  }, []);
+  const handleClickCreateRoom = () => {
+    createRoom(partnerInfo);
+  };
+
+  const handleClickEditUser = () => {
+    editPartner(partnerInfo);
+  };
 
   return (
     <Container>
       <AppScreen>
-        <Navbar type='local' title='홍길동(상사)님과의 쿠션' />
+        <Navbar
+          type='local'
+          title={`${roomData?.partnerName}(${roomData?.relationship})님과의 쿠션`}
+        />
         <Viewport>
           <ChatInfoContainer>
-            <DateStamp>2024.7.19.금</DateStamp>
+            <DateStamp>{roomData?.createdAt}</DateStamp>
             <IntroText>{MESSAGES.introText}</IntroText>
           </ChatInfoContainer>
           <Divider variant='chat' />
           <SystemBubble
             bubblePage='greeting'
-            bodyText={MESSAGES.systemMessage.startMessage('홍길동(상사)')}
+            bodyText={MESSAGES.systemMessage.startMessage(
+              `${roomData?.partnerName}(${roomData?.relationship})`
+            )}
           />
-          <UserBubble bodyText={MESSAGES.systemMessage.exampleMessage} />
-          <SystemBubble bodyText={MESSAGES.systemMessage.systemExample} />
+          {roomData?.messages.map((message: Message) =>
+            message.senderType === 'BOT' ? (
+              <SystemBubble
+                key={message.messageId}
+                bodyText={message.content}
+              />
+            ) : (
+              <UserBubble key={message.messageId} bodyText={message.content} />
+            )
+          )}
         </Viewport>
         <TextFieldContainer>
           <Popover
@@ -106,12 +171,20 @@ const CreateCushion = () => {
         </TextFieldContainer>
         {isMakeOpen && (
           <Modal type='bottomSheet' onClose={makeClose}>
-            <BottomSheet type='make' messageType='makeCushion'></BottomSheet>
+            <BottomSheet
+              type='make'
+              messageType='makeCushion'
+              buttonFn={handleClickCreateRoom}
+            ></BottomSheet>
           </Modal>
         )}
         {isEditUserOpen && (
           <Modal type='bottomSheet' onClose={editUserClose}>
-            <BottomSheet type='make' messageType='editUser'></BottomSheet>
+            <BottomSheet
+              type='make'
+              messageType='editUser'
+              buttonFn={handleClickEditUser}
+            ></BottomSheet>
           </Modal>
         )}
         {isDialogOpen && (

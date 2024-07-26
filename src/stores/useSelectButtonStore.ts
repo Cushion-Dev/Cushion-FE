@@ -1,18 +1,24 @@
 import { create } from 'zustand';
 
 interface ISelect {
-  selectedName: string;
+  selectedName: string[];
   selectedCount: number;
-  setSelectedName: (value: string) => void;
+  addSelectedName: (value: string) => void;
+  subSelectedName: (value: string) => void;
   addSelectedCount: () => void;
   subSelectedCount: () => void;
   resetSelectedCount: () => void;
 }
 
 export const useSelectedStore = create<ISelect>((set) => ({
-  selectedName: '',
+  selectedName: [],
   selectedCount: 0,
-  setSelectedName: (updatedName) => set(() => ({ selectedName: updatedName })),
+  addSelectedName: (updatedName) =>
+    set((state) => ({ selectedName: [...state.selectedName, updatedName] })),
+  subSelectedName: (cancelName) =>
+    set((state) => ({
+      selectedName: state.selectedName.filter((name) => name !== cancelName),
+    })),
   addSelectedCount: () =>
     set((state) => ({ selectedCount: state.selectedCount + 1 })),
   subSelectedCount: () =>

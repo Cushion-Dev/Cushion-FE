@@ -21,6 +21,10 @@ function UserSetting() {
   const { isOpen, openModal, closeModal } = useModal();
   const [isInputsValid, setInputsValid] = useState(false);
 
+  const { name } = useNameStore();
+  const { affiliation } = useAffiliationStore();
+  const { job } = useJobStore();
+
   const handleClickButton = () => {
     openModal();
   };

@@ -11,7 +11,6 @@ import {
   AppScreen,
   Container,
   Dialog,
-  DimmedScreen,
   Navbar,
   Viewport,
   BottomSheet,
@@ -65,6 +64,16 @@ const ChatList = () => {
     }
   };
 
+  const handleWithdraw = async () => {
+    try {
+      await API.delete('/members', {
+        withCredentials: true,
+      });
+    } catch (error) {
+      console.log(`회원 탈퇴 실패 ${error}`);
+    }
+  };
+
   return (
     <Container>
       <AppScreen>
@@ -111,7 +120,7 @@ const ChatList = () => {
           </Modal>
         )}
         {isOpenWithdrawDialog && (
-          <DimmedScreen>
+          <Modal type="modal" onClose={makeClose}>
             <Dialog
               variant="negative"
               titleText={MESSAGES.dialog.withdraw.title}
@@ -119,8 +128,9 @@ const ChatList = () => {
               cancelText={MESSAGES.dialog.withdraw.cancel}
               eventText={MESSAGES.dialog.withdraw.withdraw}
               onCancel={CloseWithdrawDialog}
+              onEvent={handleWithdraw}
             />
-          </DimmedScreen>
+          </Modal>
         )}
       </AppScreen>
     </Container>

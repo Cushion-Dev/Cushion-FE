@@ -17,10 +17,10 @@ import {
 interface INavbar {
   type: 'global' | 'local' | 'onboarding' | 'nomeat';
   title?: string;
-  isEditing: boolean;
-  hasCheckedItems: boolean;
-  onClickMenu: () => void;
-  onDelete: () => void;
+  isEditing?: boolean;
+  hasCheckedItems?: boolean;
+  onClickMenu?: () => void;
+  onDelete?: () => void;
 }
 
 const Navbar = ({ type, title, onClickMenu, isEditing, hasCheckedItems, onDelete }: INavbar) => {
@@ -46,7 +46,7 @@ const Navbar = ({ type, title, onClickMenu, isEditing, hasCheckedItems, onDelete
             <LogoImg src={ICONS.logoImage} />
           </WrapLogo>
           {isEditing && (
-            <DeleteText hasCheckedItems={hasCheckedItems} onClick={onDelete}>
+            <DeleteText hasCheckedItems={hasCheckedItems!} onClick={onDelete}>
               선택한 항목 삭제하기
             </DeleteText>
           )}
@@ -81,7 +81,7 @@ const Navbar = ({ type, title, onClickMenu, isEditing, hasCheckedItems, onDelete
         <ContextMenu
           type={type === 'global' || type === 'local' ? type : undefined}
           onClose={handleContextMenuClose}
-          onClickMenu={onClickMenu}
+          onClickMenu={onClickMenu!}
         />
       )}
     </NavContainer>

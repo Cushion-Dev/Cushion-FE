@@ -11,14 +11,19 @@ import {
   MoreButton,
   TitleText,
   BackButton,
+  DeleteText,
 } from '../../styles/common/Navbar';
 
 interface INavbar {
   type: 'global' | 'local' | 'onboarding' | 'nomeat';
   title?: string;
+  isEditing: boolean;
+  hasCheckedItems: boolean;
+  onClickMenu: () => void;
+  onDelete: () => void;
 }
 
-const Navbar = ({ type, title }: INavbar) => {
+const Navbar = ({ type, title, onClickMenu, isEditing, hasCheckedItems, onDelete }: INavbar) => {
   const navigate = useNavigate();
   const [showContextMenu, setShowContextMenu] = useState(false);
 
@@ -40,6 +45,11 @@ const Navbar = ({ type, title }: INavbar) => {
             <Logo src={ICONS.logo} />
             <LogoImg src={ICONS.logoImage} />
           </WrapLogo>
+          {isEditing && (
+            <DeleteText hasCheckedItems={hasCheckedItems} onClick={onDelete}>
+              선택한 항목 삭제하기
+            </DeleteText>
+          )}
           <MoreButton
             src={ICONS.moreButton}
             onClick={handleMoreButtonClick}
@@ -71,6 +81,7 @@ const Navbar = ({ type, title }: INavbar) => {
         <ContextMenu
           type={type === 'global' || type === 'local' ? type : undefined}
           onClose={handleContextMenuClose}
+          onClickMenu={onClickMenu}
         />
       )}
     </NavContainer>

@@ -1,28 +1,41 @@
 import { styled, css } from 'styled-components';
 import { semantic } from '../../semantic';
+import { TYPO } from '../../typo';
 
-export const ListContainer = styled.ul`
+export type ListContainer = 'empty' | 'list';
+
+const ListContainer = styled.ul<{ $variant?: string }>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1rem;
-  flex: 1 0 0;
   align-self: stretch;
+
+  height: 100%;
+
+  ${({ $variant }) => {
+    if ($variant === 'empty')
+      return css`
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-self: stretch;
+      `;
+  }}
 `;
 
-export const ListItemContainer = styled.div<{
-  $isChecked: boolean;
+const ListItemContainer = styled.div<{
+  isChecked: boolean;
   disabled: boolean;
-  $isEditing: boolean;
+  isEditing: boolean;
 }>`
   display: flex;
   width: 30.3125rem;
   padding: 1rem 1.25rem;
   border-radius: 0.75rem;
-  ${({ $isEditing }) => $isEditing && `gap: 1rem;`}
+  ${({ isEditing }) => isEditing && `gap: 1rem;`}
   border: 0.06rem solid
-    ${({ $isChecked }) =>
-    $isChecked
+    ${({ isChecked }) =>
+    isChecked
       ? `${semantic.light.accent.solid.normal}`
       : `${semantic.light.border.transparent.neutral}`};
   background: ${semantic.light.bg.solid.light};
@@ -42,3 +55,36 @@ export const ListItemContainer = styled.div<{
           }
         `}
 `;
+
+const EmptyState = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+
+  gap: 1.5rem;
+  padding: 0.5rem 1rem;
+`;
+
+const EmptyIcon = styled.img`
+  width: 4.5rem;
+  height: 4.5rem;
+`;
+
+const EmptyText = styled.span`
+  display: -webkit-box;
+  width: 25.5rem;
+
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+
+  ${TYPO.body3}
+  color: ${semantic.light.object.transparent.alternative};
+`;
+
+export { ListContainer, ListItemContainer, EmptyState, EmptyIcon, EmptyText };

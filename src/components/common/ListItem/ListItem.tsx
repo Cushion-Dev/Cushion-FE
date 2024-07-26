@@ -15,6 +15,8 @@ interface ListItemProps {
   content: string;
   isEditing?: boolean;
   disabled?: boolean;
+  roomId: number;
+  onCheck?: (roomId: number) => void;
 }
 
 function ListItem({
@@ -24,10 +26,17 @@ function ListItem({
   content,
   isEditing = false,
   disabled = false,
+  onCheck,
+  roomId,
 }: ListItemProps) {
   const [isChecked, setIsChecked] = useState(false);
+
   const handleClickItem = () => {
-    if (isEditing && !disabled) setIsChecked((prev) => !prev);
+    if (isEditing) {
+      setIsChecked((prev) => !prev);
+
+      if (onCheck) onCheck(roomId);
+    }
   };
 
   return (
@@ -35,33 +44,26 @@ function ListItem({
       disabled={disabled}
       $isChecked={isChecked}
       $isEditing={isEditing}
-      onClick={handleClickItem}
-    >
+      onClick={handleClickItem}>
       <CheckBoxWrapper $isEditing={isEditing}>
         {isChecked ? (
-          <CheckedBoxIcon
-            fill={iconColorHandler(disabled, 'checked')}
-          ></CheckedBoxIcon>
+          <CheckedBoxIcon fill={iconColorHandler(disabled, 'checked')}></CheckedBoxIcon>
         ) : (
-          <UnCheckedBoxIcon
-            fill={iconColorHandler(disabled, 'blank')}
-          ></UnCheckedBoxIcon>
+          <UnCheckedBoxIcon fill={iconColorHandler(disabled, 'blank')}></UnCheckedBoxIcon>
         )}
       </CheckBoxWrapper>
       <ListContent
         userName={userName}
         relation={relation}
         timeStamp={timeStamp}
-        content={content}
-      ></ListContent>
+        content={content}></ListContent>
     </ListItemContainer>
   );
 }
 
 const iconColorHandler = (disabled: boolean, type: string) => {
   if (disabled) return semantic.light.object.transparent.disabled;
-  if (!disabled && type === 'blank')
-    return semantic.light.object.transparent.neutral;
+  if (!disabled && type === 'blank') return semantic.light.object.transparent.neutral;
   if (!disabled && type === 'checked') return semantic.light.accent.solid.hero;
 };
 

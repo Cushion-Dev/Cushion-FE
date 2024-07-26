@@ -84,12 +84,23 @@ const BackButton = styled.img`
   }
 `;
 
-export {
-  NavContainer,
-  WrapLogo,
-  Logo,
-  LogoImg,
-  MoreButton,
-  TitleText,
-  BackButton,
-};
+const DeleteText = styled.span<{ hasCheckedItems: boolean }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  margin-right: 1.325rem;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+
+  ${TYPO.label4}
+  color: ${({ hasCheckedItems }) =>
+    hasCheckedItems
+      ? semantic.light.feedback.solid.negative
+      : semantic.light.object.transparent.disabled};
+
+  cursor: pointer;
+`;
+
+export { NavContainer, WrapLogo, Logo, LogoImg, MoreButton, TitleText, BackButton, DeleteText };

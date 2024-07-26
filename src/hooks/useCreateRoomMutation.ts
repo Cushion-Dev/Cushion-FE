@@ -1,5 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { API } from '../services/api';
+import { useNavigate } from 'react-router-dom';
+import { useMakeModal } from '../stores/Modal/useModalStore';
 
 interface PartnerInfo {
   partnerName: string;
@@ -7,17 +9,24 @@ interface PartnerInfo {
 }
 
 const postCreateRoom = async (partnerInfo: PartnerInfo) => {
-  await API.post('/chat/rooms', {
+  const result = await API.post('/chat/rooms', {
     partnerName: partnerInfo.partnerName,
     partnerRel: partnerInfo.partnerRel,
   });
+
+  return result;
 };
 
 const useCreateRoomMutation = () => {
+  const navigate = useNavigate();
+  const { close } = useMakeModal();
+
   return useMutation({
     mutationFn: (partnerInfo: PartnerInfo) => postCreateRoom(partnerInfo),
     onSuccess: (response) => {
-      console.log(response);
+      const roomId = response.data.roomId;
+      close();
+      navigate(`/cushion/${roomId}`);
     },
     onError: (error) => {
       console.log('Error posting create room', error);

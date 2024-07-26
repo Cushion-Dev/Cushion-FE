@@ -21,15 +21,12 @@ const getChatRoom = async (roomId: string): Promise<RoomData> => {
 };
 
 const useChatRoomQuery = (roomId: string | undefined) => {
-  if (roomId) {
-    const { data, isError, isSuccess } = useQuery({
-      queryKey: ['room', roomId],
-      queryFn: () => getChatRoom(roomId),
-    });
-    return { data, isError, isSuccess };
-  }
-
-  return { data: undefined, isError: undefined, isSuccess: undefined };
+  const { data, isError, isSuccess } = useQuery({
+    queryKey: ['room', roomId],
+    queryFn: () => getChatRoom(roomId ?? ''),
+    enabled: !!roomId,
+  });
+  return { data, isError, isSuccess };
 };
 
 export default useChatRoomQuery;

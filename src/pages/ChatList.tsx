@@ -20,6 +20,7 @@ import {
   SearchField,
   ListItem,
 } from '../components';
+
 import { MESSAGES } from '../constants/messages';
 import { semantic } from '../styles/semantic';
 import { ListContainer } from '../styles/common/ListItem/ListItem';
@@ -77,107 +78,108 @@ const ChatList = () => {
       partnerName: name,
       partnerRel: translateToEng(selectedName[0]) || '',
     });
-    
-  const { data: chatRoomList } = useQuery({
-    queryKey: ['chatRoomList'],
-    queryFn: () => API.get('/chat/rooms').then(({ data }) => data),
-  });
 
-  const handleLogout = async () => {
-    try {
-      await API.post('/members/logout', null, {
-        withCredentials: true,
-      });
-    } catch (error) {
-      console.error(`로그아웃 실패 ${error}`);
-    }
+    const { data: chatRoomList } = useQuery({
+      queryKey: ['chatRoomList'],
+      queryFn: () => API.get('/chat/rooms').then(({ data }) => data),
+    });
+
+    const handleLogout = async () => {
+      try {
+        await API.post('/members/logout', null, {
+          withCredentials: true,
+        });
+      } catch (error) {
+        console.error(`로그아웃 실패 ${error}`);
+      }
+    };
+
+    const handleWithdraw = async () => {
+      try {
+        await API.delete('/members', {
+          withCredentials: true,
+        });
+      } catch (error) {
+        console.log(`회원 탈퇴 실패 ${error}`);
+      }
+    };
+
+    return (
+      <Container>
+        <AppScreen>
+          <Navbar type='global' />
+          <SearchContainer>
+            <SearchField placeholderText='상대방 이름을 검색해보세요...' />
+          </SearchContainer>
+          <Viewport>
+            <ListContainer>
+              <ListItem
+                userName='홍길동'
+                relation='상사'
+                timeStamp='오늘'
+                content='오전에 주신 업무 다 완료 했습니다 ! 혹시 오늘 몸 상태가 조금 좋지 않아서 그런데 가능하다면 조금 일찍 들어가도 될지 여쭤봅니다 !'
+              />
+              {chatRoomList &&
+                chatRoomList.map((room: IRoom) => (
+                  <ListItem
+                    key={room.roomId}
+                    userName={room.partnerName}
+                    relation={room.relationship}
+                    timeStamp={formatDate(room.lastUsedAt)}
+                    content={room.lastMessage}
+                  />
+                ))}
+            </ListContainer>
+            <FabButton clickFn={makeOpen} />
+          </Viewport>
+          {isMakeOpen && (
+            <Modal type='bottomSheet' onClose={makeClose}>
+              <BottomSheet
+                type='make'
+                messageType='makeCushion'
+                buttonFn={handleClickMakeCushion}
+              ></BottomSheet>
+            </Modal>
+          )}
+          {isEditProfileOpen && (
+            <Modal type='bottomSheet' onClose={editProfileClose}>
+              <BottomSheet
+                type='edit'
+                messageType='editProfile'
+                buttonFn={handleClickEditProfile}
+              ></BottomSheet>
+            </Modal>
+          )}
+          {isOpenLogoutDialog && (
+            <Modal type='modal' onClose={makeClose}>
+              <Dialog
+                variant='cta'
+                titleText={MESSAGES.dialog.logout.title}
+                subText={MESSAGES.dialog.logout.sub}
+                cancelText={MESSAGES.dialog.logout.cancel}
+                eventText={MESSAGES.dialog.logout.logout}
+                onCancel={CloseLogoutDialog}
+                onEvent={handleLogout}
+              />
+            </Modal>
+          )}
+          {isOpenWithdrawDialog && (
+            <Modal type='modal' onClose={makeClose}>
+              <Dialog
+                variant='negative'
+                titleText={MESSAGES.dialog.withdraw.title}
+                subText={MESSAGES.dialog.withdraw.sub}
+                cancelText={MESSAGES.dialog.withdraw.cancel}
+                eventText={MESSAGES.dialog.withdraw.withdraw}
+                onCancel={CloseWithdrawDialog}
+                onEvent={handleWithdraw}
+              />
+            </Modal>
+          )}
+        </AppScreen>
+      </Container>
+    );
   };
-
-  const handleWithdraw = async () => {
-    try {
-      await API.delete('/members', {
-        withCredentials: true,
-      });
-    } catch (error) {
-      console.log(`회원 탈퇴 실패 ${error}`);
-    }
-  };
-
-  return (
-    <Container>
-      <AppScreen>
-        <Navbar type='global' />
-        <SearchContainer>
-          <SearchField placeholderText='상대방 이름을 검색해보세요...' />
-        </SearchContainer>
-        <Viewport>
-          <ListContainer>
-            <ListItem
-              userName='홍길동'
-              relation='상사'
-              timeStamp='오늘'
-              content='오전에 주신 업무 다 완료 했습니다 ! 혹시 오늘 몸 상태가 조금 좋지 않아서 그런데 가능하다면 조금 일찍 들어가도 될지 여쭤봅니다 !'
-            />
-            {chatRoomList &&
-              chatRoomList.map((room: IRoom) => (
-                <ListItem
-                  key={room.roomId}
-                  userName={room.partnerName}
-                  relation={room.relationship}
-                  timeStamp={formatDate(room.lastUsedAt)}
-                  content={room.lastMessage}
-                />
-              ))}
-          </ListContainer>
-          <FabButton clickFn={makeOpen} />
-        </Viewport>
-        {isMakeOpen && (
-          <Modal type='bottomSheet' onClose={makeClose}>
-            <BottomSheet
-              type='make'
-              messageType='makeCushion'
-              buttonFn={handleClickMakeCushion}
-            ></BottomSheet>
-          </Modal>
-        )}
-        {isEditProfileOpen && (
-          <Modal type='bottomSheet' onClose={editProfileClose}>
-            <BottomSheet
-              type='edit'
-              messageType='editProfile'
-              buttonFn={handleClickEditProfile}
-            ></BottomSheet>
-          </Modal>
-        )}
-        {isOpenLogoutDialog && (
-          <Modal type="modal" onClose={makeClose}>
-            <Dialog
-              variant='cta'
-              titleText={MESSAGES.dialog.logout.title}
-              subText={MESSAGES.dialog.logout.sub}
-              cancelText={MESSAGES.dialog.logout.cancel}
-              eventText={MESSAGES.dialog.logout.logout}
-              onCancel={CloseLogoutDialog}
-              onEvent={handleLogout}
-            />
-          </Modal>
-        )}
-        {isOpenWithdrawDialog && (
-          <Modal type="modal" onClose={makeClose}>
-            <Dialog
-              variant='negative'
-              titleText={MESSAGES.dialog.withdraw.title}
-              subText={MESSAGES.dialog.withdraw.sub}
-              cancelText={MESSAGES.dialog.withdraw.cancel}
-              eventText={MESSAGES.dialog.withdraw.withdraw}
-              onCancel={CloseWithdrawDialog}
-              onEvent={handleWithdraw}
-            />
-          </Modal>
-        )}
-      </AppScreen>
-    </Container>
-  );
 };
 
 const SearchContainer = styled.div`

@@ -74,7 +74,6 @@ const CreateCushion = () => {
   const { name } = useNameStore();
   const { selectedName, addSelectedName } = useSelectedStore();
   const { setPartnerName, setPartnerRel } = usePartnerStore();
-  const { addSelectedCount } = useSelectedStore();
 
   const handleAddImageClick = () => setIsDialogOpen(true);
   const handleDialogCancel = () => setIsDialogOpen(false);
@@ -84,12 +83,11 @@ const CreateCushion = () => {
 
   useEffect(() => {
     if (roomData) {
-      setPartnerName(roomData?.partnerName);
-      setPartnerRel(roomData?.relationship);
-      addSelectedName(roomData?.relationship);
-      addSelectedCount();
+      setPartnerName(roomData.partnerName);
+      setPartnerRel(roomData.relationship);
+      addSelectedName(roomData.relationship);
     }
-  }, [roomData]);
+  }, [roomData?.partnerName, roomData?.relationship]);
 
   useEffect(() => {
     if (!id) {
@@ -151,16 +149,20 @@ const CreateCushion = () => {
               `${roomData?.partnerName}(${roomData?.relationship})`
             )}
           />
-          {roomData?.messages.map((message: Message) =>
-            message.senderType === 'BOT' ? (
-              <SystemBubble
-                key={message.messageId}
-                bodyText={message.content}
-              />
-            ) : (
-              <UserBubble key={message.messageId} bodyText={message.content} />
-            )
-          )}
+          {roomData &&
+            roomData?.messages.map((message: Message) =>
+              message.senderType === 'BOT' ? (
+                <SystemBubble
+                  key={message.messageId}
+                  bodyText={message.content}
+                />
+              ) : (
+                <UserBubble
+                  key={message.messageId}
+                  bodyText={message.content}
+                />
+              )
+            )}
         </Viewport>
         <TextFieldContainer>
           <Popover

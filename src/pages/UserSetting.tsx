@@ -16,6 +16,11 @@ import Button from '../components/common/Button/Button';
 import Modal from '../components/common/Modal/Modal';
 import Viewport from '../components/layout/Viewport';
 import EditProfile from '../components/common/BottomSheet/EditProfile';
+import {
+  useNameStore,
+  useAffiliationStore,
+  useJobStore,
+} from '../stores/useTextFieldStore';
 
 function UserSetting() {
   const { isOpen, openModal, closeModal } = useModal();
@@ -37,7 +42,7 @@ function UserSetting() {
     <Container>
       <AppScreen>
         <UsreSettingContainer>
-          <Navbar type="nomeat" title="사용자 정보 입력"></Navbar>
+          <Navbar type='nomeat' title='사용자 정보 입력'></Navbar>
           <Viewport>
             <DisplayBanner>
               <BannerTitle>
@@ -52,19 +57,20 @@ function UserSetting() {
             <Attach>
               <EditProfile checkValidFn={checkInputsValid}></EditProfile>
             </Attach>
-            <Callout text="사용자님의 정보는 쿠션 만들기에만 환용되니, 안심하고 입력해 주세요."></Callout>
+            <Callout text='사용자님의 정보는 쿠션 만들기에만 환용되니, 안심하고 입력해 주세요.'></Callout>
           </Viewport>
           <ButtonContainer>
             <Button
-              type="cta"
-              size="lg"
+              type='cta'
+              size='lg'
               clickFn={handleClickButton}
-              disabled={!isInputsValid}>
+              disabled={!isInputsValid}
+            >
               정보 입력하기
             </Button>
           </ButtonContainer>
           {isOpen && (
-            <Modal type="modal" onClose={closeModal}>
+            <Modal type='modal' onClose={closeModal}>
               <LoginDialog />
             </Modal>
           )}

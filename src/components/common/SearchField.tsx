@@ -9,7 +9,12 @@ import {
   DeleteIcon,
 } from '../../styles/common/SearchField';
 
-const SearchField = ({ placeholderText }: { placeholderText: string }) => {
+interface ISearchFieldProps {
+  placeholderText: string;
+  onSearch: (query: string) => void;
+}
+
+const SearchField = ({ placeholderText, onSearch }: ISearchFieldProps) => {
   const [inputValue, setInputValue] = useState('');
   const [showDeleteIcon, setShowDeleteIcon] = useState(false);
 
@@ -18,18 +23,18 @@ const SearchField = ({ placeholderText }: { placeholderText: string }) => {
 
     setInputValue(newInputValue);
     setShowDeleteIcon(newInputValue.length > 0);
+    onSearch(newInputValue);
   };
 
   const handleClearInput = () => {
     setInputValue('');
     setShowDeleteIcon(false);
+    onSearch('');
   };
 
   useEffect(() => {
     const handleDocumentClick = (event: MouseEvent) => {
-      const searchField = (event.target as HTMLElement).closest(
-        '.search-field'
-      );
+      const searchField = (event.target as HTMLElement).closest('.search-field');
 
       if (!searchField) setShowDeleteIcon(false);
     };
@@ -45,14 +50,8 @@ const SearchField = ({ placeholderText }: { placeholderText: string }) => {
     <SearchContainer className="search-field">
       <WrapSearch>
         <SearchIcon src={ICONS.search} />
-        <Search
-          value={inputValue}
-          onChange={handleInputChange}
-          placeholder={placeholderText}
-        />
-        {showDeleteIcon && (
-          <DeleteIcon src={ICONS.delete} onClick={() => handleClearInput()} />
-        )}
+        <Search value={inputValue} onChange={handleInputChange} placeholder={placeholderText} />
+        {showDeleteIcon && <DeleteIcon src={ICONS.delete} onClick={() => handleClearInput()} />}
       </WrapSearch>
     </SearchContainer>
   );

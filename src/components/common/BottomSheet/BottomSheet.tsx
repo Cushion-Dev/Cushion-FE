@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { ICONS } from '../../../styles/common/icons';
 import { MESSAGES } from '../../../constants/messages';
@@ -42,10 +42,6 @@ function BottomSheet({ type, messageType, buttonFn }: BottomSheetProps) {
   const checkInputsValid = (inputsValid: boolean) => {
     setInputsValid(inputsValid);
   };
-
-  useEffect(() => {
-    // resetSelectedCount();
-  }, []);
 
   return (
     <Card>

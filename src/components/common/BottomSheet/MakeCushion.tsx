@@ -6,7 +6,6 @@ import { TYPO } from '../../../styles/typo';
 import { useNameStore } from '../../../stores/useTextFieldStore';
 import { useEffect } from 'react';
 import { usePartnerStore } from '../../../stores/usePartnerStore';
-import { useSelectedStore } from '../../../stores/useSelectButtonStore';
 
 const relationArr = [
   '(조)부모',

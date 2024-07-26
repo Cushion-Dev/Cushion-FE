@@ -21,9 +21,9 @@ const useUserInfoMutation = () => {
   return useMutation({
     mutationFn: (userInfo: UserInfo) => postUserInfo(userInfo),
     onSuccess: () => {
-      localStorage.removeItem('affiliation');
-      localStorage.removeItem('job');
-      localStorage.removeItem('name');
+      // localStorage.removeItem('affiliation');
+      // localStorage.removeItem('job');
+      // localStorage.removeItem('name');
     },
     onError: (error) => {
       console.log('Error posting user info', error);

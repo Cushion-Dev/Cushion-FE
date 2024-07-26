@@ -22,6 +22,24 @@ function EditProfile({ checkValidFn, disabled, readonly }: EditProfileProps) {
   const { job, isJobValid, setJob, setJobValid } = useJobStore();
   const { name, isNameValid, setName, setNameValid } = useNameStore();
 
+  const currentAffiliation = localStorage.getItem('affiliation');
+  const currentJob = localStorage.getItem('job');
+  const currentName = localStorage.getItem('name');
+
+  const resetInputFied = () => {
+    if (currentAffiliation && currentJob && currentName) {
+      setAffiliation(currentAffiliation);
+      setJob(currentJob);
+      setName(currentName);
+    }
+  };
+
+  useEffect(() => {
+    resetInputFied;
+
+    return resetInputFied;
+  }, []);
+
   useEffect(() => {
     setAffiliationValid();
     setJobValid();

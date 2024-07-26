@@ -55,6 +55,16 @@ const ChatList = () => {
     queryFn: () => API.get('/chat/rooms').then(({ data }) => data),
   });
 
+  const handleLogout = async () => {
+    try {
+      await API.post('/members/logout', null, {
+        withCredentials: true,
+      });
+    } catch (error) {
+      console.error(`로그아웃 실패 ${error}`);
+    }
+  };
+
   return (
     <Container>
       <AppScreen>
@@ -88,7 +98,7 @@ const ChatList = () => {
           </Modal>
         )}
         {isOpenLogoutDialog && (
-          <DimmedScreen>
+          <Modal type="modal" onClose={makeClose}>
             <Dialog
               variant="cta"
               titleText={MESSAGES.dialog.logout.title}
@@ -96,8 +106,9 @@ const ChatList = () => {
               cancelText={MESSAGES.dialog.logout.cancel}
               eventText={MESSAGES.dialog.logout.logout}
               onCancel={CloseLogoutDialog}
+              onEvent={handleLogout}
             />
-          </DimmedScreen>
+          </Modal>
         )}
         {isOpenWithdrawDialog && (
           <DimmedScreen>

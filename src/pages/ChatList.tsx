@@ -49,6 +49,7 @@ interface IRoom {
 const ChatList = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const { mutate: editProfile } = useEditProfileInfo();
   const { mutate: makeCushion } = useCreateRoomMutation();
@@ -73,34 +74,37 @@ const ChatList = () => {
       partnerName: name,
       partnerRel: translateToEng(selectedName[0]) || '',
     });
-
   };
+
+  const handleSearch = (query: string) => setSearchQuery(query);
 
   const { data: chatList = [], refetch } = useQuery({
     queryKey: ['chatList'],
     queryFn: () => API.get('/chat/rooms').then(({ data }) => data),
   });
 
+  const { data: searchResults = [] } = useQuery({
+    queryKey: ['searchResults', searchQuery],
+    queryFn: () => API.get(`/chat/rooms/search?query=${searchQuery}`).then(({ data }) => data),
+    enabled: searchQuery.length > 0,
+  });
+
   const handleLogout = async () => {
     try {
-      await API.post('/members/logout', null, {
-        withCredentials: true,
-      });
+      await API.post('/members/logout', null);
     } catch (error) {
       console.error(`로그아웃 실패 ${error}`);
     }
   };
 
-    const handleWithdraw = async () => {
-      try {
-        await API.delete('/members', {
-          withCredentials: true,
-        });
-      } catch (error) {
-        console.log(`회원 탈퇴 실패 ${error}`);
-      }
-    };
-      
+  const handleWithdraw = async () => {
+    try {
+      await API.delete('/members');
+    } catch (error) {
+      console.log(`회원 탈퇴 실패 ${error}`);
+    }
+  };
+
   const hasCheckedItems = checkedItems.length > 0;
 
   const handleCheckItem = (roomId: number) => {
@@ -136,31 +140,56 @@ const ChatList = () => {
           onDelete={handleDelete}
         />
         <SearchContainer>
-          <SearchField placeholderText="상대방 이름을 검색해보세요..." />
+          <SearchField placeholderText="상대방 이름을 검색해보세요..." onSearch={handleSearch} />
         </SearchContainer>
         <Viewport>
-          <ListContainer $variant={chatList.length === 0 ? 'empty' : 'list'}>
-            {chatList.length > 0 ? (
-              chatList.map((room: IRoom) => (
-                <ListItem
-                  key={room.roomId}
-                  userName={room.partnerName}
-                  relation={room.relationship}
-                  timeStamp={formatDate(room.lastUsedAt)}
-                  content={room.lastMessage}
-                  roomId={room.roomId}
-                  isEditing={isEditing}
-                  onCheck={handleCheckItem}
-                  disabled={false}
-                />
-              ))
-            ) : (
-              <EmptyState>
-                <EmptyIcon src={ICONS.loading.loading2} />
-                <EmptyText>{MESSAGES.emptyMessage}</EmptyText>
-              </EmptyState>
-            )}
-          </ListContainer>
+          {searchQuery.length > 0 ? (
+            <ListContainer $variant={searchResults.length === 0 ? 'empty' : 'list'}>
+              {searchResults.length > 0 ? (
+                searchResults.map((room: IRoom) => (
+                  <ListItem
+                    key={room.roomId}
+                    userName={room.partnerName}
+                    relation={room.relationship}
+                    timeStamp={formatDate(room.lastUsedAt)}
+                    content={room.lastMessage}
+                    roomId={room.roomId}
+                    isEditing={isEditing}
+                    onCheck={handleCheckItem}
+                    disabled={false}
+                  />
+                ))
+              ) : (
+                <EmptyState>
+                  <EmptyIcon src={ICONS.loading.loading2} />
+                  <EmptyText>{MESSAGES.emptyMessage.search}</EmptyText>
+                </EmptyState>
+              )}
+            </ListContainer>
+          ) : (
+            <ListContainer $variant={chatList.length === 0 ? 'empty' : 'list'}>
+              {chatList.length > 0 ? (
+                chatList.map((room: IRoom) => (
+                  <ListItem
+                    key={room.roomId}
+                    userName={room.partnerName}
+                    relation={room.relationship}
+                    timeStamp={formatDate(room.lastUsedAt)}
+                    content={room.lastMessage}
+                    roomId={room.roomId}
+                    isEditing={isEditing}
+                    onCheck={handleCheckItem}
+                    disabled={false}
+                  />
+                ))
+              ) : (
+                <EmptyState>
+                  <EmptyIcon src={ICONS.loading.loading2} />
+                  <EmptyText>{MESSAGES.emptyMessage.empty}</EmptyText>
+                </EmptyState>
+              )}
+            </ListContainer>
+          )}
           <FabButton clickFn={makeOpen} />
         </Viewport>
         {isMakeOpen && (

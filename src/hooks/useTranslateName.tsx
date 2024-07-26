@@ -6,6 +6,8 @@ const useTranslateName = () => {
       case '형제/자매':
         return 'SIBLING';
       case '배우자':
+        return 'SPOUSE';
+      case '자녀':
         return 'CHILDREN';
       case '친구':
         return 'FREIND';

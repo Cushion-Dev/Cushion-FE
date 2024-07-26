@@ -29,9 +29,14 @@ import {
   useNameStore,
 } from '../stores/useTextFieldStore';
 import useEditProfileInfo from '../hooks/useEditPorfileMutation';
+import useCreateRoomMutation from '../hooks/useCreateRoomMutation';
+import { useSelectedStore } from '../stores/useSelectButtonStore';
+import useTranslateName from '../hooks/useTranslateName';
 
 const ChatList = () => {
   const { mutate: editProfile } = useEditProfileInfo();
+  const { mutate: makeCushion } = useCreateRoomMutation();
+  const { translateToEng } = useTranslateName();
 
   const {
     isOpen: isMakeOpen,
@@ -51,9 +56,17 @@ const ChatList = () => {
   const { name } = useNameStore();
   const { job } = useJobStore();
   const { affiliation } = useAffiliationStore();
+  const { selectedName } = useSelectedStore();
 
   const handleClickEditProfile = () => {
     editProfile({ affiliation: affiliation, job: job, realName: name });
+  };
+
+  const handleClickMakeCushion = () => {
+    makeCushion({
+      partnerName: name,
+      partnerRel: translateToEng(selectedName[0]) || '',
+    });
   };
 
   return (
@@ -76,7 +89,11 @@ const ChatList = () => {
         </Viewport>
         {isMakeOpen && (
           <Modal type='bottomSheet' onClose={makeClose}>
-            <BottomSheet type='make' messageType='makeCushion'></BottomSheet>
+            <BottomSheet
+              type='make'
+              messageType='makeCushion'
+              buttonFn={handleClickMakeCushion}
+            ></BottomSheet>
           </Modal>
         )}
         {isEditProfileOpen && (

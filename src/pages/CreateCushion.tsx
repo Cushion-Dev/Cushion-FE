@@ -124,8 +124,6 @@ const CreateCushion = () => {
     partnerRel: translateToEng(selectedName[0]) ?? '',
   };
 
-  console.log(partnerInfo);
-
   const handleClickCreateRoom = () => {
     createRoom(partnerInfo);
   };

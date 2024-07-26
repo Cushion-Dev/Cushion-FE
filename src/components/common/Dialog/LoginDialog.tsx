@@ -15,7 +15,7 @@ import {
 } from '../../../styles/common/Dialog/LoginDialog';
 
 interface ILoginDialogProps {
-  onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 const LoginDialog = ({ onClick }: ILoginDialogProps) => {

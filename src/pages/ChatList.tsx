@@ -26,6 +26,7 @@ import {
   SearchField,
   ListItem,
 } from '../components';
+
 import { MESSAGES } from '../constants/messages';
 import { semantic } from '../styles/semantic';
 import { useAffiliationStore, useJobStore, useNameStore } from '../stores/useTextFieldStore';
@@ -72,6 +73,7 @@ const ChatList = () => {
       partnerName: name,
       partnerRel: translateToEng(selectedName[0]) || '',
     });
+
   };
 
   const { data: chatList = [], refetch } = useQuery({
@@ -89,16 +91,16 @@ const ChatList = () => {
     }
   };
 
-  const handleWithdraw = async () => {
-    try {
-      await API.delete('/members', {
-        withCredentials: true,
-      });
-    } catch (error) {
-      console.log(`회원 탈퇴 실패 ${error}`);
-    }
-  };
-
+    const handleWithdraw = async () => {
+      try {
+        await API.delete('/members', {
+          withCredentials: true,
+        });
+      } catch (error) {
+        console.log(`회원 탈퇴 실패 ${error}`);
+      }
+    };
+      
   const hasCheckedItems = checkedItems.length > 0;
 
   const handleCheckItem = (roomId: number) => {

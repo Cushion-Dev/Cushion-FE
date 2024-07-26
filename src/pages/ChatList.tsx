@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { useQuery } from '@tanstack/react-query';
 
 import {
   useEditProfileModal,
@@ -11,7 +12,6 @@ import {
   AppScreen,
   Container,
   Dialog,
-  DimmedScreen,
   Navbar,
   Viewport,
   BottomSheet,
@@ -32,6 +32,16 @@ import useEditProfileInfo from '../hooks/useEditPorfileMutation';
 import useCreateRoomMutation from '../hooks/useCreateRoomMutation';
 import { useSelectedStore } from '../stores/useSelectButtonStore';
 import useTranslateName from '../hooks/useTranslateName';
+import { API } from '../services/api';
+import { formatDate } from '../utils/formatDate';
+
+interface IRoom {
+  lastMessage: string;
+  lastUsedAt: string;
+  partnerName: string;
+  relationship: string;
+  roomId: number;
+}
 
 const ChatList = () => {
   const { mutate: editProfile } = useEditProfileInfo();
@@ -67,6 +77,30 @@ const ChatList = () => {
       partnerName: name,
       partnerRel: translateToEng(selectedName[0]) || '',
     });
+    
+  const { data: chatRoomList } = useQuery({
+    queryKey: ['chatRoomList'],
+    queryFn: () => API.get('/chat/rooms').then(({ data }) => data),
+  });
+
+  const handleLogout = async () => {
+    try {
+      await API.post('/members/logout', null, {
+        withCredentials: true,
+      });
+    } catch (error) {
+      console.error(`로그아웃 실패 ${error}`);
+    }
+  };
+
+  const handleWithdraw = async () => {
+    try {
+      await API.delete('/members', {
+        withCredentials: true,
+      });
+    } catch (error) {
+      console.log(`회원 탈퇴 실패 ${error}`);
+    }
   };
 
   return (
@@ -84,6 +118,16 @@ const ChatList = () => {
               timeStamp='오늘'
               content='오전에 주신 업무 다 완료 했습니다 ! 혹시 오늘 몸 상태가 조금 좋지 않아서 그런데 가능하다면 조금 일찍 들어가도 될지 여쭤봅니다 !'
             />
+            {chatRoomList &&
+              chatRoomList.map((room: IRoom) => (
+                <ListItem
+                  key={room.roomId}
+                  userName={room.partnerName}
+                  relation={room.relationship}
+                  timeStamp={formatDate(room.lastUsedAt)}
+                  content={room.lastMessage}
+                />
+              ))}
           </ListContainer>
           <FabButton clickFn={makeOpen} />
         </Viewport>
@@ -106,7 +150,7 @@ const ChatList = () => {
           </Modal>
         )}
         {isOpenLogoutDialog && (
-          <DimmedScreen>
+          <Modal type="modal" onClose={makeClose}>
             <Dialog
               variant='cta'
               titleText={MESSAGES.dialog.logout.title}
@@ -114,11 +158,12 @@ const ChatList = () => {
               cancelText={MESSAGES.dialog.logout.cancel}
               eventText={MESSAGES.dialog.logout.logout}
               onCancel={CloseLogoutDialog}
+              onEvent={handleLogout}
             />
-          </DimmedScreen>
+          </Modal>
         )}
         {isOpenWithdrawDialog && (
-          <DimmedScreen>
+          <Modal type="modal" onClose={makeClose}>
             <Dialog
               variant='negative'
               titleText={MESSAGES.dialog.withdraw.title}
@@ -126,8 +171,9 @@ const ChatList = () => {
               cancelText={MESSAGES.dialog.withdraw.cancel}
               eventText={MESSAGES.dialog.withdraw.withdraw}
               onCancel={CloseWithdrawDialog}
+              onEvent={handleWithdraw}
             />
-          </DimmedScreen>
+          </Modal>
         )}
       </AppScreen>
     </Container>

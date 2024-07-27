@@ -68,6 +68,7 @@ const ChatList = () => {
 
   useEffect(() => {
     const accessToken = getCookie('accessToken');
+    console.log(accessToken);
     if (accessToken) localStorage.setItem('accessToken', accessToken);
   }, []);
 

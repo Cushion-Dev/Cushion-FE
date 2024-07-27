@@ -1,6 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { createPortal } from 'react-dom';
+import { semantic } from '../../../styles/semantic';
 
 interface ModalProps {
   children: React.ReactNode;
@@ -11,11 +12,31 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ children, type, onClose }) => {
   return createPortal(
     <ModalOverlay type={type} onClick={onClose}>
-      <div onClick={(e) => e.stopPropagation()}>{children}</div>
+      <ContentWrapper onClick={(e) => e.stopPropagation()}>
+        {children}
+      </ContentWrapper>
     </ModalOverlay>,
     document.body
   );
 };
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
+const slideIn = keyframes`
+  0% {
+      transform: translateY(100%);
+    }
+  100% {
+    transform: translateY(0);
+  }
+`;
 
 const ModalOverlay = styled.div<{ type: ModalProps['type'] }>`
   width: 32.5rem;
@@ -29,10 +50,15 @@ const ModalOverlay = styled.div<{ type: ModalProps['type'] }>`
       ? `padding: 17.8125rem 2rem 17.75rem 2rem; justify-content: center;`
       : `padding-top: 15.25rem; justify-content: flex-end`};
 
-  background: rgba(0, 0, 0, 0.43);
+  background: ${semantic.light.bg.transparent.dimmed};
   display: flex;
   flex-direction: column;
   align-items: center;
+  animation: ${fadeIn} 0.3s ease-in-out;
+`;
+
+const ContentWrapper = styled.div`
+  animation: ${slideIn} 240ms ease-in;
 `;
 
 export default Modal;

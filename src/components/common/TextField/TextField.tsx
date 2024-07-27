@@ -24,7 +24,6 @@ function TextField({
   readonly = false,
   disabled = false,
   type,
-  value,
   changeFn,
 }: TextFieldProps) {
   // const [letterCount, setLetterCount] = useState(0);
@@ -64,8 +63,7 @@ function TextField({
           disabled={disabled}
           placeholder={placeholder}
           onChange={handleInputChange}
-          value={type}
-        ></StyledInput>
+          value={type}></StyledInput>
         {isTyping && (
           <IconWrapper onClick={handleClickDeleteAll}>
             <DeleteAllIcon></DeleteAllIcon>
@@ -102,8 +100,7 @@ const InputWrapper = styled.div<{ $isTyping: boolean; $isError: boolean }>`
   opacity: 1;
   border-bottom: 0.063rem solid
     ${({ $isTyping, $isError }) => {
-      if ($isTyping && !$isError)
-        return `${semantic.light.accent.solid.normal}`;
+      if ($isTyping && !$isError) return `${semantic.light.accent.solid.normal}`;
       if (!$isTyping) return `${semantic.light.border.transparent.neutral}`;
       if ($isError) return `${semantic.light.feedback.solid.negative}`;
     }};
@@ -174,16 +171,16 @@ const HelperText = styled.p<{ $isError: boolean }>`
   ${TYPO.caption2}
 `;
 
-const LetterCount = styled.p`
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  overflow: hidden;
-  color: ${semantic.light.object.transparent.assistive};
-  text-overflow: ellipsis;
+// const LetterCount = styled.p`
+//   display: -webkit-box;
+//   -webkit-box-orient: vertical;
+//   -webkit-line-clamp: 1;
+//   overflow: hidden;
+//   color: ${semantic.light.object.transparent.assistive};
+//   text-overflow: ellipsis;
 
-  ${TYPO.caption2}
-`;
+//   ${TYPO.caption2}
+// `;
 
 const IconWrapper = styled.button`
   position: absolute;

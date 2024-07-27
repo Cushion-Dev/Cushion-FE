@@ -79,6 +79,7 @@ const ChatList = () => {
 
   useEffect(() => {
     const accessToken = getCookie('accessToken');
+    console.log(accessToken);
     if (accessToken) localStorage.setItem('accessToken', accessToken);
   }, []);
 
@@ -95,11 +96,7 @@ const ChatList = () => {
 
   const handleSearch = (query: string) => setSearchQuery(query);
 
-  const {
-    data: chatList = [],
-    refetch,
-    isSuccess,
-  } = useQuery({
+  const { data: chatList = [], refetch } = useQuery({
     queryKey: ['chatList'],
     queryFn: () => API.get('/chat/rooms').then(({ data }) => data),
   });

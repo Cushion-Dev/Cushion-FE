@@ -20,9 +20,15 @@ interface IPopoverProps {
 
 const Popover = ({ title, bodyText }: IPopoverProps) => {
   const [isVisible, setIsVisible] = useState(true);
+  const [isChecked, setIsChecked] = useState(false);
 
   const handleCloseClick = () => {
     setIsVisible(false);
+    if (isChecked) localStorage.setItem('isChecked', String(isChecked));
+  };
+
+  const checkIsChecked = (isChecked: boolean) => {
+    setIsChecked(isChecked);
   };
 
   return (
@@ -35,7 +41,7 @@ const Popover = ({ title, bodyText }: IPopoverProps) => {
         <WrapContent>
           <ContentContainer>
             <BodyText>{bodyText}</BodyText>
-            <Checkbox caption="체크박스 캡션" />
+            <Checkbox caption='체크박스 캡션' onClick={checkIsChecked} />
           </ContentContainer>
         </WrapContent>
         <Pin>

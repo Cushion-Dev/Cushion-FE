@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 
 import {
@@ -41,6 +41,7 @@ import useTranslateName from '../hooks/useTranslateName';
 import { API } from '../services/api';
 import { formatDate } from '../utils/formatDate';
 import { ICONS } from '../styles/common/icons';
+import { getCookie } from '../utils/cookies';
 
 interface IRoom {
   lastMessage: string;
@@ -76,6 +77,11 @@ const ChatList = () => {
   const { affiliation } = useAffiliationStore();
   const { selectedName } = useSelectedStore();
 
+  useEffect(() => {
+    const accessToken = getCookie('accessToken');
+    if (accessToken) localStorage.setItem('accessToken', accessToken);
+  }, []);
+
   const handleClickEditProfile = () => {
     editProfile({ affiliation: affiliation, job: job, realName: name });
   };
@@ -89,7 +95,11 @@ const ChatList = () => {
 
   const handleSearch = (query: string) => setSearchQuery(query);
 
-  const { data: chatList = [], refetch } = useQuery({
+  const {
+    data: chatList = [],
+    refetch,
+    isSuccess,
+  } = useQuery({
     queryKey: ['chatList'],
     queryFn: () => API.get('/chat/rooms').then(({ data }) => data),
   });

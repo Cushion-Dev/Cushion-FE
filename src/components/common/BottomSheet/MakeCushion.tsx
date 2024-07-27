@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import FormInput from '../Form/FormInput';
-import SelectButton from '../Button/SelectButton';
+import SelectButton from '../button/SelectButton';
 import { semantic } from '../../../styles/semantic';
 import { TYPO } from '../../../styles/typo';
 import { useNameStore } from '../../../stores/useTextFieldStore';

@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import FormInput from '../Form/FormInput';
-import SelectButton from '../Button/SelectButton';
+import SelectButton from '../button/SelectButton';
 import { semantic } from '../../../styles/semantic';
 import { TYPO } from '../../../styles/typo';
 import { useNameStore } from '../../../stores/useTextFieldStore';
@@ -44,15 +44,14 @@ function MakeCushion({ checkValidFn }: MakeCushionProps) {
   return (
     <>
       <FormInput
-        label='이름'
-        placeholder='홍길동'
-        extraText='(이)라고 해요'
-        helperText='최대 입력 가능한 글자수는 15자 까지에요'
+        label="이름"
+        placeholder="홍길동"
+        extraText="(이)라고 해요"
+        helperText="최대 입력 가능한 글자수는 15자 까지에요"
         maxLetterCount={15}
         type={name}
         changeFn={setName}
-        value={partnerName}
-      ></FormInput>
+        value={partnerName}></FormInput>
       <CategoryContainer>
         <CategoryTitle>
           <CategoryLabel>관계</CategoryLabel>

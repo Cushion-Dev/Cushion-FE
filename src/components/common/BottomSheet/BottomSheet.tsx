@@ -4,7 +4,7 @@ import { ICONS } from '../../../styles/common/icons';
 import { MESSAGES } from '../../../constants/messages';
 
 import Attach from '../Attach/Attach';
-import Button from '../Button/Button';
+import Button from '../button/Button';
 import MakeCushion from './MakeCushion';
 import EditProfile from './EditProfile';
 import Viewport from '../../layout/Viewport';

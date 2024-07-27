@@ -5,7 +5,7 @@ import { semantic } from '../styles/semantic';
 import { AppScreen, Attach, ButtonContainer, Container, LoginDialog, Navbar } from '../components';
 import { TYPO } from '../styles/typo';
 import Callout from '../components/common/Dialog/Callout';
-import Button from '../components/common/Button/Button';
+import Button from '../components/common/button/Button';
 import Modal from '../components/common/Modal/Modal';
 import Viewport from '../components/layout/Viewport';
 import EditProfile from '../components/common/BottomSheet/EditProfile';

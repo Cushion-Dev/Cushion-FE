@@ -35,5 +35,5 @@ export { default as LoadingBanner } from './common/Screen/LoadingBanner';
 
 export { default as ListItem } from './common/ListItem/ListItem';
 
-export { default as Button } from './common/Button/Button';
-export { default as FabButton } from './common/Button/FabButton';
+export { default as Button } from './common/button/Button';
+export { default as FabButton } from './common/button/FabButton';

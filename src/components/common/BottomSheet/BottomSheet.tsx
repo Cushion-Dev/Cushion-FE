@@ -4,7 +4,7 @@ import { ICONS } from '../../../styles/common/icons';
 import { MESSAGES } from '../../../constants/messages';
 
 import Attach from '../Attach/Attach';
-import Button from '../Button/Button';
+import Button from '../button/Button';
 import MakeCushion from './MakeCushion';
 import EditProfile from './EditProfile';
 import Viewport from '../../layout/Viewport';
@@ -36,8 +36,7 @@ function BottomSheet({ type, messageType, buttonFn }: BottomSheetProps) {
   const [isInputsValid, setInputsValid] = useState(false);
   const { selectedCount } = useSelectedStore();
 
-  const { title, bannerTitle, bannerDescription, buttonTitle } =
-    messageHandler(messageType);
+  const { title, bannerTitle, bannerDescription, buttonTitle } = messageHandler(messageType);
 
   const checkInputsValid = (inputsValid: boolean) => {
     setInputsValid(inputsValid);
@@ -55,25 +54,20 @@ function BottomSheet({ type, messageType, buttonFn }: BottomSheetProps) {
           <BannerDescription>{bannerDescription}</BannerDescription>
         </DisplayBanner>
         <Attach>
-          {type === 'make' && (
-            <MakeCushion checkValidFn={checkInputsValid}></MakeCushion>
-          )}
-          {type === 'edit' && (
-            <EditProfile checkValidFn={checkInputsValid}></EditProfile>
-          )}
+          {type === 'make' && <MakeCushion checkValidFn={checkInputsValid}></MakeCushion>}
+          {type === 'edit' && <EditProfile checkValidFn={checkInputsValid}></EditProfile>}
         </Attach>
       </Viewport>
       <ButtonContainer>
         <Button
-          type='cta'
-          size='lg'
+          type="cta"
+          size="lg"
           disabled={
             type === 'edit'
               ? !isInputsValid
               : !isInputsValid || selectedCount > 1 || selectedCount === 0
           }
-          clickFn={buttonFn}
-        >
+          clickFn={buttonFn}>
           {buttonTitle}
         </Button>
       </ButtonContainer>

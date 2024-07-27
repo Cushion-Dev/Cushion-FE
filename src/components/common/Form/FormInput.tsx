@@ -40,8 +40,7 @@ function FormInput({
         disabled={disabled}
         type={type}
         changeFn={changeFn}
-        value={value}
-      ></TextField>
+        value={value}></TextField>
       <StyledText>{extraText}</StyledText>
     </StyledFormInput>
   );

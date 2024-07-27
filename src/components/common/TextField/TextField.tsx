@@ -8,7 +8,6 @@ interface TextFieldProps {
   label: string;
   placeholder: string;
   helperText: string;
-  value?: string;
   type: string;
   maxLetterCount: number;
   readonly?: boolean;
@@ -24,7 +23,6 @@ function TextField({
   readonly = false,
   disabled = false,
   type,
-  value,
   changeFn,
 }: TextFieldProps) {
   // const [letterCount, setLetterCount] = useState(0);

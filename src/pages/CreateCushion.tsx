@@ -32,7 +32,7 @@ import {
 } from '../components';
 import { getCookie } from '../utils/cookies';
 import useAuthStore from '../stores/useAuthStore';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import useUserInfoMutation from '../hooks/useUserInfoMutation';
 import { useNameStore } from '../stores/useTextFieldStore';
 import { useSelectedStore } from '../stores/useSelectButtonStore';

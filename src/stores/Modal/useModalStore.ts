@@ -18,6 +18,10 @@ const useMakeModal = createModalStore(false);
 const useEditProfileModal = createModalStore(false);
 const useLogoutDialog = createModalStore(false);
 const useWithdrawDialog = createModalStore(false);
+const useMessageLoading = createModalStore(false);
+const useOcrLoading = createModalStore(false);
+const usePersonalityLoading = createModalStore(false);
+const useLoginDialog = createModalStore(false);
 
 export {
   useEditUserModal,
@@ -25,4 +29,8 @@ export {
   useEditProfileModal,
   useLogoutDialog,
   useWithdrawDialog,
+  useMessageLoading,
+  useOcrLoading,
+  usePersonalityLoading,
+  useLoginDialog,
 };

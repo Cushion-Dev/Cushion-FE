@@ -23,7 +23,14 @@ interface INavbar {
   onDelete?: () => void;
 }
 
-const Navbar = ({ type, title, onClickMenu, isEditing, hasCheckedItems, onDelete }: INavbar) => {
+const Navbar = ({
+  type,
+  title,
+  onClickMenu,
+  isEditing,
+  hasCheckedItems = false,
+  onDelete,
+}: INavbar) => {
   const navigate = useNavigate();
   const [showContextMenu, setShowContextMenu] = useState(false);
 

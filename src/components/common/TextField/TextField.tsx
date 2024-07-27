@@ -24,6 +24,7 @@ function TextField({
   readonly = false,
   disabled = false,
   type,
+  value,
   changeFn,
 }: TextFieldProps) {
   // const [letterCount, setLetterCount] = useState(0);
@@ -170,17 +171,6 @@ const HelperText = styled.p<{ $isError: boolean }>`
 
   ${TYPO.caption2}
 `;
-
-// const LetterCount = styled.p`
-//   display: -webkit-box;
-//   -webkit-box-orient: vertical;
-//   -webkit-line-clamp: 1;
-//   overflow: hidden;
-//   color: ${semantic.light.object.transparent.assistive};
-//   text-overflow: ellipsis;
-
-//   ${TYPO.caption2}
-// `;
 
 const IconWrapper = styled.button`
   position: absolute;

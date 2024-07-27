@@ -21,8 +21,7 @@ export const ICONS = {
   },
 
   popover: {
-    blankCheck:
-      '/assets/icon/popover/checkbox-button-checkbox-blank-circle-line.svg',
+    blankCheck: '/assets/icon/popover/checkbox-button-checkbox-blank-circle-line.svg',
     fillCheck: '/assets/icon/popover/checkbox-button-checkbox-circle-fill.svg',
     close: '/assets/icon/popover/popover-button-close-line.svg',
     pin: '/assets/icon/popover/popover-pin-vector.svg',
@@ -46,6 +45,7 @@ export const ICONS = {
     loading3: '/assets/icon/loading/cushion-vector-asset3.svg',
     loading4: '/assets/icon/loading/cushion-vector-asset4.svg',
     loading5: '/assets/icon/loading/cushion-vector-asset5.svg',
+    loading6: '/assets/icon/loading/cushionVectorAsset.svg',
   },
 
   copy: '/assets/icon/button-file-copy-2-line.svg',

@@ -1,7 +1,23 @@
+import { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
-const Viewport = ({ children }: IChildren) => {
-  return <ViewportContainer>{children}</ViewportContainer>;
+interface ViewPortProps {
+  children: React.ReactNode;
+  type?: string;
+}
+
+const Viewport = ({ children, type }: ViewPortProps) => {
+  const viewportRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (type === 'chat' && viewportRef.current) {
+      viewportRef.current.scrollTop = viewportRef.current.scrollHeight;
+    }
+  }, [children]);
+
+  return (
+    <ViewportContainer ref={type === 'chat' ? viewportRef : null}>{children}</ViewportContainer>
+  );
 };
 
 export default Viewport;
@@ -12,6 +28,7 @@ const ViewportContainer = styled.div`
   align-items: center;
   align-self: stretch;
   position: relative;
+  overflow: scroll;
 
   gap: 2rem;
   flex: 1 0 0;

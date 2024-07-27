@@ -4,6 +4,7 @@ import {
   CCallout,
   InfoIcon,
   CalloutText,
+  Terms,
 } from '../../../styles/common/Dialog/Callout';
 
 interface CalloutProps {

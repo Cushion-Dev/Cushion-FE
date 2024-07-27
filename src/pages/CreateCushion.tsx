@@ -5,7 +5,14 @@ import { TYPO } from '../styles/typo';
 import { semantic } from '../styles/semantic';
 import { MESSAGES } from '../constants/messages';
 
-import { useEditUserModal, useMakeModal } from '../stores/Modal/useModalStore';
+import {
+  useEditUserModal,
+  useMakeModal,
+  useMessageLoading,
+  useOcrLoading,
+  usePersonalityLoading,
+} from '../stores/Modal/useModalStore';
+
 import {
   Container,
   AppScreen,
@@ -25,7 +32,7 @@ import {
 } from '../components';
 import { getCookie } from '../utils/cookies';
 import useAuthStore from '../stores/useAuthStore';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useUserInfoMutation from '../hooks/useUserInfoMutation';
 import { useNameStore } from '../stores/useTextFieldStore';
 import { useSelectedStore } from '../stores/useSelectButtonStore';
@@ -34,6 +41,7 @@ import useTranslateName from '../hooks/useTranslateName';
 import useChatRoomQuery from '../hooks/useChatRoomQuery';
 import { usePartnerStore } from '../stores/usePartnerStore';
 import useEditPartnerInfo from '../hooks/useEditPartnerMutation';
+import OcrLoadingBanner from '../components/common/Screen/OcrLoadingBanner';
 
 interface UserInfo {
   affiliation: string;
@@ -54,9 +62,7 @@ interface Message {
 
 const CreateCushion = () => {
   const { isOpen: isMakeOpen, open: makeOpen, close: makeClose } = useMakeModal();
-  const { isOpen: isEditUserOpen, close: editUserClose } = useEditUserModal();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
 
   const { mutate: postInfo } = useUserInfoMutation();
@@ -72,7 +78,11 @@ const CreateCushion = () => {
 
   const handleAddImageClick = () => setIsDialogOpen(true);
   const handleDialogCancel = () => setIsDialogOpen(false);
-  const handleLoadingAnimation = () => setIsLoading(true);
+
+  const { isOpen: isEditUserOpen, close: editUserClose } = useEditUserModal();
+  const { isOpen: isMessageLooadingOpen } = useMessageLoading();
+  const { isOpen: isOcrLoadingOpen } = useOcrLoading();
+  const { isOpen: isPersonalityLoadingOpen } = usePersonalityLoading();
 
   if (isError) console.log('get room error');
 
@@ -132,18 +142,12 @@ const CreateCushion = () => {
           type="local"
           title={`${roomData?.partnerName}(${roomData?.relationship})님과의 쿠션`}
         />
-        <Viewport>
+        <Viewport type={'chat'}>
           <ChatInfoContainer>
             <DateStamp>{roomData?.createdAt}</DateStamp>
             <IntroText>{MESSAGES.introText}</IntroText>
           </ChatInfoContainer>
           <Divider variant="chat" />
-          <SystemBubble
-            bubblePage="greeting"
-            bodyText={MESSAGES.systemMessage.startMessage(
-              `${roomData?.partnerName}(${roomData?.relationship})`
-            )}
-          />
           {roomData &&
             roomData?.messages.map((message: Message) =>
               message.senderType === 'BOT' ? (
@@ -158,7 +162,7 @@ const CreateCushion = () => {
             title="상대방 맞춤 쿠션"
             bodyText="상대방과의 대화 내역이 있으신가요? 캡처 이미지를 첨부하면, 맞춤형 쿠션을 받을 수 있어요."
           />
-          <Textarea onAddImageClick={handleAddImageClick} />
+          <Textarea roomId={Number(id)} onAddImageClick={handleAddImageClick} />
         </TextFieldContainer>
         {isMakeOpen && (
           <Modal type="bottomSheet" onClose={makeClose}>
@@ -185,13 +189,23 @@ const CreateCushion = () => {
               cancelText={MESSAGES.dialog.ocr.cancel}
               eventText={MESSAGES.dialog.ocr.attach}
               onCancel={handleDialogCancel}
-              onEvent={handleLoadingAnimation}
+              roomId={Number(id)}
             />
           </DimmedScreen>
         )}
-        {isLoading && (
+        {isMessageLooadingOpen && (
           <OverlayScreen>
             <LoadingBanner />
+          </OverlayScreen>
+        )}
+        {isOcrLoadingOpen && (
+          <OverlayScreen>
+            <OcrLoadingBanner />
+          </OverlayScreen>
+        )}
+        {isPersonalityLoadingOpen && (
+          <OverlayScreen>
+            <OcrLoadingBanner />
           </OverlayScreen>
         )}
       </AppScreen>

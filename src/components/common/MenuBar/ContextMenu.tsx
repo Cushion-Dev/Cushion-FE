@@ -11,7 +11,7 @@ import {
 interface IContextMenu {
   type?: 'global' | 'local';
   onClose: () => void;
-  onClickMenu: () => void;
+  onClickMenu?: () => void;
 }
 
 const ContextMenu = ({ type, onClose, onClickMenu }: IContextMenu) => {

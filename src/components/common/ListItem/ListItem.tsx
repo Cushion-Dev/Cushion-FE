@@ -7,6 +7,7 @@ import { ReactComponent as CheckedBoxIcon } from '../../../../public/assets/icon
 import { CheckBoxWrapper } from '../../../styles/common/ListItem/CheckIcon';
 import ListContent from './ListContent';
 import { ListItemContainer } from '../../../styles/common/ListItem/ListItem';
+import { useNavigate } from 'react-router-dom';
 
 interface ListItemProps {
   userName: string;
@@ -30,6 +31,7 @@ function ListItem({
   roomId,
 }: ListItemProps) {
   const [isChecked, setIsChecked] = useState(false);
+  const navigate = useNavigate();
 
   const handleClickItem = () => {
     if (isEditing) {
@@ -37,6 +39,7 @@ function ListItem({
 
       if (onCheck) onCheck(roomId);
     }
+    navigate(`/cushion/${roomId}`);
   };
 
   return (

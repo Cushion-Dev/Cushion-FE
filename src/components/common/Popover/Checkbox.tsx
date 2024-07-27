@@ -9,13 +9,15 @@ import {
 
 interface ICheckboxProps {
   caption: string;
+  onClick?: (value: boolean) => void;
 }
 
-const Checkbox = ({ caption }: ICheckboxProps) => {
+const Checkbox = ({ caption, onClick }: ICheckboxProps) => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
   const handleCheckboxClick = () => {
     setIsChecked(!isChecked);
+    if (onClick) onClick(isChecked);
   };
 
   return (

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { ContextMenu } from '..';
 import { ICONS } from '../../styles/common/icons';
@@ -21,6 +20,7 @@ interface INavbar {
   hasCheckedItems?: boolean;
   onClickMenu?: () => void;
   onDelete?: () => void;
+  onClickBackButton?: () => void;
 }
 
 const Navbar = ({
@@ -30,8 +30,8 @@ const Navbar = ({
   isEditing,
   hasCheckedItems = false,
   onDelete,
+  onClickBackButton,
 }: INavbar) => {
-  const navigate = useNavigate();
   const [showContextMenu, setShowContextMenu] = useState(false);
 
   const handleMoreButtonClick = () => {
@@ -41,8 +41,6 @@ const Navbar = ({
   const handleContextMenuClose = () => {
     setShowContextMenu(false);
   };
-
-  const handleBackButtonClick = () => navigate(-1);
 
   return (
     <NavContainer>
@@ -72,7 +70,7 @@ const Navbar = ({
         </>
       ) : (
         <>
-          <BackButton onClick={handleBackButtonClick} src={ICONS.backButton} />
+          <BackButton onClick={onClickBackButton} src={ICONS.backButton} />
           <TitleText>{title}</TitleText>
 
           {type !== 'nomeat' && (

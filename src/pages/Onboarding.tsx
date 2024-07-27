@@ -22,11 +22,7 @@ import { useLoginDialog } from '../stores/Modal/useModalStore';
 
 const Onboarding = () => {
   const navigate = useNavigate();
-  const {
-    isOpen,
-    open: openLoginDiaglog,
-    close: closeLoginDialog,
-  } = useLoginDialog();
+  const { isOpen, open: openLoginDiaglog, close: closeLoginDialog } = useLoginDialog();
 
   const handleMainButtonClick = () => navigate('/user-setting');
 
@@ -34,10 +30,12 @@ const Onboarding = () => {
     event.stopPropagation();
   };
 
+  console.log(import.meta.env.VITE_API_URI);
+
   return (
     <Container>
       <AppScreen>
-        <Navbar type='onboarding' />
+        <Navbar type="onboarding" />
         <Viewport>
           <DisplayBanner>
             <TitleText>{ONBOARDING.title}</TitleText>
@@ -52,15 +50,12 @@ const Onboarding = () => {
           </DisplayBanner>
         </Viewport>
         <ButtonContainer>
-          <CTAButton onClick={openLoginDiaglog} buttonText='로그인하기' />
-          <MainButton
-            buttonText='쿠션 사용하기'
-            onClick={handleMainButtonClick}
-          />
+          <CTAButton onClick={openLoginDiaglog} buttonText="로그인하기" />
+          <MainButton buttonText="쿠션 사용하기" onClick={handleMainButtonClick} />
         </ButtonContainer>
       </AppScreen>
       {isOpen && (
-        <Modal onClose={closeLoginDialog} type='modal'>
+        <Modal onClose={closeLoginDialog} type="modal">
           <LoginDialog onClick={handleLoginDialogClick} />
         </Modal>
       )}

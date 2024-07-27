@@ -4,7 +4,7 @@ import { API } from '../services/api';
 const useLogIn = () => {
   const [isError, setIsError] = useState<boolean>();
 
-  const login = async (variant: string) => {
+  const login = async () => {
     try {
       const result = await API.get(`/oauth2/authorization/naver`);
       setIsError(false);

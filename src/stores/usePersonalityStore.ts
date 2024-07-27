@@ -8,6 +8,6 @@ interface Personality {
 export const usePersonalityStore = create<Personality>((set) => ({
   personality: '',
   setPersonality: (updatedPersonality) => {
-    set((state) => ({ personality: updatedPersonality }));
+    set(() => ({ personality: updatedPersonality }));
   },
 }));

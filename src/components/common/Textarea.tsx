@@ -10,12 +10,20 @@ import {
   AddImage,
   Send,
 } from '../../styles/common/Textarea';
+import useMessage from '../../hooks/useMessageMutation';
+import { usePersonalityStore } from '../../stores/usePersonalityStore';
+import { useMessageLoading } from '../../stores/Modal/useModalStore';
 
-const Textarea = ({ onAddImageClick }: any) => {
+const Textarea = ({ onAddImageClick, roomId }: any) => {
   const textareaRef = useRef<HTMLDivElement>(null);
 
   const [isActive, setIsActive] = useState(false);
   const [textareaValue, setTextareaValue] = useState('');
+
+  const { mutate: postMessage } = useMessage();
+  const { personality } = usePersonalityStore();
+  const { open: openMessageLoading } = useMessageLoading();
+  console.log('text', personality);
 
   const handleDocumentClick = useCallback((event: MouseEvent) => {
     if (
@@ -41,6 +49,16 @@ const Textarea = ({ onAddImageClick }: any) => {
     setTextareaValue(event.target.value);
   };
 
+  const handleClickSend = () => {
+    postMessage({
+      message: textareaValue,
+      personality: personality,
+      roomId: roomId,
+    });
+    setTextareaValue('');
+    openMessageLoading();
+  };
+
   return (
     <TextareaContainer $isActive={isActive} ref={textareaRef}>
       <WrapTextArea>
@@ -53,6 +71,7 @@ const Textarea = ({ onAddImageClick }: any) => {
         <ButtonContainer>
           <AddImage src={ICONS.textarea.addImage} onClick={onAddImageClick} />
           <Send
+            onClick={handleClickSend}
             src={
               textareaValue.trim().length > 0
                 ? ICONS.textarea.sendTrue

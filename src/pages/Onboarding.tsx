@@ -30,8 +30,6 @@ const Onboarding = () => {
     event.stopPropagation();
   };
 
-  console.log(import.meta.env.VITE_API_URI);
-
   return (
     <Container>
       <AppScreen>

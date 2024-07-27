@@ -29,11 +29,15 @@ import {
 
 import { MESSAGES } from '../constants/messages';
 import { semantic } from '../styles/semantic';
-// import { useAffiliationStore, useJobStore, useNameStore } from '../stores/useTextFieldStore';
-// import useEditProfileInfo from '../hooks/useEditPorfileMutation';
-// import useCreateRoomMutation from '../hooks/useCreateRoomMutation';
-// import { useSelectedStore } from '../stores/useSelectButtonStore';
-// import useTranslateName from '../hooks/useTranslateName';
+import {
+  useAffiliationStore,
+  useJobStore,
+  useNameStore,
+} from '../stores/useTextFieldStore';
+import useEditProfileInfo from '../hooks/useEditPorfileMutation';
+import useCreateRoomMutation from '../hooks/useCreateRoomMutation';
+import { useSelectedStore } from '../stores/useSelectButtonStore';
+import useTranslateName from '../hooks/useTranslateName';
 import { API } from '../services/api';
 import { formatDate } from '../utils/formatDate';
 import { ICONS } from '../styles/common/icons';
@@ -51,9 +55,9 @@ const ChatList = () => {
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // const { mutate: editProfile } = useEditProfileInfo();
-  // const { mutate: makeCushion } = useCreateRoomMutation();
-  // const { translateToEng } = useTranslateName();
+  const { mutate: editProfile } = useEditProfileInfo();
+  const { mutate: makeCushion } = useCreateRoomMutation();
+  const { translateToEng } = useTranslateName();
 
   const {
     isOpen: isMakeOpen,
@@ -67,21 +71,21 @@ const ChatList = () => {
   const { isOpen: isOpenWithdrawDialog, close: CloseWithdrawDialog } =
     useWithdrawDialog();
 
-  // const { name } = useNameStore();
-  // const { job } = useJobStore();
-  // const { affiliation } = useAffiliationStore();
-  // const { selectedName } = useSelectedStore();
+  const { name } = useNameStore();
+  const { job } = useJobStore();
+  const { affiliation } = useAffiliationStore();
+  const { selectedName } = useSelectedStore();
 
-  // const handleClickEditProfile = () => {
-  //   editProfile({ affiliation: affiliation, job: job, realName: name });
-  // };
+  const handleClickEditProfile = () => {
+    editProfile({ affiliation: affiliation, job: job, realName: name });
+  };
 
-  // const handleClickMakeCushion = () => {
-  //   makeCushion({
-  //     partnerName: name,
-  //     partnerRel: translateToEng(selectedName[0]) || '',
-  //   });
-  // };
+  const handleClickMakeCushion = () => {
+    makeCushion({
+      partnerName: name,
+      partnerRel: translateToEng(selectedName[0]) || '',
+    });
+  };
 
   const handleSearch = (query: string) => setSearchQuery(query);
 
@@ -215,12 +219,20 @@ const ChatList = () => {
         </Viewport>
         {isMakeOpen && (
           <Modal type='bottomSheet' onClose={makeClose}>
-            <BottomSheet type='make' messageType='makeCushion'></BottomSheet>
+            <BottomSheet
+              type='make'
+              messageType='makeCushion'
+              buttonFn={handleClickMakeCushion}
+            ></BottomSheet>
           </Modal>
         )}
         {isEditProfileOpen && (
           <Modal type='bottomSheet' onClose={editProfileClose}>
-            <BottomSheet type='edit' messageType='editProfile'></BottomSheet>
+            <BottomSheet
+              type='edit'
+              messageType='editProfile'
+              buttonFn={handleClickEditProfile}
+            ></BottomSheet>
           </Modal>
         )}
         {isOpenLogoutDialog && (

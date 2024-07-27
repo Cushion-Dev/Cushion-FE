@@ -41,7 +41,8 @@ import useTranslateName from '../hooks/useTranslateName';
 import { API } from '../services/api';
 import { formatDate } from '../utils/formatDate';
 import { ICONS } from '../styles/common/icons';
-import { getCookie } from '../utils/cookies';
+
+import { useCookies } from 'react-cookie';
 
 interface IRoom {
   lastMessage: string;
@@ -55,6 +56,7 @@ const ChatList = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [cookies] = useCookies(['accessToken']);
 
   const { mutate: editProfile } = useEditProfileInfo();
   const { mutate: makeCushion } = useCreateRoomMutation();
@@ -78,7 +80,7 @@ const ChatList = () => {
   const { selectedName } = useSelectedStore();
 
   useEffect(() => {
-    const accessToken = getCookie('accessToken');
+    const accessToken = cookies.accessToken('accessToken');
     console.log(accessToken);
     if (accessToken) localStorage.setItem('accessToken', accessToken);
   }, []);

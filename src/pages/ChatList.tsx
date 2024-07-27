@@ -80,7 +80,7 @@ const ChatList = () => {
   const { selectedName } = useSelectedStore();
 
   useEffect(() => {
-    const accessToken = cookies.accessToken('accessToken');
+    const accessToken = cookies.accessToken;
     console.log(accessToken);
     if (accessToken) localStorage.setItem('accessToken', accessToken);
   }, []);

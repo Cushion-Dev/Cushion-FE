@@ -29,7 +29,7 @@ const Screen = styled.div`
   align-items: center;
 
   width: 32.5rem;
-  height: 64rem;
+  height: 100%;
 
   padding: 0rem 2rem;
 

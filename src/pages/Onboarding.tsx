@@ -11,26 +11,24 @@ import {
   Viewport,
   CTAButton,
   MainButton,
-  DimmedScreen,
   LoginDialog,
+  Modal,
 } from '../components';
 import { TYPO } from '../styles/typo';
 import { semantic } from '../styles/semantic';
 import { ONBOARDING } from '../constants/onboarding';
-import useModal from '../hooks/useModal';
+
+import { useLoginDialog } from '../stores/Modal/useModalStore';
 
 const Onboarding = () => {
   const navigate = useNavigate();
-  const { isOpen, openModal, closeModal } = useModal();
+  const {
+    isOpen,
+    open: openLoginDiaglog,
+    close: closeLoginDialog,
+  } = useLoginDialog();
 
   const handleMainButtonClick = () => navigate('/user-setting');
-
-  const handleClickButton = () => openModal();
-
-  const handleDimmedScreenClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    event.stopPropagation();
-    closeModal();
-  };
 
   const handleLoginDialogClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
@@ -39,7 +37,7 @@ const Onboarding = () => {
   return (
     <Container>
       <AppScreen>
-        <Navbar type="onboarding" />
+        <Navbar type='onboarding' />
         <Viewport>
           <DisplayBanner>
             <TitleText>{ONBOARDING.title}</TitleText>
@@ -54,17 +52,17 @@ const Onboarding = () => {
           </DisplayBanner>
         </Viewport>
         <ButtonContainer>
-          <CTAButton onClick={handleClickButton} buttonText="로그인하기" />
+          <CTAButton onClick={openLoginDiaglog} buttonText='로그인하기' />
           <MainButton
-            buttonText="쿠션 사용하기"
+            buttonText='쿠션 사용하기'
             onClick={handleMainButtonClick}
           />
         </ButtonContainer>
       </AppScreen>
       {isOpen && (
-        <DimmedScreen onClick={handleDimmedScreenClick}>
+        <Modal onClose={closeLoginDialog} type='modal'>
           <LoginDialog onClick={handleLoginDialogClick} />
-        </DimmedScreen>
+        </Modal>
       )}
     </Container>
   );

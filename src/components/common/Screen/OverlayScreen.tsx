@@ -16,7 +16,7 @@ const Screen = styled.div`
   position: absolute;
 
   width: 32.5rem;
-  height: 64rem;
+  height: 100%;
 
   gap: 3rem;
   padding: 3rem;

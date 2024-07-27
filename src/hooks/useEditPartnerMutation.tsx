@@ -7,7 +7,7 @@ interface PartnerInfo {
 }
 
 const putPartnerInfo = async (partnerInfo: PartnerInfo) => {
-  await API.put('/chat/rooms', {
+  await API.post('/chat/rooms', {
     chatRoomCreateRequest: {
       partnerName: partnerInfo.partnerName,
       partnerRel: partnerInfo.partnerRel,

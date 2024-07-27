@@ -46,6 +46,7 @@ export const ICONS = {
     loading3: '/assets/icon/loading/cushion-vector-asset3.svg',
     loading4: '/assets/icon/loading/cushion-vector-asset4.svg',
     loading5: '/assets/icon/loading/cushion-vector-asset5.svg',
+    loading6: '/assets/icon/loading/cushionVectorAsset.svg',
   },
 
   copy: '/assets/icon/button-file-copy-2-line.svg',

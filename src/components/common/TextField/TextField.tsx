@@ -8,6 +8,7 @@ interface TextFieldProps {
   label: string;
   placeholder: string;
   helperText: string;
+  value?: string;
   type: string;
   maxLetterCount: number;
   readonly?: boolean;

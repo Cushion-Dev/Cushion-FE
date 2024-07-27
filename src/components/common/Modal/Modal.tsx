@@ -58,7 +58,7 @@ const ModalOverlay = styled.div<{ type: ModalProps['type'] }>`
 `;
 
 const ContentWrapper = styled.div`
-  animation: ${slideIn} 240ms ease-in;
+  animation: ${slideIn} 240ms cubic-bezier(0.5, 0.1, 0.34, 1);
 `;
 
 export default Modal;

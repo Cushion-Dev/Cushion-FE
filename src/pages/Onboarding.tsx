@@ -28,14 +28,10 @@ const Onboarding = () => {
     close: closeLoginDialog,
   } = useLoginDialog();
 
-  // const handleMainButtonClick = () => navigate('/user-setting');
+  const handleMainButtonClick = () => navigate('/user-setting');
 
   const handleLoginDialogClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
-  };
-
-  const handleClickUseCushion = () => {
-    navigate('/chat-list/1');
   };
 
   return (
@@ -56,14 +52,10 @@ const Onboarding = () => {
           </DisplayBanner>
         </Viewport>
         <ButtonContainer>
-          <CTAButton
-            onClick={openLoginDiaglog}
-            buttonText='준비중입니다..'
-            disabled={true}
-          />
+          <CTAButton onClick={openLoginDiaglog} buttonText='로그인하기' />
           <MainButton
             buttonText='쿠션 사용하기'
-            onClick={handleClickUseCushion}
+            onClick={handleMainButtonClick}
           />
         </ButtonContainer>
       </AppScreen>

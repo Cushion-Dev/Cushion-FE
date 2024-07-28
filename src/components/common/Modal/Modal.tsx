@@ -32,12 +32,13 @@ const ModalOverlay = styled.div<{ type: ModalProps['type'] }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
+  position: absolute;
 
   width: 32.5rem;
   height: 100%;
 
   top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
 
   ${({ type }) =>

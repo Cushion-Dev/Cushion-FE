@@ -35,6 +35,11 @@ export const GlobalStyle = createGlobalStyle`
 
     font-family: Pretendard JP;
     font-style: normal;
+
+    --ms-overflow-style: none;
+  }
+  ::-webkit-scrollbar {
+    display: none;
   }
 
   div {

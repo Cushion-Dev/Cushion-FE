@@ -112,15 +112,19 @@ const ChatList = () => {
 
   const { data: chatList = [], refetch } = useQuery({
     queryKey: ['chatList'],
-    queryFn: () => API.get('/chat/rooms').then(({ data }) => data),
+    queryFn: () =>
+      API.get('/chat/rooms').then((response) => {
+        console.log(response);
+        return response.data;
+      }),
   });
 
   const { data: searchResults = [] } = useQuery({
     queryKey: ['searchResults', searchQuery],
     queryFn: () =>
-      API.get(`/chat/rooms/search?query=${searchQuery}`).then((response) => {
-        console.log(response);
-      }),
+      API.get(`/chat/rooms/search?query=${searchQuery}`).then(
+        ({ data }) => data
+      ),
     enabled: searchQuery.length > 0,
   });
 

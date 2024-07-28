@@ -10,8 +10,7 @@ export const API = axios.create({
 API.interceptors.request.use(
   (config) => {
     // 추후 로그인 성공시 로컬스토리지 액세스 토큰으로 교체해야함
-    const accessToken =
-      'eyJhbGciOiJIUzUxMiJ9.eyJtZW1iZXJJZCI6MTcsInN1YiI6ImZ1bGZpbGxlZF9AbmF2ZXIuY29tIiwiaWF0IjoxNzIyMTM0MDI3LCJleHAiOjE3MjIxMzc2Mjd9.NObCmoNncu_ygU6L7vafLy6xgd5fCgsj2T5yCkyMgpdkbofy5sKLwYRBDH1FKuVMPMFAOP9jKKWVB5_GneyAFQ';
+    const accessToken = localStorage.getItem('accessToken');
 
     if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
 

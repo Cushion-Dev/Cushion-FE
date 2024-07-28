@@ -35,6 +35,7 @@ const LoginDialog = ({ onClick }: ILoginDialogProps) => {
       <LoginButtons />
       <Callout
         text={`로그인 시, 쿠션의 <Terms href='/'>이용약관</Terms>)에 동의하는 것으로 간주돼요.`}
+        variant="login"
       />
     </DialogContainer>
   );

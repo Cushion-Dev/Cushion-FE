@@ -4,23 +4,32 @@ import {
   CCallout,
   InfoIcon,
   CalloutText,
+  Terms,
 } from '../../../styles/common/Dialog/Callout';
+
+export type CalloutVariant = 'login';
 
 interface CalloutProps {
   text: string;
+  variant: CalloutVariant;
 }
 
-const Callout = ({ text }: CalloutProps) => {
+const Callout = ({ text, variant }: CalloutProps) => {
   return (
     <WrapCallout>
       <CCallout>
         <InfoIcon src={ICONS.login.information} />
-        <CalloutText>{text}</CalloutText>
+
+        {variant === 'login' ? (
+          <CalloutText>
+            로그인 시, 쿠션의 <Terms href="/">이용약관</Terms>에 동의하는 것으로 간주돼요.
+          </CalloutText>
+        ) : (
+          <CalloutText>{text}</CalloutText>
+        )}
       </CCallout>
     </WrapCallout>
   );
 };
 
-// 로그인 시, 쿠션의 <Terms href='/'>이용약관</Terms>에 동의하는 것으로
-//           간주돼요.
 export default Callout;

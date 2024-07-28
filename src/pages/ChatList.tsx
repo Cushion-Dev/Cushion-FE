@@ -177,6 +177,7 @@ const ChatList = () => {
           isEditing={isEditing}
           hasCheckedItems={hasCheckedItems}
           onDelete={handleDelete}
+          onSetIsEditing={setIsEditing}
         />
         <SearchContainer>
           <SearchField

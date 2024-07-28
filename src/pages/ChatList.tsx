@@ -71,8 +71,16 @@ const ChatList = () => {
   useEffect(() => {
     const accessToken = cookies.accessToken;
     console.log(accessToken);
+    console.log(cookies);
     if (accessToken) localStorage.setItem('accessToken', accessToken);
   }, [cookies]);
+
+  useEffect(() => {
+    const accessToken = cookies.accessToken;
+    console.log('non arr', accessToken);
+    console.log('none arr', cookies);
+    if (accessToken) localStorage.setItem('accessToken', accessToken);
+  }, []);
 
   const handleClickEditProfile = () => {
     editProfile({ affiliation: affiliation, job: job, realName: name });

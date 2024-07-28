@@ -57,8 +57,6 @@ const ChatList = () => {
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [cookies] = useCookies(['accessToken']);
-  const [memberIdCookies] = useCookies(['memberId']);
-  const [refreshCookies] = useCookies(['refreshToken']);
 
   const { mutate: editProfile } = useEditProfileInfo();
   const { mutate: makeCushion } = useCreateRoomMutation();
@@ -83,18 +81,15 @@ const ChatList = () => {
 
   useEffect(() => {
     const accessToken = cookies.accessToken;
-    console.log(accessToken);
-    console.log(cookies);
+
     if (accessToken) localStorage.setItem('accessToken', accessToken);
   }, [cookies]);
 
   useEffect(() => {
-    const accessToken = cookies.accessToken;
-    console.log(cookies);
-    console.log(refreshCookies);
-    console.log(memberIdCookies);
-    console.log(document.cookie);
-    if (accessToken) localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem(
+      'accessToken',
+      'eyJhbGciOiJIUzUxMiJ9.eyJtZW1iZXJJZCI6MjMsInN1YiI6Imd5d25zMjQ4QG5hdmVyLmNvbSIsImlhdCI6MTcyMjE0Njg4NSwiZXhwIjoxNzIyNzUxNjg1fQ.kJM412RetosmC5kczchmZ7CoQ_uYQNO_IOBoPQlDQopbH8rUiVJY7emQGoelfHGFL6FbyXqqLAeE1yIkM_sf_w'
+    );
   }, []);
 
   const handleClickEditProfile = () => {

@@ -7,7 +7,7 @@ import {
   Text,
 } from '../../../styles/common/Dialog/LoginButton';
 
-import { API_URI } from '../../../services/api';
+import { useNavigate } from 'react-router-dom';
 
 interface ILoginButtonProps {
   variant: LoginVariant;
@@ -16,8 +16,9 @@ interface ILoginButtonProps {
 }
 
 const LoginButton = ({ variant, symbolURL, text }: ILoginButtonProps) => {
+  const navigate = useNavigate();
   const handleNaverLogin = () => {
-    window.location.href = `${API_URI}/members/login/oauth2/${variant}`;
+    navigate('/chat-list/1');
   };
 
   return (

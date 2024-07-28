@@ -10,7 +10,7 @@ const AttachContainer = styled.div`
   width: 30.5rem;
 
   gap: 1.5rem;
-  padding: 3rem 1.5rem;
+  padding: 3rem 1rem;
 
   border-radius: 0.25rem;
   border: 0.06rem solid ${semantic.light.border.transparent.neutral};

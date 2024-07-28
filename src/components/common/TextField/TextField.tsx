@@ -96,7 +96,7 @@ const InputWrapper = styled.div<{ $isTyping: boolean; $isError: boolean }>`
   align-items: center;
 
   gap: 1rem;
-  padding: 0.625rem 0.5rem;
+  padding: 0.625rem 0.25rem;
 
   border-bottom: 0.063rem solid
     ${({ $isTyping, $isError }) => {
@@ -154,7 +154,7 @@ const StyledInput = styled.input<{ disabled: boolean; readOnly: boolean }>`
 
 const HelpContainer = styled.div`
   display: flex;
-  padding: 0.375rem 0.5rem;
+  padding: 0.375rem 0.25rem;
   justify-content: flex-end;
   align-items: flex-start;
   gap: 1rem;

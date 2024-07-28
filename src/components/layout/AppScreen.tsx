@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-const HomeScreen = ({ children }: IChildren) => {
+const AppScreen = ({ children }: IChildren) => {
   return <HomeContainer>{children}</HomeContainer>;
 };
 
-export default HomeScreen;
+export default AppScreen;
 
 const HomeContainer = styled.div`
   display: flex;

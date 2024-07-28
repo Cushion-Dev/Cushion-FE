@@ -22,7 +22,7 @@ interface INavbar {
   onClickMenu?: () => void;
   onDelete?: () => void;
   onClickBackButton?: () => void;
-  onSetIsEditing: (value: boolean) => void;
+  onSetIsEditing?: (value: boolean) => void;
 }
 
 const Navbar = ({
@@ -58,7 +58,9 @@ const Navbar = ({
               <Button
                 type='label'
                 size='md'
-                clickFn={() => onSetIsEditing(false)}
+                clickFn={() => {
+                  if (onSetIsEditing) onSetIsEditing(false);
+                }}
               >
                 선택 취소
               </Button>

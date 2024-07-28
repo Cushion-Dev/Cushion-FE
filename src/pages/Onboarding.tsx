@@ -85,14 +85,12 @@ const WrapSubText = styled.div`
   display: flex;
   justify-content: center;
 
-  width: 16.5625rem;
   height: 3.5rem;
 
   text-align: center;
 `;
 
 const SubText = styled.span`
-  width: 14.8125rem;
   text-align: center;
 
   ${TYPO.title2}

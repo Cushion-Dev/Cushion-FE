@@ -69,7 +69,9 @@ const Dialog = ({
       </WrapText>
       <Divider variant='dialog' />
       <ButtonContainer>
-        <Button onClick={onCancel}>{cancelText}</Button>
+        <Button disabled={false} onClick={onCancel}>
+          {cancelText}
+        </Button>
         {eventText === '이미지 첨부하기' && (
           <UploadImageInput
             type='file'
@@ -84,6 +86,9 @@ const Dialog = ({
             eventText === '이미지 첨부하기' ? onUploadImageButtonClick : onEvent
           }
           $variant={variant}
+          disabled={
+            eventText === '탈퇴하기' || eventText === '로그아웃' ? true : false
+          }
         >
           {eventText}
         </Button>

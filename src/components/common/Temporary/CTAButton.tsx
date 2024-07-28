@@ -4,11 +4,16 @@ import { semantic } from '../../../styles/semantic';
 
 interface ICTAButtonProps {
   buttonText: string;
+  disabled: boolean;
   onClick: () => void;
 }
 
-const CTAButton = ({ buttonText, onClick }: ICTAButtonProps) => {
-  return <ButtonContainer onClick={onClick}>{buttonText}</ButtonContainer>;
+const CTAButton = ({ buttonText, onClick, disabled }: ICTAButtonProps) => {
+  return (
+    <ButtonContainer onClick={onClick} disabled>
+      {buttonText}
+    </ButtonContainer>
+  );
 };
 
 export default CTAButton;
@@ -24,16 +29,19 @@ const ButtonContainer = styled.button`
   padding: 1rem 1rem 1rem 1.25rem;
 
   border-radius: 0.75rem;
-  border: 1px solid ${semantic.light.accent.solid.normal};
-  background: ${semantic.light.accent.transparent.normal};
+  background: ${semantic.light.fill.transparent.neutral};
 
   cursor: pointer;
   text-align: center;
 
   ${TYPO.label4}
-  color: ${semantic.light.accent.solid.normal};
+  color: ${semantic.light.object.transparent.alternative};
 
-  &:hover {
+  /* &:hover {
     background: #eaddc6;
+  } */
+
+  &:disabled {
+    cursor: not-allowed;
   }
 `;

@@ -23,7 +23,15 @@ const getChatRoom = async (roomId: string): Promise<RoomData> => {
 const useChatRoomQuery = (roomId: string | undefined) => {
   const { data, isError, isSuccess } = useQuery({
     queryKey: ['room', roomId],
-    queryFn: () => getChatRoom(roomId ?? ''),
+    queryFn: async () => {
+      const response = await API.get<RoomData>(`/chat/rooms/${roomId}`);
+      const accessToken = response.headers['access-token'];
+      if (accessToken) {
+        console.log('New Access Token:', accessToken);
+        localStorage.setItem('accessToken', accessToken);
+      }
+      return response.data;
+    },
     enabled: !!roomId,
   });
   return { data, isError, isSuccess };

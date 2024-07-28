@@ -11,7 +11,7 @@ export type CalloutVariant = 'login';
 
 interface CalloutProps {
   text: string;
-  variant: CalloutVariant;
+  variant?: CalloutVariant;
 }
 
 const Callout = ({ text, variant }: CalloutProps) => {

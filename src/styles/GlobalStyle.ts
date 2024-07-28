@@ -2,8 +2,8 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
   @font-face {
-    font-family: 'PretendardJP';
-    src: url('/assets/font/PretendardJP.woff2') format("woff2");
+    font-family: 'Pretendard JP';
+    src: url('/assets/font/Pretendard JP.woff2') format("woff2");
   }
 
   * {
@@ -33,7 +33,7 @@ export const GlobalStyle = createGlobalStyle`
     width: 100%;
     height: 100%;
 
-    font-family: PretendardJP;
+    font-family: Pretendard JP;
     font-style: normal;
   }
 

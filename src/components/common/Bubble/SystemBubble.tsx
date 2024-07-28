@@ -45,13 +45,9 @@ const SystemBubble = ({ bubblePage, bodyText }: ISystemBubbleProps) => {
               </BubbleContainer>
             </WrapBubble>
           </MessageSection>
-          {bubblePage === 'default' && (
-            <Copy src={ICONS.copy} onClick={handleCopyClick} />
-          )}
+          {bubblePage === 'default' && <Copy src={ICONS.copy} onClick={handleCopyClick} />}
         </Region>
-        {bubblePage === 'example' && (
-          <Thought thoughtText={MESSAGES.speechExample.emotion} />
-        )}
+        {bubblePage === 'example' && <Thought thoughtText={MESSAGES.speechExample.emotion} />}
       </MessageContainer>
       {showToast && <Toast bodyText="내용이 복사되었습니다." />}
     </>

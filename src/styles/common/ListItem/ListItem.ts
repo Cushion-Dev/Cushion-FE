@@ -9,6 +9,8 @@ const ListContainer = styled.ul<{ $variant?: string }>`
   flex-direction: column;
   align-items: flex-start;
   align-self: stretch;
+  overflow: scroll;
+  gap: 1.5rem;
 
   height: 100%;
 

@@ -8,7 +8,7 @@ interface ICTAButtonProps {
   onClick: () => void;
 }
 
-const CTAButton = ({ buttonText, onClick, disabled }: ICTAButtonProps) => {
+const CTAButton = ({ buttonText, onClick }: ICTAButtonProps) => {
   return (
     <ButtonContainer onClick={onClick} disabled>
       {buttonText}

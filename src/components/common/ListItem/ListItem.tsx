@@ -33,6 +33,7 @@ function ListItem({
   const [isChecked, setIsChecked] = useState(false);
   const navigate = useNavigate();
 
+  console.log(isEditing);
   const handleClickItem = () => {
     if (isEditing) {
       setIsChecked((prev) => !prev);

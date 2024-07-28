@@ -86,7 +86,7 @@ const Navbar = ({
         <ContextMenu
           type={type === 'global' || type === 'local' ? type : undefined}
           onClose={handleContextMenuClose}
-          onClickMenu={onClickMenu!}
+          onClickMenu={onClickMenu}
         />
       )}
     </NavContainer>

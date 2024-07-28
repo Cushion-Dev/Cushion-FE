@@ -18,7 +18,10 @@ export const GlobalStyle = createGlobalStyle`
 
     overscroll-behavior: none;
   }
-  
+
+  div::-webkit-scrollbar {
+    display: none;
+  }
 
   h1, h2, h3, h4, span, a, p {
     padding: 0;
@@ -45,5 +48,4 @@ export const GlobalStyle = createGlobalStyle`
   button {
     border: none;
   }
-
 `;

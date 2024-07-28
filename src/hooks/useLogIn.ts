@@ -8,6 +8,7 @@ const useLogIn = () => {
     try {
       const result = await API.get(`/oauth2/authorization/naver`);
       setIsError(false);
+      return result;
     } catch (error) {
       if (error) setIsError(true);
     }

@@ -23,7 +23,6 @@ const Textarea = ({ onAddImageClick, roomId }: any) => {
   const { mutate: postMessage } = useMessage();
   const { personality } = usePersonalityStore();
   const { open: openMessageLoading } = useMessageLoading();
-  console.log('text', personality);
 
   const handleDocumentClick = useCallback((event: MouseEvent) => {
     if (

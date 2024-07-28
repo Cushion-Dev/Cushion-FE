@@ -27,12 +27,13 @@ interface MakeCushionProps {
 function MakeCushion({ checkValidFn }: MakeCushionProps) {
   const { name, setName, isNameValid, setNameValid } = useNameStore();
   const { resetSelectedCount, resetSelectedName } = useSelectedStore();
-  const { partnerName } = usePartnerStore();
+  const { partnerName, setPartnerRel } = usePartnerStore();
 
   const reset = () => {
     setName('');
     resetSelectedCount();
     resetSelectedName();
+    setPartnerRel('');
   };
 
   useEffect(() => {

@@ -49,6 +49,7 @@ const ContextMenu = ({ type, onClose, onClickMenu }: IContextMenu) => {
             iconURL={ICONS.menu.logout}
             onClose={onClose}
             clickFn={OpenLogoutDialog}
+            disabled={true}
           />
           <Menu
             onClose={onClose}

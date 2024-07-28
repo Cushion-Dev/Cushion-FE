@@ -83,7 +83,7 @@ const ChatList = () => {
     const accessToken = cookies.accessToken;
     console.log(accessToken);
     if (accessToken) localStorage.setItem('accessToken', accessToken);
-  }, []);
+  }, [cookies]);
 
   const handleClickEditProfile = () => {
     editProfile({ affiliation: affiliation, job: job, realName: name });

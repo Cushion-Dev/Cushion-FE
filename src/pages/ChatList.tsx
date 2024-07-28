@@ -82,19 +82,8 @@ const ChatList = () => {
   useEffect(() => {
     console.log('cookie render', cookies);
     const accessToken = cookies.accessToken;
-
     if (accessToken) localStorage.setItem('accessToken', accessToken);
   }, [cookies]);
-
-  useEffect(() => {
-    console.log('first render', cookies);
-    const accessToken = cookies.accessToken;
-    if (accessToken) localStorage.setItem('accessToken', accessToken);
-    localStorage.setItem(
-      'accessToken',
-      'eyJhbGciOiJIUzUxMiJ9.eyJtZW1iZXJJZCI6MjMsInN1YiI6Imd5d25zMjQ4QG5hdmVyLmNvbSIsImlhdCI6MTcyMjE0Njg4NSwiZXhwIjoxNzIyNzUxNjg1fQ.kJM412RetosmC5kczchmZ7CoQ_uYQNO_IOBoPQlDQopbH8rUiVJY7emQGoelfHGFL6FbyXqqLAeE1yIkM_sf_w'
-    );
-  }, []);
 
   const handleClickEditProfile = () => {
     editProfile({ affiliation: affiliation, job: job, realName: name });

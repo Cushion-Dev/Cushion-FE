@@ -17,14 +17,24 @@ interface ButtonProps {
   clickFn?: () => void;
 }
 
-function Button({ type, size, disabled = false, children, clickFn }: ButtonProps) {
+function Button({
+  type,
+  size,
+  disabled = false,
+  children,
+  clickFn,
+}: ButtonProps) {
   const iconColor = iconColorHandler(type, disabled);
   return (
     <ButtonWrapper clickFn={clickFn} disabled={disabled}>
-      <ButtonInteraction size={size} disabled={disabled} type={type}></ButtonInteraction>
+      <ButtonInteraction
+        size={size}
+        disabled={disabled}
+        type={type}
+      ></ButtonInteraction>
       <StyledButton type={type} size={size} disabled={disabled}>
         {children}
-        <ArrowIcon fill={iconColor}></ArrowIcon>
+        {type !== 'label' && <ArrowIcon fill={iconColor}></ArrowIcon>}
       </StyledButton>
     </ButtonWrapper>
   );

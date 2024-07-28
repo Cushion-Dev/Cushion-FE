@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { ContextMenu } from '..';
+import { Button, ContextMenu } from '..';
 import { ICONS } from '../../styles/common/icons';
 import {
   NavContainer,
@@ -12,6 +12,7 @@ import {
   BackButton,
   DeleteText,
 } from '../../styles/common/Navbar';
+import styled from 'styled-components';
 
 interface INavbar {
   type: 'global' | 'local' | 'onboarding' | 'nomeat';
@@ -21,6 +22,7 @@ interface INavbar {
   onClickMenu?: () => void;
   onDelete?: () => void;
   onClickBackButton?: () => void;
+  onSetIsEditing: (value: boolean) => void;
 }
 
 const Navbar = ({
@@ -31,6 +33,7 @@ const Navbar = ({
   hasCheckedItems = false,
   onDelete,
   onClickBackButton,
+  onSetIsEditing,
 }: INavbar) => {
   const [showContextMenu, setShowContextMenu] = useState(false);
 
@@ -51,9 +54,18 @@ const Navbar = ({
             <LogoImg src={ICONS.logoImage} />
           </WrapLogo>
           {isEditing && (
-            <DeleteText hasCheckedItems={hasCheckedItems!} onClick={onDelete}>
-              선택한 항목 삭제하기
-            </DeleteText>
+            <ButtonWrapper>
+              <Button
+                type='label'
+                size='md'
+                clickFn={() => onSetIsEditing(false)}
+              >
+                선택 취소
+              </Button>
+              <DeleteText hasCheckedItems={hasCheckedItems} onClick={onDelete}>
+                선택한 항목 삭제하기
+              </DeleteText>
+            </ButtonWrapper>
           )}
           <MoreButton
             src={ICONS.moreButton}
@@ -92,5 +104,11 @@ const Navbar = ({
     </NavContainer>
   );
 };
+
+const ButtonWrapper = styled.div`
+  display: flex;
+
+  align-items: center;
+`;
 
 export default Navbar;

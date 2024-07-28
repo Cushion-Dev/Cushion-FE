@@ -15,24 +15,15 @@ interface RoomData {
   lastUsedAt: string;
 }
 
-// const getChatRoom = async (roomId: string): Promise<RoomData> => {
-//   const result = await API.get<RoomData>(`/chat/rooms/${roomId}`);
-//   return result.data;
-// };
+const getChatRoom = async (roomId: string): Promise<RoomData> => {
+  const result = await API.get<RoomData>(`/chat/rooms/${roomId}`);
+  return result.data;
+};
 
 const useChatRoomQuery = (roomId: string | undefined) => {
   const { data, isError, isSuccess } = useQuery({
     queryKey: ['room', roomId],
-    queryFn: async () => {
-      const response = await API.get<RoomData>(`/chat/rooms/${roomId}`);
-      console.log(response);
-      const accessToken = response.headers['access-token'];
-      if (accessToken) {
-        console.log('New Access Token:', accessToken);
-        localStorage.setItem('accessToken', accessToken);
-      }
-      return response.data;
-    },
+    queryFn: () => getChatRoom(roomId ?? ''),
     enabled: !!roomId,
   });
   return { data, isError, isSuccess };

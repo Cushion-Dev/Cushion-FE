@@ -40,8 +40,7 @@ function FormInput({
         disabled={disabled}
         type={type}
         changeFn={changeFn}
-        value={value}
-      ></TextField>
+        value={value}></TextField>
       <StyledText>{extraText}</StyledText>
     </StyledFormInput>
   );
@@ -49,13 +48,12 @@ function FormInput({
 
 const StyledFormInput = styled.div`
   display: flex;
-  width: 100%;
-  padding: 0.5rem 1rem 0.5rem 1rem;
-  justify-content: center;
   align-items: center;
-  align-content: center;
+
+  width: 100%;
+
   gap: 1rem;
-  flex-wrap: wrap;
+  padding: 0.5rem 1rem;
 `;
 
 const StyledText = styled.span`

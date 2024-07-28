@@ -82,22 +82,22 @@ function TextField({
 
 const TextFiledContainer = styled.div`
   display: flex;
-  flex: 1 0 0;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  opacity: 1;
-  gap: 0;
+
+  flex: 1 0 0;
 `;
 
 const InputWrapper = styled.div<{ $isTyping: boolean; $isError: boolean }>`
   position: relative;
   display: flex;
-  padding: 0.625rem 0.5rem;
-  align-items: center;
-  gap: 1rem;
   align-self: stretch;
-  opacity: 1;
+  align-items: center;
+
+  gap: 1rem;
+  padding: 0.625rem 0.5rem;
+
   border-bottom: 0.063rem solid
     ${({ $isTyping, $isError }) => {
       if ($isTyping && !$isError) return `${semantic.light.accent.solid.normal}`;
@@ -110,30 +110,35 @@ const StyledLabel = styled.label`
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
-  color: ${semantic.light.object.transparent.alternative};
+
   overflow: hidden;
   text-overflow: ellipsis;
+
   ${TYPO.label2}
-  opacity: 1;
+  color: ${semantic.light.object.transparent.alternative};
 `;
 
 const StyledInput = styled.input<{ disabled: boolean; readOnly: boolean }>`
   display: flex;
   align-items: center;
-  line-height: 2rem;
-  padding-left: 0.625rem;
+
   flex: 1 0 0;
-  border: none;
+  padding-left: 0.625rem;
+
   font-size: 1.125rem;
+  line-height: 2rem;
   border-radius: 0.5rem;
+
+  border: none;
   outline: none;
+  background: none;
+
+  ${TYPO.body3}
   color: ${semantic.light.object.solid.hero};
   caret-color: ${semantic.light.accent.solid.normal};
-  background: none;
 
   &::placeholder {
     color: ${semantic.light.object.transparent.assistive};
-    ${TYPO.body3}
   }
 
   ${({ disabled, readOnly }) => {

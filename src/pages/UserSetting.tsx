@@ -49,7 +49,7 @@ function UserSetting() {
             <Attach>
               <EditProfile checkValidFn={checkInputsValid}></EditProfile>
             </Attach>
-            <Callout text="사용자님의 정보는 쿠션 만들기에만 환용되니, 안심하고 입력해 주세요."></Callout>
+            <Callout text="사용자님의 정보는 쿠션 만들기에만 활용되니, 안심하고 입력해 주세요."></Callout>
           </Viewport>
           <ButtonContainer>
             <Button type="cta" size="lg" clickFn={handleClickButton} disabled={!isInputsValid}>

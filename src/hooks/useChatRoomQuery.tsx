@@ -15,10 +15,10 @@ interface RoomData {
   lastUsedAt: string;
 }
 
-const getChatRoom = async (roomId: string): Promise<RoomData> => {
-  const result = await API.get<RoomData>(`/chat/rooms/${roomId}`);
-  return result.data;
-};
+// const getChatRoom = async (roomId: string): Promise<RoomData> => {
+//   const result = await API.get<RoomData>(`/chat/rooms/${roomId}`);
+//   return result.data;
+// };
 
 const useChatRoomQuery = (roomId: string | undefined) => {
   const { data, isError, isSuccess } = useQuery({

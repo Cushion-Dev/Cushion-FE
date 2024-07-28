@@ -57,6 +57,8 @@ const ChatList = () => {
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [cookies] = useCookies(['accessToken']);
+  const [memberIdCookies] = useCookies(['memberId']);
+  const [refreshCookies] = useCookies(['refreshToken']);
 
   const { mutate: editProfile } = useEditProfileInfo();
   const { mutate: makeCushion } = useCreateRoomMutation();
@@ -88,8 +90,10 @@ const ChatList = () => {
 
   useEffect(() => {
     const accessToken = cookies.accessToken;
-    console.log('non arr', accessToken);
-    console.log('none arr', cookies);
+    console.log(cookies);
+    console.log(refreshCookies);
+    console.log(memberIdCookies);
+    console.log(document.cookie);
     if (accessToken) localStorage.setItem('accessToken', accessToken);
   }, []);
 

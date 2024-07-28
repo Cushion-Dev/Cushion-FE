@@ -6,6 +6,7 @@ import { TYPO } from '../../../styles/typo';
 import { useNameStore } from '../../../stores/useTextFieldStore';
 import { useEffect } from 'react';
 import { usePartnerStore } from '../../../stores/usePartnerStore';
+import { useSelectedStore } from '../../../stores/useSelectButtonStore';
 
 const relationArr = [
   '(조)부모',
@@ -25,12 +26,20 @@ interface MakeCushionProps {
 
 function MakeCushion({ checkValidFn }: MakeCushionProps) {
   const { name, setName, isNameValid, setNameValid } = useNameStore();
+  const { resetSelectedCount, resetSelectedName } = useSelectedStore();
   const { partnerName } = usePartnerStore();
+
+  const reset = () => {
+    setName('');
+    resetSelectedCount();
+    resetSelectedName();
+  };
 
   useEffect(() => {
     if (partnerName) {
       setName(partnerName);
     }
+    return reset();
   }, []);
 
   useEffect(() => {
@@ -44,14 +53,15 @@ function MakeCushion({ checkValidFn }: MakeCushionProps) {
   return (
     <>
       <FormInput
-        label="이름"
-        placeholder="홍길동"
-        extraText="(이)라고 해요"
-        helperText="최대 입력 가능한 글자수는 15자 까지에요"
+        label='이름'
+        placeholder='홍길동'
+        extraText='(이)라고 해요'
+        helperText='최대 입력 가능한 글자수는 15자 까지에요'
         maxLetterCount={15}
         type={name}
         changeFn={setName}
-        value={partnerName}></FormInput>
+        value={partnerName}
+      ></FormInput>
       <CategoryContainer>
         <CategoryTitle>
           <CategoryLabel>관계</CategoryLabel>

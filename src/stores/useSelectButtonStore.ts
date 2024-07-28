@@ -8,6 +8,7 @@ interface ISelect {
   addSelectedCount: () => void;
   subSelectedCount: () => void;
   resetSelectedCount: () => void;
+  resetSelectedName: () => void;
 }
 
 export const useSelectedStore = create<ISelect>((set) => ({
@@ -24,4 +25,5 @@ export const useSelectedStore = create<ISelect>((set) => ({
   subSelectedCount: () =>
     set((state) => ({ selectedCount: state.selectedCount - 1 })),
   resetSelectedCount: () => set(() => ({ selectedCount: 0 })),
+  resetSelectedName: () => set(() => ({ selectedName: [] })),
 }));

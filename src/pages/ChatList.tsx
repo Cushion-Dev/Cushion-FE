@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 
 import {
@@ -42,7 +42,7 @@ import { API } from '../services/api';
 import { formatDate } from '../utils/formatDate';
 import { ICONS } from '../styles/common/icons';
 
-// import { useCookies } from 'react-cookie';
+import { useCookies } from 'react-cookie';
 
 interface IRoom {
   lastMessage: string;
@@ -56,9 +56,9 @@ const ChatList = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
-  // const [cookies] = useCookies(['accessToken']);
-  // const [memberIdCookies] = useCookies(['memberId']);
-  // const [refreshCookies] = useCookies(['refreshToken']);
+  const [cookies] = useCookies(['accessToken']);
+  const [memberIdCookies] = useCookies(['memberId']);
+  const [refreshCookies] = useCookies(['refreshToken']);
 
   const { mutate: editProfile } = useEditProfileInfo();
   const { mutate: makeCushion } = useCreateRoomMutation();
@@ -81,21 +81,21 @@ const ChatList = () => {
   const { affiliation } = useAffiliationStore();
   const { selectedName } = useSelectedStore();
 
-  // useEffect(() => {
-  //   const accessToken = cookies.accessToken;
-  //   console.log(accessToken);
-  //   console.log(cookies);
-  //   if (accessToken) localStorage.setItem('accessToken', accessToken);
-  // }, [cookies]);
+  useEffect(() => {
+    const accessToken = cookies.accessToken;
+    console.log(accessToken);
+    console.log(cookies);
+    if (accessToken) localStorage.setItem('accessToken', accessToken);
+  }, [cookies]);
 
-  // useEffect(() => {
-  //   const accessToken = cookies.accessToken;
-  //   console.log(cookies);
-  //   console.log(refreshCookies);
-  //   console.log(memberIdCookies);
-  //   console.log(document.cookie);
-  //   if (accessToken) localStorage.setItem('accessToken', accessToken);
-  // }, []);
+  useEffect(() => {
+    const accessToken = cookies.accessToken;
+    console.log(cookies);
+    console.log(refreshCookies);
+    console.log(memberIdCookies);
+    console.log(document.cookie);
+    if (accessToken) localStorage.setItem('accessToken', accessToken);
+  }, []);
 
   const handleClickEditProfile = () => {
     editProfile({ affiliation: affiliation, job: job, realName: name });
@@ -114,11 +114,6 @@ const ChatList = () => {
     queryKey: ['chatList'],
     queryFn: () =>
       API.get('/chat/rooms').then((response) => {
-        console.log(response.headers['accessToken']);
-        console.log(response.headers);
-        console.log(response);
-        if (response.headers['accessToken'])
-          localStorage.setItem('accessToken', response.headers['accessToken']);
         return response.data;
       }),
   });

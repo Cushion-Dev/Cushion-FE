@@ -20,14 +20,14 @@ API.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-API.interceptors.response.use(
-  (response) => {
-    const newAccessToken = response.headers['access-token'];
-    console.log(newAccessToken);
-    if (newAccessToken) {
-      localStorage.setItem('accessToken', newAccessToken);
-    }
-    return response;
-  },
-  (error) => Promise.reject(error)
-);
+// API.interceptors.response.use(
+//   (response) => {
+//     const newAccessToken = response.headers['access-token'];
+//     console.log(newAccessToken);
+//     if (newAccessToken) {
+//       localStorage.setItem('accessToken', newAccessToken);
+//     }
+//     return response;
+//   },
+//   (error) => Promise.reject(error)
+// );

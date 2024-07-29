@@ -5,6 +5,7 @@ import {
   Divider,
 } from '../../../styles/common/MenuBar/ContextMenu';
 import {
+  useEditProfileModal,
   useEditUserModal,
   useLogoutDialog,
   useWithdrawDialog,
@@ -18,7 +19,7 @@ interface IContextMenu {
 
 const ContextMenu = ({ type, onClose, onClickMenu }: IContextMenu) => {
   const { open: editUserOpen } = useEditUserModal();
-  // const { open: editProflieOpen } = useEditProfileModal();
+  const { open: editProflieOpen } = useEditProfileModal();
   const { open: OpenLogoutDialog } = useLogoutDialog();
   const { open: OpenWithdrawDialog } = useWithdrawDialog();
 
@@ -34,7 +35,7 @@ const ContextMenu = ({ type, onClose, onClickMenu }: IContextMenu) => {
           />
           <Menu
             onClose={onClose}
-            clickFn={() => {}}
+            clickFn={editProflieOpen}
             menuName='내 정보 수정'
             iconURL={ICONS.menu.edit}
           />

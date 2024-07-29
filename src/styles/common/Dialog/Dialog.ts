@@ -55,7 +55,7 @@ const ButtonContainer = styled.div`
   gap: 0.75rem;
 `;
 
-const Button = styled.button<{ $variant?: ButtonVariant; disabled: boolean }>`
+const Button = styled.button<{ $variant?: ButtonVariant }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -79,14 +79,8 @@ const Button = styled.button<{ $variant?: ButtonVariant; disabled: boolean }>`
     background: #cfcfce;
   }
 
-  ${({ disabled }) =>
-    disabled &&
-    css`
-      cursor: not-allowed;
-    `}
-
-  ${({ $variant, disabled }) => {
-    if ($variant === 'cta' && disabled === true) {
+  ${({ $variant }) => {
+    if ($variant === 'cta') {
       return css`
         color: ${semantic.light.base.solid.white};
         background: ${semantic.light.accent.solid.normal};
@@ -97,7 +91,7 @@ const Button = styled.button<{ $variant?: ButtonVariant; disabled: boolean }>`
       `;
     }
 
-    if ($variant === 'negative' && disabled === true) {
+    if ($variant === 'negative') {
       return css`
         background: ${semantic.light.feedback.solid.negative};
         color: ${semantic.light.base.solid.white};
@@ -113,9 +107,9 @@ const Button = styled.button<{ $variant?: ButtonVariant; disabled: boolean }>`
         color: ${semantic.light.base.solid.white};
         background: ${semantic.light.feedback.solid.negative};
 
-        /* &:hover {
+        &:hover {
           background: #d22525;
-        } */
+        }
       `;
     }
   }}

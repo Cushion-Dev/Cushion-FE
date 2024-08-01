@@ -1,22 +1,22 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { API } from '../services/api';
-import { usePersonalityStore } from '../stores/usePersonalityStore';
+import { useCharacteristicsStore } from '../stores/useCharacteristicsStore';
 import { useMessageLoading } from '../stores/Modal/useModalStore';
 
 interface Message {
   message: string;
   roomId: string;
-  personality: string;
+  characteristics: string;
 }
 
 const postUserMessage = async (data: Message) => {
-  const uri = data.personality.length > 0 ? '/change-style/characteristics' : '/change-style';
+  const uri = data.characteristics.length > 0 ? '/change-style/characteristics' : '/change-style';
   const body =
-    data.personality.length > 0
+    data.characteristics.length > 0
       ? {
           roomId: data.roomId,
           userMessage: data.message,
-          personality: data.personality,
+          characteristics: data.characteristics,
         }
       : { roomId: data.roomId, userMessage: data.message };
 
@@ -25,7 +25,7 @@ const postUserMessage = async (data: Message) => {
 };
 
 const useMessage = () => {
-  const { personality, setPersonality } = usePersonalityStore();
+  const { characteristics, setCharacteristics } = useCharacteristicsStore();
   const { close: closeMessageLoading } = useMessageLoading();
   const queryClient = useQueryClient();
 
@@ -33,7 +33,7 @@ const useMessage = () => {
     mutationFn: (data: Message) => postUserMessage(data),
     onSuccess: () => {
       closeMessageLoading();
-      if (personality.length !== 0) setPersonality('');
+      if (characteristics.length !== 0) setCharacteristics('');
       queryClient.invalidateQueries({ queryKey: ['room'] });
     },
     onError: (error) => {

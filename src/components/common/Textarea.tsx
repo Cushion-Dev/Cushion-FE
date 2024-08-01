@@ -11,7 +11,7 @@ import {
   Send,
 } from '../../styles/common/Textarea';
 import useMessage from '../../hooks/useMessageMutation';
-import { usePersonalityStore } from '../../stores/usePersonalityStore';
+import { useCharacteristicsStore } from '../../stores/useCharacteristicsStore';
 import { useMessageLoading } from '../../stores/Modal/useModalStore';
 
 const Textarea = ({ onAddImageClick, roomId }: any) => {
@@ -21,14 +21,11 @@ const Textarea = ({ onAddImageClick, roomId }: any) => {
   const [textareaValue, setTextareaValue] = useState('');
 
   const { mutate: postMessage } = useMessage();
-  const { personality } = usePersonalityStore();
+  const { characteristics } = useCharacteristicsStore();
   const { open: openMessageLoading } = useMessageLoading();
 
   const handleDocumentClick = useCallback((event: MouseEvent) => {
-    if (
-      textareaRef.current &&
-      !textareaRef.current.contains(event.target as Node)
-    ) {
+    if (textareaRef.current && !textareaRef.current.contains(event.target as Node)) {
       setIsActive(false);
     }
   }, []);
@@ -42,16 +39,14 @@ const Textarea = ({ onAddImageClick, roomId }: any) => {
 
   const handleTextAreaClick = () => setIsActive(true);
 
-  const handleTextareaChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
+  const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTextareaValue(event.target.value);
   };
 
   const handleClickSend = () => {
     postMessage({
       message: textareaValue,
-      personality: personality,
+      characteristics: characteristics,
       roomId: roomId,
     });
     setTextareaValue('');
@@ -72,9 +67,7 @@ const Textarea = ({ onAddImageClick, roomId }: any) => {
           <Send
             onClick={handleClickSend}
             src={
-              textareaValue.trim().length > 0
-                ? ICONS.textarea.sendTrue
-                : ICONS.textarea.sendFalse
+              textareaValue.trim().length > 0 ? ICONS.textarea.sendTrue : ICONS.textarea.sendFalse
             }
           />
         </ButtonContainer>

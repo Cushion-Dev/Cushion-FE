@@ -20,7 +20,7 @@ const useLogoutDialog = createModalStore(false);
 const useWithdrawDialog = createModalStore(false);
 const useMessageLoading = createModalStore(false);
 const useOcrLoading = createModalStore(false);
-const usePersonalityLoading = createModalStore(false);
+const useCharacteristicsLoading = createModalStore(false);
 const useLoginDialog = createModalStore(false);
 
 export {
@@ -31,6 +31,6 @@ export {
   useWithdrawDialog,
   useMessageLoading,
   useOcrLoading,
-  usePersonalityLoading,
+  useCharacteristicsLoading,
   useLoginDialog,
 };

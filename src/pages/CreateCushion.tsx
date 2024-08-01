@@ -10,7 +10,7 @@ import {
   useMakeModal,
   useMessageLoading,
   useOcrLoading,
-  usePersonalityLoading,
+  useCharacteristicsLoading,
 } from '../stores/Modal/useModalStore';
 
 import {
@@ -83,7 +83,7 @@ const CreateCushion = () => {
   const { isOpen: isEditUserOpen, close: editUserClose } = useEditUserModal();
   const { isOpen: isMessageLooadingOpen } = useMessageLoading();
   const { isOpen: isOcrLoadingOpen } = useOcrLoading();
-  const { isOpen: isPersonalityLoadingOpen } = usePersonalityLoading();
+  const { isOpen: isCharacteristicsLoadingOpen } = useCharacteristicsLoading();
 
   if (isError) console.error('get room error');
 
@@ -212,7 +212,7 @@ const CreateCushion = () => {
             <OcrLoadingBanner />
           </OverlayScreen>
         )}
-        {isPersonalityLoadingOpen && (
+        {isCharacteristicsLoadingOpen && (
           <OverlayScreen>
             <OcrLoadingBanner />
           </OverlayScreen>

@@ -72,7 +72,7 @@ const CreateCushion = () => {
   const { translateToEng } = useTranslateName();
   const { data: roomData, isError } = useChatRoomQuery(id);
 
-  const { logIn } = useAuthStore();
+  const { isLogIn, logIn } = useAuthStore();
   const { name } = useNameStore();
   const { selectedName, addSelectedName } = useSelectedStore();
   const { setPartnerName, setPartnerRel } = usePartnerStore();
@@ -103,34 +103,35 @@ const CreateCushion = () => {
       localStorage.setItem('memberId', getCookie('memberId'));
       return () => clearTimeout(delay);
     }
-  }, []);
+  }, [id]);
 
-  if (!id) {
-    const accessToken = getCookie('accessToken');
+  useEffect(() => {
+    if (!id) {
+      const accessToken = getCookie('accessToken');
 
-    const userInfo: UserInfo = {
-      affiliation: localStorage.getItem('affiliation') || '',
-      job: localStorage.getItem('job') || '',
-      realName: localStorage.getItem('name') || '',
-    };
+      if (accessToken && !isLogIn) {
+        logIn();
 
-    if (accessToken) {
-      localStorage.setItem('accessToken', accessToken);
-      logIn();
+        const userInfo: UserInfo = {
+          affiliation: localStorage.getItem('affiliation') || '',
+          job: localStorage.getItem('job') || '',
+          realName: localStorage.getItem('name') || '',
+        };
 
-      if (
-        !localStorage.getItem('affiliation') ||
-        !localStorage.getItem('job') ||
-        !localStorage.getItem('name')
-      ) {
-        localStorage.setItem('affiliation', userInfo.affiliation);
-        localStorage.setItem('job', userInfo.job);
-        localStorage.setItem('name', userInfo.realName);
+        if (
+          !localStorage.getItem('affiliation') ||
+          !localStorage.getItem('job') ||
+          !localStorage.getItem('name')
+        ) {
+          localStorage.setItem('affiliation', userInfo.affiliation);
+          localStorage.setItem('job', userInfo.job);
+          localStorage.setItem('name', userInfo.realName);
+        }
+
+        postInfo(userInfo);
       }
-
-      postInfo(userInfo);
     }
-  }
+  }, [id, isLogIn]);
 
   const partnerInfo: PartnerInfo = {
     partnerName: name,

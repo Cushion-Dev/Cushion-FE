@@ -26,7 +26,7 @@ const useUserInfoMutation = () => {
       // localStorage.removeItem('name');
     },
     onError: (error) => {
-      console.log('Error posting user info', error);
+      console.error('Error posting user info', error);
     },
   });
 };

@@ -29,11 +29,7 @@ import {
 
 import { MESSAGES } from '../constants/messages';
 import { semantic } from '../styles/semantic';
-import {
-  useAffiliationStore,
-  useJobStore,
-  useNameStore,
-} from '../stores/useTextFieldStore';
+import { useAffiliationStore, useJobStore, useNameStore } from '../stores/useTextFieldStore';
 import useEditProfileInfo from '../hooks/useEditPorfileMutation';
 import useCreateRoomMutation from '../hooks/useCreateRoomMutation';
 import { useSelectedStore } from '../stores/useSelectButtonStore';
@@ -62,17 +58,10 @@ const ChatList = () => {
   const { mutate: makeCushion } = useCreateRoomMutation();
   const { translateToEng } = useTranslateName();
 
-  const {
-    isOpen: isMakeOpen,
-    open: makeOpen,
-    close: makeClose,
-  } = useMakeModal();
-  const { isOpen: isEditProfileOpen, close: editProfileClose } =
-    useEditProfileModal();
-  const { isOpen: isOpenLogoutDialog, close: CloseLogoutDialog } =
-    useLogoutDialog();
-  const { isOpen: isOpenWithdrawDialog, close: CloseWithdrawDialog } =
-    useWithdrawDialog();
+  const { isOpen: isMakeOpen, open: makeOpen, close: makeClose } = useMakeModal();
+  const { isOpen: isEditProfileOpen, close: editProfileClose } = useEditProfileModal();
+  const { isOpen: isOpenLogoutDialog, close: CloseLogoutDialog } = useLogoutDialog();
+  const { isOpen: isOpenWithdrawDialog, close: CloseWithdrawDialog } = useWithdrawDialog();
 
   const { name } = useNameStore();
   const { job } = useJobStore();
@@ -80,7 +69,6 @@ const ChatList = () => {
   const { selectedName } = useSelectedStore();
 
   useEffect(() => {
-    console.log('cookie render', cookies);
     const accessToken = cookies.accessToken;
     if (accessToken) localStorage.setItem('accessToken', accessToken);
   }, [cookies]);
@@ -108,10 +96,7 @@ const ChatList = () => {
 
   const { data: searchResults = [] } = useQuery({
     queryKey: ['searchResults', searchQuery],
-    queryFn: () =>
-      API.get(`/chat/rooms/search?query=${searchQuery}`).then(
-        ({ data }) => data
-      ),
+    queryFn: () => API.get(`/chat/rooms/search?query=${searchQuery}`).then(({ data }) => data),
     enabled: searchQuery.length > 0,
   });
 
@@ -127,7 +112,7 @@ const ChatList = () => {
     try {
       await API.delete('/members');
     } catch (error) {
-      console.log(`회원 탈퇴 실패 ${error}`);
+      console.error(`회원 탈퇴 실패 ${error}`);
     }
   };
 
@@ -135,9 +120,7 @@ const ChatList = () => {
 
   const handleCheckItem = (roomId: number) => {
     setCheckedItems((prev) =>
-      prev.includes(roomId)
-        ? prev.filter((id) => id !== roomId)
-        : [...prev, roomId]
+      prev.includes(roomId) ? prev.filter((id) => id !== roomId) : [...prev, roomId]
     );
   };
 
@@ -145,11 +128,7 @@ const ChatList = () => {
 
   const deleteChatRoomsMutation = useMutation({
     mutationFn: (chatRoomIds: number[]) =>
-      API.post(
-        '/chat/rooms/delete',
-        { chatRoomIds },
-        { withCredentials: true }
-      ),
+      API.post('/chat/rooms/delete', { chatRoomIds }, { withCredentials: true }),
     onSuccess: () => refetch(),
     onError: (error) => console.error(`채팅방 삭제 실패: ${error}`),
   });
@@ -165,7 +144,7 @@ const ChatList = () => {
     <Container>
       <AppScreen>
         <Navbar
-          type='global'
+          type="global"
           onClickMenu={handleOpenContextMenu}
           isEditing={isEditing}
           hasCheckedItems={hasCheckedItems}
@@ -173,16 +152,11 @@ const ChatList = () => {
           onSetIsEditing={setIsEditing}
         />
         <SearchContainer>
-          <SearchField
-            placeholderText='상대방 이름을 검색해보세요...'
-            onSearch={handleSearch}
-          />
+          <SearchField placeholderText="상대방 이름을 검색해보세요..." onSearch={handleSearch} />
         </SearchContainer>
         <Viewport>
           {searchQuery.length > 0 ? (
-            <ListContainer
-              $variant={searchResults.length === 0 ? 'empty' : 'list'}
-            >
+            <ListContainer $variant={searchResults.length === 0 ? 'empty' : 'list'}>
               {searchResults.length > 0 ? (
                 searchResults.map((room: IRoom) => (
                   <ListItem
@@ -231,27 +205,25 @@ const ChatList = () => {
           <FabButton clickFn={makeOpen} />
         </Viewport>
         {isMakeOpen && (
-          <Modal type='bottomSheet' onClose={makeClose}>
+          <Modal type="bottomSheet" onClose={makeClose}>
             <BottomSheet
-              type='make'
-              messageType='makeCushion'
-              buttonFn={handleClickMakeCushion}
-            ></BottomSheet>
+              type="make"
+              messageType="makeCushion"
+              buttonFn={handleClickMakeCushion}></BottomSheet>
           </Modal>
         )}
         {isEditProfileOpen && (
-          <Modal type='bottomSheet' onClose={editProfileClose}>
+          <Modal type="bottomSheet" onClose={editProfileClose}>
             <BottomSheet
-              type='edit'
-              messageType='editProfile'
-              buttonFn={handleClickEditProfile}
-            ></BottomSheet>
+              type="edit"
+              messageType="editProfile"
+              buttonFn={handleClickEditProfile}></BottomSheet>
           </Modal>
         )}
         {isOpenLogoutDialog && (
-          <Modal type='modal' onClose={makeClose}>
+          <Modal type="modal" onClose={makeClose}>
             <Dialog
-              variant='cta'
+              variant="cta"
               titleText={MESSAGES.dialog.logout.title}
               subText={MESSAGES.dialog.logout.sub}
               cancelText={MESSAGES.dialog.logout.cancel}
@@ -262,9 +234,9 @@ const ChatList = () => {
           </Modal>
         )}
         {isOpenWithdrawDialog && (
-          <Modal type='modal' onClose={makeClose}>
+          <Modal type="modal" onClose={makeClose}>
             <Dialog
-              variant='negative'
+              variant="negative"
               titleText={MESSAGES.dialog.withdraw.title}
               subText={MESSAGES.dialog.withdraw.sub}
               cancelText={MESSAGES.dialog.withdraw.cancel}

@@ -39,7 +39,7 @@ const useCreateRoomMutation = () => {
       });
     },
     onError: (error) => {
-      console.log('Error posting create room', error);
+      console.error('Error posting create room', error);
     },
   });
 };

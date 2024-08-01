@@ -1,11 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { API } from '../services/api';
 import { useEditProfileModal } from '../stores/Modal/useModalStore';
-import {
-  useAffiliationStore,
-  useJobStore,
-  useNameStore,
-} from '../stores/useTextFieldStore';
+import { useAffiliationStore, useJobStore, useNameStore } from '../stores/useTextFieldStore';
 
 interface UserInfo {
   affiliation: string;
@@ -36,7 +32,7 @@ const useEditProfileInfo = () => {
       close();
     },
     onError: (error) => {
-      console.log('Error edit profile error', error);
+      console.error('Error edit profile error', error);
     },
   });
 };

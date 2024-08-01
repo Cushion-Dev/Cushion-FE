@@ -22,7 +22,7 @@ const useSaveMessage = () => {
       queryClient.invalidateQueries({ queryKey: ['room'] });
     },
     onError: () => {
-      console.log('save message error');
+      console.error('save message error');
     },
   });
 };

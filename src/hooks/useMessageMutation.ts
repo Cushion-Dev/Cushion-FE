@@ -10,10 +10,7 @@ interface Message {
 }
 
 const postUserMessage = async (data: Message) => {
-  const uri =
-    data.personality.length > 0
-      ? '/change-style/characteristics'
-      : '/change-style';
+  const uri = data.personality.length > 0 ? '/change-style/characteristics' : '/change-style';
   const body =
     data.personality.length > 0
       ? {
@@ -40,7 +37,7 @@ const useMessage = () => {
       queryClient.invalidateQueries({ queryKey: ['room'] });
     },
     onError: (error) => {
-      console.log('post Message error', error);
+      console.error('post Message error', error);
     },
   });
 };

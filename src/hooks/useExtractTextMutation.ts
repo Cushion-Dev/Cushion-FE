@@ -27,14 +27,13 @@ const useExtractText = (roomId: number) => {
       const personality = response.data;
       postSaveMessage({
         roomId: roomId,
-        content:
-          '준비 완료🎉 메시지를 입력해 주시면\r\n 상대방 맞춤 쿠션이 완성돼요!',
+        content: '준비 완료🎉 메시지를 입력해 주시면\r\n 상대방 맞춤 쿠션이 완성돼요!',
       });
       setPersonality(personality);
       closePersonalityLoading();
     },
     onError: (error) => {
-      console.log('post extract text', error);
+      console.error('post extract text', error);
     },
   });
 };

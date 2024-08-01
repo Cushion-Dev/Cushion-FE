@@ -2,10 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { API } from '../services/api';
 import useExtractText from './useExtractTextMutation';
 import useLoadingModalStore from '../stores/Modal/useLoadingModalStore';
-import {
-  useOcrLoading,
-  usePersonalityLoading,
-} from '../stores/Modal/useModalStore';
+import { useOcrLoading, usePersonalityLoading } from '../stores/Modal/useModalStore';
 
 interface Ocr {
   roomId?: number;
@@ -36,7 +33,7 @@ const useOcrMutation = (roomId: number) => {
       postExtractText({ conversation: extractText, roomId: roomId });
     },
     onError: (error) => {
-      console.log(error);
+      console.error(error);
     },
   });
 };

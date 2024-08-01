@@ -20,7 +20,7 @@ const useEditPartnerInfo = () => {
     mutationFn: (partnerInfo: PartnerInfo) => putPartnerInfo(partnerInfo),
     onSuccess: () => {},
     onError: (error) => {
-      console.log('Error posting create room', error);
+      console.error('Error posting create room', error);
     },
   });
 };

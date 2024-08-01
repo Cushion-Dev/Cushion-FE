@@ -9,7 +9,6 @@ export const API = axios.create({
 
 API.interceptors.request.use(
   (config) => {
-    // 추후 로그인 성공시 로컬스토리지 액세스 토큰으로 교체해야함
     const accessToken = localStorage.getItem('accessToken');
 
     if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;

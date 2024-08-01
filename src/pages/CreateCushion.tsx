@@ -117,9 +117,18 @@ const CreateCushion = () => {
     if (accessToken) {
       localStorage.setItem('accessToken', accessToken);
       logIn();
+
+      if (
+        !localStorage.getItem('affiliation') ||
+        !localStorage.getItem('job') ||
+        !localStorage.getItem('name')
+      ) {
+        localStorage.setItem('affiliation', userInfo.affiliation);
+        localStorage.setItem('job', userInfo.job);
+        localStorage.setItem('name', userInfo.realName);
+      }
+
       postInfo(userInfo);
-    } else {
-      // navigate('/');
     }
   }
 

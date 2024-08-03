@@ -32,11 +32,11 @@ const useCreateRoomMutation = () => {
       const userName = response.data.userName;
 
       close();
-      navigate(`/cushion/${roomId}`);
       postSaveMessage({
         roomId: Number(roomId),
         content: `안녕하세요! ${userName} 님의 말을 부드럽게 바꾸는 쿠션봇이에요. 🪄✨ 지금부터 '${partnerName}(${relation})' 님께 전달할 쿠션을 같이 만들어 볼게요. 💭💭💭\n\n바꾸고 싶은 메시지 내용을 입력해 주세요.`,
       });
+      navigate(`/cushion/${roomId}`);
     },
     onError: (error) => {
       console.error('Error posting create room', error);

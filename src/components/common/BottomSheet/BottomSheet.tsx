@@ -48,14 +48,16 @@ function BottomSheet({ type, messageType, buttonFn }: BottomSheetProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { title, bannerTitle, bannerDescription, buttonTitle } = messageHandler(messageType);
+  const { title, bannerTitle, bannerDescription, buttonTitle } =
+    messageHandler(messageType);
 
   const checkInputsValid = (inputsValid: boolean) => {
     setInputsValid(inputsValid);
   };
 
   const handleClickBackButton = () => {
-    if (location.pathname.includes('/chat-list') && type !== 'make') return closeEditProfile();
+    if (location.pathname.includes('/chat-list') && type !== 'make')
+      return closeEditProfile();
     if (location.pathname.includes('/cushion/')) return closeEditPartner();
     if (type === 'make') {
       const roomId = localStorage.getItem('roomId');
@@ -76,20 +78,25 @@ function BottomSheet({ type, messageType, buttonFn }: BottomSheetProps) {
           <BannerDescription>{bannerDescription}</BannerDescription>
         </DisplayBanner>
         <Attach>
-          {type === 'make' && <MakeCushion checkValidFn={checkInputsValid}></MakeCushion>}
-          {type === 'edit' && <EditProfile checkValidFn={checkInputsValid}></EditProfile>}
+          {type === 'make' && (
+            <MakeCushion checkValidFn={checkInputsValid}></MakeCushion>
+          )}
+          {type === 'edit' && (
+            <EditProfile checkValidFn={checkInputsValid}></EditProfile>
+          )}
         </Attach>
       </Viewport>
       <ButtonContainer>
         <Button
-          type="cta"
-          size="lg"
+          type='cta'
+          size='lg'
           disabled={
             type === 'edit'
               ? !isInputsValid
-              : !isInputsValid || selectedCount > 1 || selectedCount === 0
+              : !isInputsValid || selectedCount !== 1
           }
-          clickFn={buttonFn}>
+          clickFn={buttonFn}
+        >
           {buttonTitle}
         </Button>
       </ButtonContainer>

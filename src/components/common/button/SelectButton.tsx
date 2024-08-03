@@ -33,10 +33,9 @@ function SelectButton({
     subSelectedCount,
     addSelectedName,
     subSelectedName,
+    resetSelectedCount,
   } = useSelectedStore();
   const { partnerRel, setPartnerRel } = usePartnerStore();
-
-  const iconColor = iconColorHandler(disabled);
 
   useEffect(() => {
     setSelected(value === partnerRel);
@@ -44,17 +43,18 @@ function SelectButton({
 
   const handleClickButton = () => {
     if (selected || value === partnerRel) {
+      setPartnerRel('');
       subSelectedCount();
       subSelectedName(value);
-      if (value === partnerRel) {
-        setPartnerRel('');
-      }
     } else {
+      setPartnerRel(value);
+      resetSelectedCount();
       addSelectedCount();
       addSelectedName(value);
     }
-    setSelected((prev) => !prev);
   };
+  console.log(selectedCount);
+  const iconColor = iconColorHandler(disabled);
 
   return (
     <SelectButtonWrapper disabled={disabled} onClick={handleClickButton}>
@@ -62,17 +62,15 @@ function SelectButton({
         size={size}
         type={type}
         disabled={disabled}
-        selected={selected || value === partnerRel}
-      ></ButtonInteraction>
+        selected={selected}
+      />
       <StyledSelectButton
-        selected={selected || value === partnerRel}
+        selected={selected}
         $selectedCount={selectedCount}
         disabled={disabled}
       >
         {children}
-        {(selected || value === partnerRel) && (
-          <SelectIcon fill={iconColor}></SelectIcon>
-        )}
+        {selected && <SelectIcon fill={iconColor} />}
       </StyledSelectButton>
     </SelectButtonWrapper>
   );
@@ -108,11 +106,11 @@ const StyledSelectButton = styled.button<{
     cursor: not-allowed;
   }
 
-  ${({ selected, $selectedCount }) => {
+  ${({ selected }) => {
     if (selected)
       return `background: ${semantic.light.accent.transparent.normal};
-        border: 1px solid ${$selectedCount > 1 ? semantic.light.feedback.solid.negative : semantic.light.accent.solid.normal};
-        color: ${$selectedCount > 1 ? semantic.light.feedback.solid.negative : semantic.light.accent.solid.normal};
+        border: 1px solid ${semantic.light.accent.solid.normal};
+        color: ${semantic.light.accent.solid.normal};
         padding: 0.625rem 0.75rem 0.625rem 1rem;
         gap: 6px;
         `;
@@ -120,14 +118,8 @@ const StyledSelectButton = styled.button<{
        opacity: 1;
         color: ${semantic.light.object.transparent.alternative};
         border: 1px solid ${semantic.light.fill.transparent.alternative};
-
         `;
   }}
 `;
 
 export default SelectButton;
-
-// const CheckIcon = styled.img`
-//   width: 1.5rem;
-//   height: 1.5rem;
-// `;

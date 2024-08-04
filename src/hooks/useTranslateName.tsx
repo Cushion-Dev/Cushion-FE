@@ -10,7 +10,7 @@ const useTranslateName = () => {
       case '자녀':
         return 'CHILDREN';
       case '친구':
-        return 'FREIND';
+        return 'FRIEND';
       case '상사':
         return 'BOSS';
       case '동료':

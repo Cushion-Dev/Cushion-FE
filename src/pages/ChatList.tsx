@@ -144,6 +144,8 @@ const ChatList = () => {
     }
   };
 
+  console.log(chatList);
+
   return (
     <Container>
       <AppScreen>

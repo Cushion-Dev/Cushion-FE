@@ -7,7 +7,7 @@ const AttachContainer = styled.div`
   align-items: center;
   position: relative;
 
-  width: 30.5rem;
+  width: 100%;
 
   gap: 1.5rem;
   padding: 3rem 1rem;

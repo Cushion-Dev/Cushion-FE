@@ -9,7 +9,7 @@ const NavContainer = styled.div`
 
   position: relative;
 
-  width: 32.5rem;
+  width: 100%;
   height: 3.75rem;
 
   padding: 1rem;

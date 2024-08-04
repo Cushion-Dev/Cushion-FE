@@ -5,6 +5,6 @@ export const SpeechContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
 
-  width: 27.5rem;
+  width: 100%;
   gap: 2rem;
 `;

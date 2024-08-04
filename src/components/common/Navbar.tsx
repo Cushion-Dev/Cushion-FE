@@ -56,12 +56,11 @@ const Navbar = ({
           {isEditing && (
             <ButtonWrapper>
               <Button
-                type='label'
-                size='md'
+                type="label"
+                size="etc"
                 clickFn={() => {
                   if (onSetIsEditing) onSetIsEditing(false);
-                }}
-              >
+                }}>
                 선택 취소
               </Button>
               <DeleteText hasCheckedItems={hasCheckedItems} onClick={onDelete}>

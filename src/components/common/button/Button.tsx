@@ -17,28 +17,18 @@ interface ButtonProps {
   clickFn?: () => void;
 }
 
-function Button({
-  type,
-  size,
-  disabled = false,
-  children,
-  clickFn,
-}: ButtonProps) {
+const Button = ({ type, size, disabled = false, children, clickFn }: ButtonProps) => {
   const iconColor = iconColorHandler(type, disabled);
   return (
     <ButtonWrapper clickFn={clickFn} disabled={disabled}>
-      <ButtonInteraction
-        size={size}
-        disabled={disabled}
-        type={type}
-      ></ButtonInteraction>
+      <ButtonInteraction size={size} disabled={disabled} type={type} />
       <StyledButton type={type} size={size} disabled={disabled}>
         {children}
-        {type !== 'label' && <ArrowIcon fill={iconColor}></ArrowIcon>}
+        {type !== 'label' && <ArrowIcon fill={iconColor} />}
       </StyledButton>
     </ButtonWrapper>
   );
-}
+};
 
 const iconColorHandler = (type: type, disabled: boolean) => {
   if (disabled) return semantic.light.object.transparent.disabled;
@@ -68,6 +58,8 @@ const sizeHandler = (size: ButtonProps['size']) => {
       return buttonSize.md;
     case 'sm':
       return buttonSize.sm;
+    case 'etc':
+      return buttonSize.etc;
   }
 };
 

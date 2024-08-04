@@ -92,7 +92,7 @@ const DeleteText = styled.span<{ hasCheckedItems: boolean }>`
 
   margin-right: 1.325rem;
   gap: 0.5rem;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem 0.5rem 0;
 
   ${TYPO.label4}
   color: ${({ hasCheckedItems }) =>

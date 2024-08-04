@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
 import { semantic } from '../semantic';
+import { TYPO } from '../typo';
 
 export const buttonType = {
   cta: css`
@@ -37,5 +38,8 @@ export const buttonSize = {
     line-height: 20px;
     padding: 10px 8px 10px 12px;
     border-radius: 8px;
+  `,
+  etc: css`
+    ${TYPO.label4}
   `,
 };

@@ -25,6 +25,7 @@ const AttachContainer = styled.div`
 
 const AttachIcon = styled.img`
   position: absolute;
+  left: -1.25rem;
 `;
 
 export { AttachContainer, AttachIcon };

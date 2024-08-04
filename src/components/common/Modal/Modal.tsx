@@ -48,6 +48,8 @@ const ModalOverlay = styled.div<{ type: ModalProps['type'] }>`
 
   animation: ${fadeIn} 0.3s ease-in-out;
   background: ${semantic.light.bg.transparent.dimmed};
+
+  z-index: 5;
 `;
 
 const ContentWrapper = styled.div`

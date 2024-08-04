@@ -135,8 +135,12 @@ const ChatList = () => {
 
   const handleDelete = () => {
     if (checkedItems.length > 0) {
-      deleteChatRoomsMutation.mutate(checkedItems);
-      setCheckedItems([]);
+      deleteChatRoomsMutation.mutate(checkedItems, {
+        onSuccess: () => {
+          setCheckedItems([]);
+          setIsEditing(false);
+        },
+      });
     }
   };
 

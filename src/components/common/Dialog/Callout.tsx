@@ -6,6 +6,7 @@ import {
   CalloutText,
   Terms,
 } from '../../../styles/common/Dialog/Callout';
+import { LINK } from '../../../constants/link';
 
 export type CalloutVariant = 'login';
 
@@ -23,10 +24,7 @@ const Callout = ({ text, variant }: CalloutProps) => {
         {variant === 'login' ? (
           <CalloutText>
             {`로그인 시, 쿠션의 `}
-            <Terms href="https://pentagonal-tuna-017.notion.site/26ccf78bb7234d4cbdbbbbf503363b99?pvs=4">
-              이용약관
-            </Terms>
-            에 동의하는 것으로 간주돼요.
+            <Terms href={LINK.terms}>이용약관</Terms>에 동의하는 것으로 간주돼요.
           </CalloutText>
         ) : (
           <CalloutText>{text}</CalloutText>

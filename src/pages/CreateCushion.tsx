@@ -61,11 +61,7 @@ interface Message {
 }
 
 const CreateCushion = () => {
-  const {
-    isOpen: isMakeOpen,
-    open: makeOpen,
-    close: makeClose,
-  } = useMakeModal();
+  const { isOpen: isMakeOpen, open: makeOpen, close: makeClose } = useMakeModal();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -159,7 +155,7 @@ const CreateCushion = () => {
     <Container>
       <AppScreen>
         <Navbar
-          type='local'
+          type="local"
           title={`${id ? `${roomData?.partnerName}(${roomData?.relationship})` : '-'}님과의 쿠션`}
           onClickBackButton={handleClickBackButton}
         />
@@ -168,53 +164,43 @@ const CreateCushion = () => {
             <DateStamp>{roomData?.createdAt}</DateStamp>
             <IntroText>{MESSAGES.introText}</IntroText>
           </ChatInfoContainer>
-          <Divider variant='chat' />
+          <Divider variant="chat" />
           {roomData &&
             roomData?.messages.map((message: Message) =>
               message.senderType === 'BOT' ? (
                 <SystemBubble
                   key={message.messageId}
                   bodyText={message.content}
+                  bubblePage="default"
                 />
               ) : (
-                <UserBubble
-                  key={message.messageId}
-                  bodyText={message.content}
-                />
+                <UserBubble key={message.messageId} bodyText={message.content} />
               )
             )}
         </Viewport>
         <TextFieldContainer>
           {localStorage.getItem('isChecked') === 'false' && (
             <Popover
-              title='상대방 맞춤 쿠션'
-              bodyText='상대방과의 대화 내역이 있으신가요? 캡처 이미지를 첨부하면, 맞춤형 쿠션을 받을 수 있어요.'
+              title="상대방 맞춤 쿠션"
+              bodyText="상대방과의 대화 내역이 있으신가요? 캡처 이미지를 첨부하면, 맞춤형 쿠션을 받을 수 있어요."
             />
           )}
           <Textarea roomId={Number(id)} onAddImageClick={handleAddImageClick} />
         </TextFieldContainer>
         {isMakeOpen && (
-          <Modal type='bottomSheet' onClose={makeClose}>
-            <BottomSheet
-              type='make'
-              messageType='makeCushion'
-              buttonFn={handleClickCreateRoom}
-            ></BottomSheet>
+          <Modal type="bottomSheet" onClose={makeClose}>
+            <BottomSheet type="make" messageType="makeCushion" buttonFn={handleClickCreateRoom} />
           </Modal>
         )}
         {isEditUserOpen && (
-          <Modal type='bottomSheet' onClose={editUserClose}>
-            <BottomSheet
-              type='make'
-              messageType='editUser'
-              buttonFn={handleClickEditUser}
-            ></BottomSheet>
+          <Modal type="bottomSheet" onClose={editUserClose}>
+            <BottomSheet type="make" messageType="editUser" buttonFn={handleClickEditUser} />
           </Modal>
         )}
         {isDialogOpen && (
           <DimmedScreen>
             <Dialog
-              variant='cta'
+              variant="cta"
               titleText={MESSAGES.dialog.ocr.title}
               subText={MESSAGES.dialog.ocr.sub}
               cancelText={MESSAGES.dialog.ocr.cancel}

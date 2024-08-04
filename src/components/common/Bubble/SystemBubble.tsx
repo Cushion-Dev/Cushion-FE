@@ -26,9 +26,7 @@ interface ISystemBubbleProps {
 const SystemBubble = ({ bubblePage, bodyText }: ISystemBubbleProps) => {
   const [showToast, setShowToast] = useState(false);
 
-  const handleCopyClick = () => {
-    setShowToast(true);
-  };
+  const handleCopyClick = () => setShowToast(true);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import Thought from './Thought';
 import { ICONS } from '../../../styles/common/icons';
 import { MESSAGES } from '../../../constants/messages';
@@ -14,7 +14,7 @@ import {
   BodyText,
   Copy,
 } from '../../../styles/common/Bubble/SystemBubble';
-import Toast from '../Toast';
+// import Toast from '../Toast';
 
 export type BubblePage = 'example' | 'greeting' | 'default';
 
@@ -24,9 +24,8 @@ interface ISystemBubbleProps {
 }
 
 const SystemBubble = ({ bubblePage, bodyText }: ISystemBubbleProps) => {
-  const [showToast, setShowToast] = useState(false);
-
-  const handleCopyClick = () => setShowToast(true);
+  // const [showToast, setShowToast] = useState(false);
+  // const handleCopyClick = () => setShowToast(true);
 
   return (
     <>
@@ -43,11 +42,11 @@ const SystemBubble = ({ bubblePage, bodyText }: ISystemBubbleProps) => {
               </BubbleContainer>
             </WrapBubble>
           </MessageSection>
-          {bubblePage === 'default' && <Copy src={ICONS.copy} onClick={handleCopyClick} />}
+          {bubblePage === 'default' && <Copy src={ICONS.copy} />}
         </Region>
         {bubblePage === 'example' && <Thought thoughtText={MESSAGES.speechExample.emotion} />}
       </MessageContainer>
-      {showToast && <Toast bodyText="내용이 복사되었습니다." />}
+      {/* {showToast && <Toast bodyText="내용이 복사되었습니다." />} */}
     </>
   );
 };

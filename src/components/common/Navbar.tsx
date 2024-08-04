@@ -63,7 +63,7 @@ const Navbar = ({
                 }}>
                 선택 취소
               </Button>
-              <DeleteText hasCheckedItems={hasCheckedItems} onClick={onDelete}>
+              <DeleteText $hasCheckedItems={hasCheckedItems} onClick={onDelete}>
                 선택한 항목 삭제하기
               </DeleteText>
             </ButtonWrapper>

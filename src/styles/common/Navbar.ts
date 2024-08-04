@@ -84,7 +84,7 @@ const BackButton = styled.img`
   }
 `;
 
-const DeleteText = styled.span<{ hasCheckedItems: boolean }>`
+const DeleteText = styled.span<{ $hasCheckedItems: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -95,8 +95,8 @@ const DeleteText = styled.span<{ hasCheckedItems: boolean }>`
   padding: 0.5rem 1rem 0.5rem 0;
 
   ${TYPO.label4}
-  color: ${({ hasCheckedItems }) =>
-    hasCheckedItems
+  color: ${({ $hasCheckedItems }) =>
+    $hasCheckedItems
       ? semantic.light.feedback.solid.negative
       : semantic.light.object.transparent.disabled};
 

@@ -122,7 +122,6 @@ const StyledInput = styled.input<{ disabled: boolean; readOnly: boolean }>`
 
   width: 80%;
 
-  flex: 1 0 auto;
   padding-left: 0.625rem;
 
   font-size: 1.125rem;
@@ -187,8 +186,6 @@ const HelperText = styled.p<{ $isError: boolean }>`
 // `;
 
 const IconWrapper = styled.button`
-  position: absolute;
-  right: 0.9rem;
   background: none;
   cursor: pointer;
 `;

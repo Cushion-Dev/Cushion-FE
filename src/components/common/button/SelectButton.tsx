@@ -53,22 +53,13 @@ function SelectButton({
       addSelectedName(value);
     }
   };
-  console.log(selectedCount);
+
   const iconColor = iconColorHandler(disabled);
 
   return (
     <SelectButtonWrapper disabled={disabled} onClick={handleClickButton}>
-      <ButtonInteraction
-        size={size}
-        type={type}
-        disabled={disabled}
-        selected={selected}
-      />
-      <StyledSelectButton
-        selected={selected}
-        $selectedCount={selectedCount}
-        disabled={disabled}
-      >
+      <ButtonInteraction size={size} type={type} disabled={disabled} selected={selected} />
+      <StyledSelectButton selected={selected} $selectedCount={selectedCount} disabled={disabled}>
         {children}
         {selected && <SelectIcon fill={iconColor} />}
       </StyledSelectButton>
@@ -77,9 +68,7 @@ function SelectButton({
 }
 
 const iconColorHandler = (disabled: SelectButtonProps['disabled']) => {
-  return disabled
-    ? semantic.light.object.transparent.disabled
-    : semantic.light.accent.solid.hero;
+  return disabled ? semantic.light.object.transparent.disabled : semantic.light.accent.solid.hero;
 };
 
 const SelectButtonWrapper = styled.div<{ disabled: boolean }>`

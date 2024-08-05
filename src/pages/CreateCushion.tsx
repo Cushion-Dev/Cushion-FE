@@ -166,12 +166,13 @@ const CreateCushion = () => {
           </ChatInfoContainer>
           <Divider variant="chat" />
           {roomData &&
-            roomData?.messages.map((message: Message) =>
+            roomData.messages.map((message: Message, index: number) =>
               message.senderType === 'BOT' ? (
                 <SystemBubble
                   key={message.messageId}
                   bodyText={message.content}
                   bubblePage="default"
+                  showCopyButton={index !== 0}
                 />
               ) : (
                 <UserBubble key={message.messageId} bodyText={message.content} />

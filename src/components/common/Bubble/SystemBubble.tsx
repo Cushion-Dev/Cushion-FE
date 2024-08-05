@@ -21,9 +21,10 @@ export type BubblePage = 'example' | 'greeting' | 'default';
 interface ISystemBubbleProps {
   bubblePage?: BubblePage;
   bodyText: string;
+  showCopyButton?: boolean;
 }
 
-const SystemBubble = ({ bubblePage, bodyText }: ISystemBubbleProps) => {
+const SystemBubble = ({ bubblePage, bodyText, showCopyButton }: ISystemBubbleProps) => {
   // const [showToast, setShowToast] = useState(false);
   // const handleCopyClick = () => setShowToast(true);
 
@@ -42,7 +43,7 @@ const SystemBubble = ({ bubblePage, bodyText }: ISystemBubbleProps) => {
               </BubbleContainer>
             </WrapBubble>
           </MessageSection>
-          {bubblePage === 'default' && <Copy src={ICONS.copy} />}
+          {bubblePage === 'default' && showCopyButton && <Copy src={ICONS.copy} />}
         </Region>
         {bubblePage === 'example' && <Thought thoughtText={MESSAGES.speechExample.emotion} />}
       </MessageContainer>

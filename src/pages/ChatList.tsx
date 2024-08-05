@@ -113,6 +113,7 @@ const ChatList = () => {
   const handleWithdraw = async () => {
     try {
       await API.delete('/members');
+      localStorage.clear();
       navigate('/');
     } catch (error) {
       console.error(`회원 탈퇴 실패 ${error}`);

@@ -12,7 +12,9 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ children, type, onClose }) => {
   return createPortal(
     <ModalOverlay type={type} onClick={onClose}>
-      <ContentWrapper onClick={(e) => e.stopPropagation()}>{children}</ContentWrapper>
+      <ContentWrapper onClick={(e) => e.stopPropagation()}>
+        {children}
+      </ContentWrapper>
     </ModalOverlay>,
     document.body
   );
@@ -37,14 +39,10 @@ const ModalOverlay = styled.div<{ type: ModalProps['type'] }>`
   width: 32.5rem;
   height: 100%;
 
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
   ${({ type }) =>
     type === 'modal'
       ? `padding: 17.8125rem 2rem 17.75rem 2rem; justify-content: center;`
-      : `padding-top: 15.25rem; justify-content: flex-end`};
+      : `justify-content: flex-end`};
 
   animation: ${fadeIn} 0.3s ease-in-out;
   background: ${semantic.light.bg.transparent.dimmed};

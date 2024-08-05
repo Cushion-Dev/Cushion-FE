@@ -63,7 +63,8 @@ function TextField({
           disabled={disabled}
           placeholder={placeholder}
           onChange={handleInputChange}
-          value={type}></StyledInput>
+          value={type}
+        ></StyledInput>
         {isTyping && (
           <IconWrapper onClick={handleClickDeleteAll}>
             <DeleteAllIcon></DeleteAllIcon>
@@ -84,23 +85,24 @@ const TextFiledContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-start;
 
-  flex: 1 0 0;
+  flex: 1;
 `;
 
 const InputWrapper = styled.div<{ $isTyping: boolean; $isError: boolean }>`
   position: relative;
   display: flex;
-  align-self: stretch;
   align-items: center;
+
+  width: 100%;
 
   gap: 1rem;
   padding: 0.625rem 0.25rem;
 
   border-bottom: 0.063rem solid
     ${({ $isTyping, $isError }) => {
-      if ($isTyping && !$isError) return `${semantic.light.accent.solid.normal}`;
+      if ($isTyping && !$isError)
+        return `${semantic.light.accent.solid.normal}`;
       if (!$isTyping) return `${semantic.light.border.transparent.neutral}`;
       if ($isError) return `${semantic.light.feedback.solid.negative}`;
     }};
@@ -108,12 +110,8 @@ const InputWrapper = styled.div<{ $isTyping: boolean; $isError: boolean }>`
 
 const StyledLabel = styled.label`
   display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
 
-  overflow: hidden;
-  text-overflow: ellipsis;
-
+  flex-shrink: 0;
   ${TYPO.label2}
   color: ${semantic.light.object.transparent.alternative};
 `;
@@ -122,7 +120,9 @@ const StyledInput = styled.input<{ disabled: boolean; readOnly: boolean }>`
   display: flex;
   align-items: center;
 
-  flex: 1 0 0;
+  width: 80%;
+
+  flex: 1 0 auto;
   padding-left: 0.625rem;
 
   font-size: 1.125rem;
@@ -158,7 +158,6 @@ const HelpContainer = styled.div`
   justify-content: flex-end;
   align-items: flex-start;
   gap: 1rem;
-  align-self: stretch;
 `;
 
 const HelperText = styled.p<{ $isError: boolean }>`

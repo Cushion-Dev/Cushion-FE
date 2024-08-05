@@ -55,6 +55,7 @@ const ChatList = () => {
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [cookies] = useCookies(['accessToken']);
+  const [cookie, , removeCookie] = useCookies();
 
   const { mutate: editProfile } = useEditProfileInfo();
   const { mutate: makeCushion } = useCreateRoomMutation();
@@ -113,7 +114,10 @@ const ChatList = () => {
   const handleWithdraw = async () => {
     try {
       await API.delete('/members');
+
       localStorage.clear();
+      Object.keys(cookie).forEach((cookieName) => removeCookie(cookieName));
+
       navigate('/');
     } catch (error) {
       console.error(`회원 탈퇴 실패 ${error}`);

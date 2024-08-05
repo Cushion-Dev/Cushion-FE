@@ -10,6 +10,7 @@ interface PartnerInfo {
 }
 
 const postCreateRoom = async (partnerInfo: PartnerInfo) => {
+  console.log(partnerInfo);
   const result = await API.post('/chat/rooms', {
     partnerName: partnerInfo.partnerName,
     partnerRel: partnerInfo.partnerRel,

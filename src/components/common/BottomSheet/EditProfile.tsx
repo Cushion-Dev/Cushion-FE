@@ -26,7 +26,7 @@ function EditProfile({ checkValidFn, disabled, readonly }: EditProfileProps) {
   const currentJob = localStorage.getItem('job');
   const currentName = localStorage.getItem('name');
 
-  const resetInputFied = () => {
+  const resetInputField = () => {
     if (currentAffiliation && currentJob && currentName) {
       setAffiliation(currentAffiliation);
       setJob(currentJob);
@@ -35,9 +35,9 @@ function EditProfile({ checkValidFn, disabled, readonly }: EditProfileProps) {
   };
 
   useEffect(() => {
-    resetInputFied;
+    resetInputField();
 
-    return resetInputFied;
+    return resetInputField();
   }, []);
 
   useEffect(() => {

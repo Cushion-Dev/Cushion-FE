@@ -39,6 +39,7 @@ import { formatDate } from '../utils/formatDate';
 import { ICONS } from '../styles/common/icons';
 
 import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
 interface IRoom {
   lastMessage: string;
@@ -49,6 +50,7 @@ interface IRoom {
 }
 
 const ChatList = () => {
+  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -111,6 +113,7 @@ const ChatList = () => {
   const handleWithdraw = async () => {
     try {
       await API.delete('/members');
+      navigate('/');
     } catch (error) {
       console.error(`회원 탈퇴 실패 ${error}`);
     }

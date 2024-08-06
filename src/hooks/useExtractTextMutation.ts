@@ -3,6 +3,7 @@ import { API } from '../services/api';
 import { useCharacteristicsStore } from '../stores/useCharacteristicsStore';
 import { useCharacteristicsLoading } from '../stores/Modal/useModalStore';
 import useSaveMessage from './useSaveMessageMutation';
+import { MESSAGES } from '../constants/messages';
 
 interface ExtractText {
   roomId?: number;
@@ -27,7 +28,7 @@ const useExtractText = (roomId: number) => {
       const Characteristics = response.data;
       postSaveMessage({
         roomId: roomId,
-        content: '준비 완료🎉 메시지를 입력해 주시면\r\n 상대방 맞춤 쿠션이 완성돼요!',
+        content: `${MESSAGES.systemMessage.readyMessage}`,
       });
       setCharacteristics(Characteristics);
       closeCharacteristicsLoading();

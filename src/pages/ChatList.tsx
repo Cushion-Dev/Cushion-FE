@@ -36,7 +36,6 @@ import {
 } from '../stores/useTextFieldStore';
 import useEditProfileInfo from '../hooks/useEditPorfileMutation';
 import useCreateRoomMutation from '../hooks/useCreateRoomMutation';
-import { useSelectedStore } from '../stores/useSelectButtonStore';
 import useTranslateName from '../hooks/useTranslateName';
 import { API } from '../services/api';
 import { formatDate } from '../utils/formatDate';

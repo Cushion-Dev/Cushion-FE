@@ -115,6 +115,7 @@ const CreateCushion = () => {
 
       if (accessToken && !isLogIn) {
         logIn();
+        localStorage.setItem('accessToken', accessToken);
 
         const userInfo: UserInfo = {
           affiliation: localStorage.getItem('affiliation') || '',

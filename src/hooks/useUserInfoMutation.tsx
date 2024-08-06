@@ -10,11 +10,9 @@ interface UserInfo {
 const postUserInfo = async (userInfo: UserInfo) => {
   console.log(userInfo);
   await API.post('/members/my-info', {
-    memberDto: {
-      affiliation: userInfo.affiliation,
-      job: userInfo.job,
-      realName: userInfo.realName,
-    },
+    affiliation: userInfo.affiliation,
+    job: userInfo.job,
+    realName: userInfo.realName,
   });
 };
 

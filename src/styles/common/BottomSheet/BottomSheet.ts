@@ -5,7 +5,7 @@ import { TYPO } from '../../typo';
 export const Card = styled.div`
   display: flex;
   width: 32.5rem;
-  height: 52.5rem;
+  height: 48.5rem;
   flex-direction: column;
   align-items: flex-start;
   flex-shrink: 0;

@@ -78,7 +78,22 @@ const BodyText = styled.span`
   color: ${semantic.light.object.solid.normal};
 `;
 
+const WrapIcons = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 const Copy = styled.img`
+  display: flex;
+  align-items: center;
+
+  padding: 0.125rem;
+  cursor: pointer;
+`;
+
+const RefreshButton = styled.img`
   display: flex;
   align-items: center;
 
@@ -96,5 +111,7 @@ export {
   WrapBubble,
   BubbleContainer,
   BodyText,
+  WrapIcons,
   Copy,
+  RefreshButton,
 };

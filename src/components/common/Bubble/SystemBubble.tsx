@@ -12,7 +12,9 @@ import {
   WrapBubble,
   BubbleContainer,
   BodyText,
+  WrapIcons,
   Copy,
+  RefreshButton,
 } from '../../../styles/common/Bubble/SystemBubble';
 import Toast from '../Toast';
 
@@ -22,9 +24,17 @@ interface ISystemBubbleProps {
   bubblePage?: BubblePage;
   bodyText: string;
   showCopyButton?: boolean;
+  showRefreshButton?: boolean;
+  onRefresh?: () => void;
 }
 
-const SystemBubble = ({ bubblePage, bodyText, showCopyButton }: ISystemBubbleProps) => {
+const SystemBubble = ({
+  bubblePage,
+  bodyText,
+  showCopyButton,
+  showRefreshButton,
+  onRefresh,
+}: ISystemBubbleProps) => {
   const [showToast, setShowToast] = useState(false);
 
   const handleCopyClick = () => {
@@ -49,9 +59,12 @@ const SystemBubble = ({ bubblePage, bodyText, showCopyButton }: ISystemBubblePro
               </BubbleContainer>
             </WrapBubble>
           </MessageSection>
-          {bubblePage === 'default' && showCopyButton && (
-            <Copy src={ICONS.copy} onClick={handleCopyClick} />
-          )}
+          <WrapIcons>
+            {bubblePage === 'default' && showCopyButton && (
+              <Copy src={ICONS.copy} onClick={handleCopyClick} />
+            )}
+            {showRefreshButton && <RefreshButton onClick={onRefresh} src={ICONS.refresh} />}
+          </WrapIcons>
         </Region>
         {bubblePage === 'example' && <Thought thoughtText={MESSAGES.speechExample.emotion} />}
       </MessageContainer>

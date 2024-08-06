@@ -10,7 +10,7 @@ interface ExtractText {
 }
 
 const postExtractText = async (data: ExtractText) => {
-  return await API.post('/characteristics', {
+  return await API.post('/personality', {
     roomId: data.roomId,
     conversation: data.conversation,
   });

@@ -67,6 +67,7 @@ const SystemBubble = ({
           </WrapIcons>
         </Region>
         {bubblePage === 'example' && <Thought thoughtText={MESSAGES.speechExample.emotion} />}
+        {showRefreshButton && <Thought thoughtText={MESSAGES.systemMessage.refreshMessage} />}
       </MessageContainer>
       {showToast && <Toast bodyText="내용이 복사되었습니다." />}
     </>

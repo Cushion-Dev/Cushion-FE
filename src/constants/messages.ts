@@ -82,6 +82,7 @@ export const MESSAGES = {
     systemExample:
       '오전에 주신 업무 다 완료했습니다! 혹시 오늘 몸 상태가 조금 좋지 않아서 그런데 가능하다면 조금 일찍 들어가도 될지 여쭤봅니다!',
     readyMessage: `준비 완료🎉 메시지를 입력해 주시면\r\n 상대방 맞춤 쿠션이 완성돼요!`,
+    refreshMessage: '답변이 만족스럽지 않다면 새로 고침 버튼을 눌러 주세요!',
   },
 
   emptyMessage: {

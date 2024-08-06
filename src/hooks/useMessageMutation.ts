@@ -10,18 +10,15 @@ interface Message {
 }
 
 const postUserMessage = async (data: Message) => {
-  const uri = data.characteristics.length > 0 ? '/change-style/characteristics' : '/change-style';
-  const body =
-    data.characteristics.length > 0
-      ? {
-          roomId: data.roomId,
-          userMessage: data.message,
-          characteristics: data.characteristics,
-        }
-      : { roomId: data.roomId, userMessage: data.message };
+  const uri = '/change-style';
+  const body = {
+    roomId: data.roomId,
+    userMessage: data.message,
+    withPersonality: data.characteristics.length > 0,
+  };
 
-  const reuslt = await API.post(uri, body);
-  return reuslt;
+  const result = await API.post(uri, body);
+  return result;
 };
 
 const useMessage = () => {

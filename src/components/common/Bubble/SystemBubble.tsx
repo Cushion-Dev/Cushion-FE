@@ -60,10 +60,10 @@ const SystemBubble = ({
             </WrapBubble>
           </MessageSection>
           <WrapIcons>
+            {showRefreshButton && <RefreshButton onClick={onRefresh} src={ICONS.refresh} />}
             {bubblePage === 'default' && showCopyButton && (
               <Copy src={ICONS.copy} onClick={handleCopyClick} />
             )}
-            {showRefreshButton && <RefreshButton onClick={onRefresh} src={ICONS.refresh} />}
           </WrapIcons>
         </Region>
         {bubblePage === 'example' && <Thought thoughtText={MESSAGES.speechExample.emotion} />}

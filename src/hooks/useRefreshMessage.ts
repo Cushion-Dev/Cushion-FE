@@ -27,7 +27,6 @@ const useRefreshMessage = (): UseMutationResult<any, Error, IRefreshMessage> => 
     onMutate: () => openMessageLoading(),
     onSuccess: (data) => {
       closeMessageLoading();
-      console.log('새로 고침 메시지', data);
       queryClient.invalidateQueries({ queryKey: ['room'] });
     },
     onError: (error) => {

@@ -1,9 +1,5 @@
 import { useEffect } from 'react';
-import {
-  useJobStore,
-  useAffiliationStore,
-  useNameStore,
-} from '../../../stores/useTextFieldStore';
+import { useJobStore, useAffiliationStore, useNameStore } from '../../../stores/useTextFieldStore';
 import FormInput from '../Form/FormInput';
 
 interface EditProfileProps {
@@ -12,13 +8,9 @@ interface EditProfileProps {
   readonly?: boolean;
 }
 
-function EditProfile({ checkValidFn, disabled, readonly }: EditProfileProps) {
-  const {
-    affiliation,
-    isAffiliationValid,
-    setAffiliation,
-    setAffiliationValid,
-  } = useAffiliationStore();
+const EditProfile = ({ checkValidFn, disabled, readonly }: EditProfileProps) => {
+  const { affiliation, isAffiliationValid, setAffiliation, setAffiliationValid } =
+    useAffiliationStore();
   const { job, isJobValid, setJob, setJobValid } = useJobStore();
   const { name, isNameValid, setName, setNameValid } = useNameStore();
 
@@ -27,18 +19,14 @@ function EditProfile({ checkValidFn, disabled, readonly }: EditProfileProps) {
   const currentName = localStorage.getItem('name');
 
   const resetInputField = () => {
-    if (currentAffiliation && currentJob && currentName) {
-      setAffiliation(currentAffiliation);
-      setJob(currentJob);
-      setName(currentName);
-    }
+    setAffiliation('');
+    setJob('');
+    setName('');
   };
 
   useEffect(() => {
     resetInputField();
-
-    return resetInputField();
-  }, []);
+  }, [currentAffiliation, currentJob, currentName]);
 
   useEffect(() => {
     setAffiliationValid();
@@ -47,46 +35,46 @@ function EditProfile({ checkValidFn, disabled, readonly }: EditProfileProps) {
   }, [affiliation, job, name]);
 
   useEffect(() => {
-    if (checkValidFn)
-      checkValidFn(isAffiliationValid && isJobValid && isNameValid);
+    if (checkValidFn) checkValidFn(isAffiliationValid && isJobValid && isNameValid);
   }, [isAffiliationValid, isJobValid, isNameValid]);
+
   return (
     <>
       <FormInput
-        label='소속'
-        placeholder='IT 기업의 AI 관련 팀'
-        extraText='에서'
-        helperText='최대 입력 가능한 글자수는 15자 까지에요'
+        label="소속"
+        placeholder="IT 기업의 AI 관련 팀"
+        extraText="에서"
+        helperText="최대 입력 가능한 글자수는 15자까지예요"
         maxLetterCount={15}
         changeFn={setAffiliation}
         disabled={disabled}
         readonly={readonly}
         type={affiliation}
-      ></FormInput>
+      />
       <FormInput
-        label='직무'
-        placeholder='서비스 기획'
-        extraText='을(를) 하는'
-        helperText='최대 입력 가능한 글자수는 15자 까지에요'
+        label="직무"
+        placeholder="서비스 기획"
+        extraText="을(를) 하는"
+        helperText="최대 입력 가능한 글자수는 15자까지예요"
         maxLetterCount={15}
         changeFn={setJob}
         disabled={disabled}
         readonly={readonly}
         type={job}
-      ></FormInput>
+      />
       <FormInput
-        label='이름'
-        placeholder='홍길동'
-        extraText='(이)라고 해요'
-        helperText='최대 입력 가능한 글자수는 15자 까지에요'
+        label="이름"
+        placeholder="홍길동"
+        extraText="(이)라고 해요"
+        helperText="최대 입력 가능한 글자수는 15자까지예요"
         maxLetterCount={15}
         changeFn={setName}
         disabled={disabled}
         readonly={readonly}
         type={name}
-      ></FormInput>
+      />
     </>
   );
-}
+};
 
 export default EditProfile;

@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { UseMutationResult, useMutation } from '@tanstack/react-query';
 import { useMessageLoading } from '../stores/Modal/useModalStore';
+import { API } from '../services/api';
 
 interface RefreshMessageParams {
   roomId: number;
@@ -9,7 +9,7 @@ interface RefreshMessageParams {
 
 const postRefreshMessage = async (params: RefreshMessageParams): Promise<any> => {
   const { roomId, withPersonality } = params;
-  const response = await axios.post('/change-style/retry', {
+  const response = await API.post('/change-style/retry', {
     roomId,
     withPersonality,
   });

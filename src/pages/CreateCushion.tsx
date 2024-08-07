@@ -71,6 +71,7 @@ const CreateCushion = () => {
   const { mutate: postInfo } = useUserInfoMutation();
   const { mutate: createRoom } = useCreateRoomMutation();
   const { mutate: editPartner } = useEditPartnerInfo();
+  const { mutate: refreshMessage } = useRefreshMessage();
   const { characteristics } = useCharacteristicsStore();
   const { translateToEng } = useTranslateName();
   const { data: roomData, isError } = useChatRoomQuery(id);
@@ -179,8 +180,6 @@ const CreateCushion = () => {
               const currentRoomId = localStorage.getItem('memberId');
               const roomIdNumber = currentRoomId ? parseInt(currentRoomId) : 0;
               const currentWithPersonality = characteristics.length > 0;
-
-              const { mutate: refreshMessage } = useRefreshMessage();
 
               return message.senderType === 'BOT' ? (
                 <SystemBubble

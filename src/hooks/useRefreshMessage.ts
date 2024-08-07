@@ -25,7 +25,7 @@ const useRefreshMessage = (): UseMutationResult<any, Error, IRefreshMessage> => 
   return useMutation({
     mutationFn: postRefreshMessage,
     onMutate: () => openMessageLoading(),
-    onSuccess: (data) => {
+    onSuccess: () => {
       closeMessageLoading();
       queryClient.invalidateQueries({ queryKey: ['room'] });
     },

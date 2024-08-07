@@ -38,6 +38,7 @@ const ModalOverlay = styled.div<{ type: ModalProps['type'] }>`
 
   width: 100%;
   height: 100%;
+  max-width: 32.5rem;
 
   ${({ type }) =>
     type === 'modal'

@@ -35,7 +35,7 @@ export const Nav = styled.div`
 
 export const DisplayBanner = styled.div`
   display: flex;
-  padding: 1.5rem 0;
+  padding: 1.5rem 0 0 0;
   flex-direction: column;
   justify-content: center;
   align-items: center;

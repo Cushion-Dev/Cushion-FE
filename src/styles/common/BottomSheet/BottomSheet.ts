@@ -4,7 +4,7 @@ import { TYPO } from '../../typo';
 
 export const Card = styled.div`
   display: flex;
-  width: 32.5rem;
+  width: 100%;
   height: 48.5rem;
   flex-direction: column;
   align-items: flex-start;
@@ -23,7 +23,7 @@ export const Nav = styled.div`
   align-items: center;
   flex-shrink: 0;
 
-  width: 32.5rem;
+  width: 100%;
   height: 3.75rem;
 
   gap: 1rem;

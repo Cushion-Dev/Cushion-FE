@@ -36,7 +36,7 @@ const ModalOverlay = styled.div<{ type: ModalProps['type'] }>`
   align-items: center;
   position: absolute;
 
-  width: 32.5rem;
+  width: 100%;
   height: 100%;
 
   ${({ type }) =>

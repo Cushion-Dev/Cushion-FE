@@ -177,9 +177,11 @@ const CreateCushion = () => {
               const isLastBotMessage =
                 message.senderType === 'BOT' && index === roomData.messages.length - 1;
 
-              const currentRoomId = localStorage.getItem('memberId');
-              const roomIdNumber = currentRoomId ? parseInt(currentRoomId) : 0;
+              const currentRoomId = Number(id);
               const currentWithPersonality = characteristics.length > 0;
+
+              console.log('roomId', currentRoomId);
+              console.log('currentWithPersonality', currentWithPersonality);
 
               return message.senderType === 'BOT' ? (
                 <SystemBubble
@@ -190,7 +192,7 @@ const CreateCushion = () => {
                   showRefreshButton={isLastBotMessage && !isReadyMessage(message.content)}
                   onRefresh={() => {
                     refreshMessage({
-                      roomId: roomIdNumber,
+                      roomId: currentRoomId,
                       withPersonality: currentWithPersonality,
                     });
                   }}

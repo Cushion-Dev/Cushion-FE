@@ -2,22 +2,24 @@ import { UseMutationResult, useMutation } from '@tanstack/react-query';
 import { useMessageLoading } from '../stores/Modal/useModalStore';
 import { API } from '../services/api';
 
-interface RefreshMessageParams {
+interface IRefreshMessage {
   roomId: number;
   withPersonality: boolean;
 }
 
-const postRefreshMessage = async (params: RefreshMessageParams): Promise<any> => {
+const postRefreshMessage = async (params: IRefreshMessage): Promise<any> => {
   const { roomId, withPersonality } = params;
   const response = await API.post('/change-style/retry', {
     roomId,
     withPersonality,
   });
 
+  console.log(response.data);
+
   return response.data;
 };
 
-const useRefreshMessage = (): UseMutationResult<any, Error, RefreshMessageParams> => {
+const useRefreshMessage = (): UseMutationResult<any, Error, IRefreshMessage> => {
   const { close: closeMessageLoading } = useMessageLoading();
 
   return useMutation({

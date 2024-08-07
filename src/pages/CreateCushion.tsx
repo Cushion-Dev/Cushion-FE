@@ -72,8 +72,8 @@ const CreateCushion = () => {
   const { mutate: createRoom } = useCreateRoomMutation();
   const { mutate: editPartner } = useEditPartnerInfo();
   const { mutate: refreshMessage } = useRefreshMessage();
-  const { characteristics } = useCharacteristicsStore();
   const { translateToEng } = useTranslateName();
+  const { characteristics } = useCharacteristicsStore();
   const { data: roomData, isError } = useChatRoomQuery(id);
 
   const { isLogIn, logIn } = useAuthStore();
@@ -175,7 +175,9 @@ const CreateCushion = () => {
           {roomData &&
             roomData.messages.map((message: Message, index: number) => {
               const isLastBotMessage =
-                message.senderType === 'BOT' && index === roomData.messages.length - 1;
+                message.senderType === 'BOT' &&
+                index === roomData.messages.length - 1 &&
+                index !== 0;
 
               const currentRoomId = Number(id);
               const currentWithPersonality = characteristics.length > 0;

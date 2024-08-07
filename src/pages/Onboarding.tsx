@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -22,11 +23,14 @@ import { useLoginDialog } from '../stores/Modal/useModalStore';
 
 const Onboarding = () => {
   const navigate = useNavigate();
-  const {
-    isOpen,
-    open: openLoginDiaglog,
-    close: closeLoginDialog,
-  } = useLoginDialog();
+  const { isOpen, open: openLoginDiaglog, close: closeLoginDialog } = useLoginDialog();
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    const memberId = localStorage.getItem('memberId');
+
+    if (accessToken && memberId) navigate(`/chat-list/${memberId}`);
+  }, [navigate]);
 
   const handleMainButtonClick = () => navigate('/user-setting');
 
@@ -37,7 +41,7 @@ const Onboarding = () => {
   return (
     <Container>
       <AppScreen>
-        <Navbar type='onboarding' />
+        <Navbar type="onboarding" />
         <Viewport>
           <DisplayBanner>
             <TitleText>{ONBOARDING.title}</TitleText>
@@ -52,15 +56,12 @@ const Onboarding = () => {
           </DisplayBanner>
         </Viewport>
         <ButtonContainer>
-          <CTAButton onClick={openLoginDiaglog} buttonText='로그인하기' />
-          <MainButton
-            buttonText='쿠션 사용하기'
-            onClick={handleMainButtonClick}
-          />
+          <CTAButton onClick={openLoginDiaglog} buttonText="로그인하기" />
+          <MainButton buttonText="쿠션 사용하기" onClick={handleMainButtonClick} />
         </ButtonContainer>
       </AppScreen>
       {isOpen && (
-        <Modal onClose={closeLoginDialog} type='modal'>
+        <Modal onClose={closeLoginDialog} type="modal">
           <LoginDialog onClick={handleLoginDialogClick} />
         </Modal>
       )}

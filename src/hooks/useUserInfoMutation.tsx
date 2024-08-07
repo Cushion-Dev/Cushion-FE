@@ -8,7 +8,6 @@ interface UserInfo {
 }
 
 const postUserInfo = async (userInfo: UserInfo) => {
-  console.log(userInfo);
   await API.post('/members/my-info', {
     affiliation: userInfo.affiliation,
     job: userInfo.job,

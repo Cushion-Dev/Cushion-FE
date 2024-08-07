@@ -180,9 +180,6 @@ const CreateCushion = () => {
               const currentRoomId = Number(id);
               const currentWithPersonality = characteristics.length > 0;
 
-              console.log('roomId', currentRoomId);
-              console.log('currentWithPersonality', currentWithPersonality);
-
               return message.senderType === 'BOT' ? (
                 <SystemBubble
                   key={message.messageId}

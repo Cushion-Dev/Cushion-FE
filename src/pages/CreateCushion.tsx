@@ -42,6 +42,8 @@ import useChatRoomQuery from '../hooks/useChatRoomQuery';
 import { usePartnerStore } from '../stores/usePartnerStore';
 import useEditPartnerInfo from '../hooks/useEditPartnerMutation';
 import OcrLoadingBanner from '../components/common/Screen/OcrLoadingBanner';
+import useRefreshMessage from '../hooks/useRefreshMessage';
+import { useCharacteristicsStore } from '../stores/useCharacteristicsStore';
 
 interface UserInfo {
   affiliation: string;
@@ -69,6 +71,7 @@ const CreateCushion = () => {
   const { mutate: postInfo } = useUserInfoMutation();
   const { mutate: createRoom } = useCreateRoomMutation();
   const { mutate: editPartner } = useEditPartnerInfo();
+  const { characteristics } = useCharacteristicsStore();
   const { translateToEng } = useTranslateName();
   const { data: roomData, isError } = useChatRoomQuery(id);
 
@@ -173,6 +176,12 @@ const CreateCushion = () => {
               const isLastBotMessage =
                 message.senderType === 'BOT' && index === roomData.messages.length - 1;
 
+              const currentRoomId = localStorage.getItem('memberId');
+              const roomIdNumber = currentRoomId ? parseInt(currentRoomId) : 0;
+              const currentWithPersonality = characteristics.length > 0;
+
+              const { mutate: refreshMessage } = useRefreshMessage();
+
               return message.senderType === 'BOT' ? (
                 <SystemBubble
                   key={message.messageId}
@@ -180,7 +189,12 @@ const CreateCushion = () => {
                   bubblePage="default"
                   showCopyButton={index !== 0 && !isReadyMessage(message.content)}
                   showRefreshButton={isLastBotMessage && !isReadyMessage(message.content)}
-                  onRefresh={() => window.location.reload()}
+                  onRefresh={() => {
+                    refreshMessage({
+                      roomId: roomIdNumber,
+                      withPersonality: currentWithPersonality,
+                    });
+                  }}
                 />
               ) : (
                 <UserBubble key={message.messageId} bodyText={message.content} />

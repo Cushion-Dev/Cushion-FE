@@ -1,0 +1,1 @@
+type FontColor = 'withdraw';
